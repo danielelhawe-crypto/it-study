@@ -1,0 +1,2089 @@
+cat > /mnt/user-data/outputs/Quiz_150_Mixed.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>150 MCQ — Mixed Medium & Hard Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090f;--surface:#0f1623;--s2:#16202e;--s3:#1c2a3a;
+  --red:#dc2626;--red2:#ef4444;--redsub:#7f1d1d;
+  --text:#e8edf5;--text2:#8fa3b8;--text3:#5a7a94;
+  --bd:rgba(255,255,255,0.07);
+  --correct:#059669;--correctbg:rgba(5,150,105,0.12);--correctbd:rgba(5,150,105,0.35);
+  --wrong:#dc2626;--wrongbg:rgba(220,38,38,0.1);--wrongbd:rgba(220,38,38,0.35);
+  --reveal:rgba(5,150,105,0.08);--revealbd:rgba(5,150,105,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* ===== HERO ===== */
+.hero{
+  background:linear-gradient(160deg,#07090f 0%,#1a0404 50%,#07090f 100%);
+  padding:48px 24px 36px;text-align:center;
+  border-bottom:1px solid var(--bd);position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(220,38,38,0.12),transparent 55%),
+              radial-gradient(ellipse at 70% 50%,rgba(220,38,38,0.08),transparent 55%);
+}
+.hero-back{position:relative;display:inline-block;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);color:#fca5a5;padding:6px 18px;border-radius:20px;font-size:12px;text-decoration:none;margin-bottom:18px;transition:.2s;font-family:'Tajawal'}
+.hero-back:hover{background:rgba(220,38,38,0.2)}
+.hero-badge{position:relative;display:inline-flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
+.badge{background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.35);color:#fca5a5;padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;font-family:'Tajawal'}
+.hero h1{position:relative;font-size:clamp(22px,4.5vw,46px);font-weight:900;line-height:1.2;
+  background:linear-gradient(135deg,#fca5a5,#f87171,#ef4444);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{position:relative;color:var(--text2);font-size:14px;margin-top:8px;font-family:'Tajawal'}
+
+/* ===== CHAPTER SELECTOR ===== */
+.ch-selector{max-width:900px;margin:28px auto 0;position:relative;padding:0 8px}
+.ch-title{font-size:13px;color:var(--text3);font-family:'Tajawal';margin-bottom:12px;text-align:center}
+.ch-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.ch-btn{background:var(--s2);border:1.5px solid var(--bd);border-radius:10px;padding:8px 16px;cursor:pointer;font-family:'Cairo';font-size:13px;font-weight:600;color:var(--text2);transition:all .2s}
+.ch-btn:hover{border-color:rgba(220,38,38,0.4);color:var(--text)}
+.ch-btn.active{background:rgba(220,38,38,0.15);border-color:var(--red2);color:#fca5a5}
+
+/* ===== PROGRESS ===== */
+.progress-wrap{max-width:760px;margin:24px auto 0;padding:0 20px;position:relative}
+.progress-info{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:8px}
+.prog-left{color:var(--text2);font-family:'Tajawal'}
+.prog-right{display:flex;gap:12px;font-size:12px;font-family:'Tajawal'}
+.prog-c{color:#10b981;font-weight:700}
+.prog-w{color:#ef4444;font-weight:700}
+.prog-bar{height:5px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#7f1d1d,#dc2626,#ef4444);border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+
+/* ===== CONTAINER ===== */
+.container{max-width:760px;margin:0 auto;padding:28px 20px 60px}
+
+/* ===== QUESTION CARD ===== */
+.q-card{background:var(--surface);border:1px solid var(--bd);border-radius:18px;padding:28px 28px 24px;margin-bottom:20px;border-right:3px solid var(--red);animation:fadeUp .35s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.q-num{font-size:11px;color:var(--text3);font-family:'Tajawal';letter-spacing:1px}
+.q-diff{font-size:10px;padding:3px 10px;border-radius:10px;font-family:'Tajawal';background:rgba(220,38,38,0.12);color:#fca5a5;border:1px solid rgba(220,38,38,0.2)}
+.q-text{font-size:15px;font-weight:700;line-height:1.75;margin-bottom:20px;color:var(--text)}
+
+/* ===== OPTIONS ===== */
+.options{display:flex;flex-direction:column;gap:9px}
+.opt{
+  background:var(--s2);border:1.5px solid var(--bd);border-radius:12px;
+  padding:13px 18px;cursor:pointer;font-size:14px;
+  transition:all .2s;display:flex;align-items:flex-start;gap:12px;
+  text-align:right;
+}
+.opt:hover:not(.disabled){background:var(--s3);border-color:rgba(220,38,38,0.35);transform:translateX(-2px)}
+.opt-letter{
+  width:30px;height:30px;border-radius:8px;
+  background:rgba(255,255,255,0.05);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+  font-family:'Tajawal';border:1px solid var(--bd);
+  transition:all .2s;
+}
+.opt-text{flex:1;line-height:1.6;padding-top:4px}
+.opt.correct{background:var(--correctbg);border-color:var(--correctbd)}
+.opt.correct .opt-letter{background:var(--correct);color:#fff;border-color:var(--correct)}
+.opt.wrong{background:var(--wrongbg);border-color:var(--wrongbd)}
+.opt.wrong .opt-letter{background:var(--wrong);color:#fff;border-color:var(--wrong)}
+.opt.reveal-correct{background:var(--reveal);border-color:var(--revealbd)}
+.opt.reveal-correct .opt-letter{background:rgba(5,150,105,0.3);color:#34d399;border-color:rgba(5,150,105,0.5)}
+.opt.disabled{cursor:not-allowed}
+
+/* ===== EXPLANATION BOX ===== */
+.explain-box{display:none;margin-top:16px;border-radius:12px;overflow:hidden;border:1px solid var(--bd)}
+.explain-box.show{display:block;animation:fadeUp .3s ease}
+.explain-header{
+  display:flex;align-items:center;gap:10px;padding:12px 16px;
+  background:rgba(220,38,38,0.08);border-bottom:1px solid var(--bd);
+  cursor:pointer;
+}
+.explain-icon{font-size:16px}
+.explain-title{font-size:13px;font-weight:700;color:#fca5a5;font-family:'Tajawal'}
+.explain-toggle{margin-right:auto;font-size:11px;color:var(--text3);font-family:'Tajawal'}
+.explain-body{padding:16px;background:var(--s2)}
+.explain-section{margin-bottom:14px}
+.explain-section:last-child{margin-bottom:0}
+.explain-section-title{font-size:12px;font-weight:700;font-family:'Tajawal';letter-spacing:.5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.explain-section-title.green{color:#34d399}
+.explain-section-title.red{color:#f87171}
+.explain-section-title.blue{color:#60a5fa}
+.explain-text{font-size:13px;color:var(--text2);line-height:1.8}
+.explain-text strong{color:var(--text);font-weight:700}
+.explain-wrong-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.wrong-item{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.15);border-radius:8px;padding:10px 14px}
+.wrong-item-label{font-size:11px;font-weight:700;color:#f87171;font-family:'Tajawal';margin-bottom:4px}
+.wrong-item-text{font-size:13px;color:var(--text2);line-height:1.7}
+.key-concept{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.2);border-radius:8px;padding:10px 14px;margin-top:8px}
+.key-concept-label{font-size:10px;font-weight:700;color:#fca5a5;font-family:'Tajawal';letter-spacing:1px;margin-bottom:4px}
+.key-concept-text{font-size:13px;color:var(--text);font-weight:600}
+
+/* ===== NEXT BTN ===== */
+.next-btn{display:none;width:100%;margin-top:14px;padding:14px;background:linear-gradient(135deg,#7f1d1d,#dc2626);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Cairo';transition:.2s;letter-spacing:.3px}
+.next-btn:hover{opacity:.9;transform:translateY(-1px)}
+.next-btn.show{display:block}
+
+/* ===== RESULTS ===== */
+.results{background:var(--surface);border:1px solid var(--bd);border-radius:20px;padding:40px 28px;text-align:center;display:none;animation:fadeUp .4s ease}
+.results.show{display:block}
+.score-ring{width:130px;height:130px;border-radius:50%;margin:0 auto 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:4px solid;position:relative}
+.score-ring-pct{font-size:36px;font-weight:900;line-height:1}
+.score-ring-lbl{font-size:11px;font-family:'Tajawal';margin-top:2px;opacity:.8}
+.result-title{font-size:24px;font-weight:900;margin-bottom:6px}
+.result-sub{color:var(--text2);font-size:14px;margin-bottom:28px;font-family:'Tajawal'}
+.stats-row{display:flex;justify-content:center;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.stat{background:var(--s2);border:1px solid var(--bd);border-radius:14px;padding:18px 28px;min-width:100px}
+.stat .val{font-size:28px;font-weight:900;line-height:1}
+.stat .lbl{font-size:12px;color:var(--text2);font-family:'Tajawal';margin-top:4px}
+.chapter-scores{background:var(--s2);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:24px;text-align:right}
+.chapter-scores h3{font-size:14px;font-weight:700;color:var(--text2);margin-bottom:14px;font-family:'Tajawal';text-align:center}
+.ch-score-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-direction:row-reverse}
+.ch-score-label{font-size:12px;color:var(--text2);font-family:'Tajawal';width:160px;text-align:right;flex-shrink:0}
+.ch-score-bar-wrap{flex:1;height:8px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden}
+.ch-score-bar{height:100%;border-radius:99px;transition:width 1s ease}
+.ch-score-num{font-size:12px;font-weight:700;font-family:'Tajawal';width:40px;text-align:center;flex-shrink:0}
+.retry-btn{background:linear-gradient(135deg,#7f1d1d,#dc2626);border:none;border-radius:12px;color:#fff;padding:14px 40px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Cairo';transition:.2s;margin:0 6px}
+.retry-btn:hover{opacity:.9}
+.retry-btn.outline{background:transparent;border:1.5px solid var(--bd);color:var(--text2)}
+.retry-btn.outline:hover{border-color:rgba(220,38,38,0.4);color:var(--text)}
+
+/* ===== CHAPTER BADGE BAR ===== */
+.current-chapter-bar{max-width:760px;margin:0 auto 6px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.current-chapter-label{font-size:12px;color:var(--text3);font-family:'Tajawal'}
+.current-chapter-name{font-size:12px;font-weight:700;color:#fca5a5;font-family:'Tajawal'}
+
+@media(max-width:600px){
+  .q-card{padding:20px 16px 18px}
+  .opt{padding:11px 14px}
+  .stat{padding:14px 18px;min-width:80px}
+  .stats-row{gap:10px}
+  .ch-score-label{width:120px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <a href="IT_Course_Index.html" class="hero-back">← الفهرس الرئيسي</a>
+  <div class="hero-badge">
+    <span class="badge">150 سؤال</span>
+    <span class="badge">Medium & Hard</span>
+    <span class="badge">6 Chapters</span>
+    <span class="badge">بشرح تفصيلي</span>
+  </div>
+  <h1>Mixed 150 MCQs</h1>
+  <p>أسئلة متوسطة وصعبة — مع تعليل كل إجابة وشرح الإجابات الخاطئة</p>
+
+  <div class="ch-selector">
+    <div class="ch-title">اختر الفصل أو اختبر الكل</div>
+    <div class="ch-btns">
+      <button class="ch-btn active" onclick="setChapter(0)">🌐 كل الفصول (150)</button>
+      <button class="ch-btn" onclick="setChapter(1)">Ch.1 — Internet & Web</button>
+      <button class="ch-btn" onclick="setChapter(2)">Ch.2 — Networking</button>
+      <button class="ch-btn" onclick="setChapter(3)">Ch.3 — IP Suite</button>
+      <button class="ch-btn" onclick="setChapter(4)">Ch.4 — Wireless</button>
+      <button class="ch-btn" onclick="setChapter(5)">Ch.5 — Index Server</button>
+      <button class="ch-btn" onclick="setChapter(6)">Ch.6 — Proxy Server</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-info">
+      <span class="prog-left" id="prog-text">السؤال 1 من 150</span>
+      <span class="prog-right">
+        <span class="prog-c" id="prog-c">✓ 0</span>
+        <span class="prog-w" id="prog-w">✗ 0</span>
+      </span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0.7%"></div></div>
+  </div>
+</div>
+
+<div class="current-chapter-bar">
+  <span class="current-chapter-label">الفصل الحالي:</span>
+  <span class="current-chapter-name" id="current-ch-name">Chapter 1 — Internet & Web</span>
+</div>
+
+<div class="container">
+  <div id="quiz-area"></div>
+
+  <div class="results" id="results">
+    <div class="score-ring" id="score-ring">
+      <div class="score-ring-pct" id="ring-pct"></div>
+      <div class="score-ring-lbl">النسبة</div>
+    </div>
+    <div class="result-title" id="result-title"></div>
+    <div class="result-sub" id="result-sub"></div>
+    <div class="stats-row">
+      <div class="stat"><div class="val" id="r-correct" style="color:#10b981"></div><div class="lbl">إجابات صحيحة ✓</div></div>
+      <div class="stat"><div class="val" id="r-wrong" style="color:#ef4444"></div><div class="lbl">إجابات خاطئة ✗</div></div>
+      <div class="stat"><div class="val" id="r-total" style="color:#60a5fa"></div><div class="lbl">إجمالي الأسئلة</div></div>
+    </div>
+    <div class="chapter-scores" id="chapter-scores"></div>
+    <button class="retry-btn" onclick="retryQuiz()">🔄 إعادة الاختبار</button>
+    <button class="retry-btn outline" onclick="retryWrong()">❌ اختبر الأسئلة الغلط فقط</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// ALL 150 QUESTIONS WITH FULL EXPLANATIONS
+// ============================================================
+const ALL_QUESTIONS = [
+
+// ========================= CHAPTER 1 =========================
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"In which year was ARPANET first established?",
+opts:["1965","1969","1975","1983"],ans:1,diff:"Medium",
+correct_exp:"ARPANET أُسِّس عام <strong>1969</strong> من قِبَل وكالة ARPA الأمريكية (Advanced Research Projects Agency). كان مشروعاً عسكرياً بحثياً لربط الجامعات والمراكز البحثية بشبكة لا تعتمد على نقطة مركزية واحدة، وهو ما أصبح لاحقاً أساس الإنترنت الحديث.",
+wrong_exp:[
+  {opt:"1965",why:"في عام 1965 بدأت فكرة الشبكة اللامركزية نظرياً على يد Lawrence Roberts، لكن الشبكة الفعلية لم تُنشأ حتى 1969."},
+  {opt:"1975",why:"بحلول 1975 كانت ARPANET تعمل بالفعل وتضم عشرات الجامعات، لم تكن عام تأسيسها."},
+  {opt:"1983",why:"عام 1983 هو عام تحويل ARPANET رسمياً إلى بروتوكول TCP/IP (يُعرف بـ Flag Day)، وليس عام التأسيس."}
+],
+key:"ARPANET = 1969 | TCP/IP adoption = 1983"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which technology was introduced by ARPANET and became the foundation of the modern Internet?",
+opts:["Circuit Switching","Packet Switching","Fiber Optics","DNS"],ans:1,diff:"Medium",
+correct_exp:"<strong>Packet Switching (تبديل الحزم)</strong> هي التقنية التي أدخلتها ARPANET وأصبحت أساس الإنترنت. بدلاً من تخصيص مسار ثابت كالهاتف، تُقسَّم البيانات إلى حزم صغيرة كل منها يسلك أفضل مسار متاح ويُعاد تجميعها في الوجهة. هذا يجعل الشبكة مرنة ومقاومة للأعطال.",
+wrong_exp:[
+  {opt:"Circuit Switching",why:"Circuit Switching (تبديل الدوائر) هو ما تستخدمه شبكات الهاتف التقليدية — تُخصَّص قناة ثابتة طوال الاتصال. ARPANET تجنّبته تحديداً لأنه يعني أن قطع كابل واحد يُعطّل الاتصال كله."},
+  {opt:"Fiber Optics",why:"الألياف الضوئية وسيلة نقل فيزيائية (Physical medium)، وليست بروتوكول اتصال. ARPANET استخدمت في البداية خطوط هاتف عادية."},
+  {opt:"DNS",why:"DNS (نظام أسماء النطاقات) اختُرع لاحقاً عام 1983 لترجمة الأسماء إلى عناوين IP، وليس ما قدّمته ARPANET."}
+],
+key:"ARPANET → Packet Switching → أساس الإنترنت"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which protocol is responsible for ensuring that packets arrive correctly and in order?",
+opts:["IP","HTTP","TCP","DNS"],ans:2,diff:"Medium",
+correct_exp:"<strong>TCP (Transmission Control Protocol)</strong> هو البروتوكول المسؤول عن ضمان وصول الحزم بشكل صحيح وبالترتيب الصحيح. يُرقّم الحزم ويتحقق من استلامها (acknowledgment)، وإذا ضاعت حزمة يُعيد إرسالها. لهذا يُوصف بأنه Connection-oriented ويضمن الموثوقية (reliability).",
+wrong_exp:[
+  {opt:"IP",why:"IP (Internet Protocol) مسؤول عن <strong>التوجيه والعنونة</strong> — يُحدد العنوان ويختار المسار، لكنه لا يضمن الترتيب أو الوصول الصحيح (Best-effort delivery فقط)."},
+  {opt:"HTTP",why:"HTTP بروتوكول تطبيقي (Application Layer) يُستخدم لنقل صفحات الويب. هو يستخدم TCP من تحته لضمان الموثوقية، لكنه ليس هو المسؤول عنها مباشرة."},
+  {opt:"DNS",why:"DNS يترجم أسماء النطاقات إلى عناوين IP — ليس له علاقة بضمان وصول الحزم أو ترتيبها."}
+],
+key:"TCP = موثوقية + ترتيب | IP = توجيه فقط (Best-effort)"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which protocol is responsible for assigning addresses and routing packets?",
+opts:["FTP","IP","TCP","HTML"],ans:1,diff:"Easy",
+correct_exp:"<strong>IP (Internet Protocol)</strong> هو المسؤول عن <strong>العنونة (Addressing)</strong> و<strong>التوجيه (Routing)</strong>. كل جهاز على الإنترنت له عنوان IP فريد، وبروتوكول IP يُقرر كيف تنتقل الحزمة من المصدر للوجهة عبر شبكات متعددة.",
+wrong_exp:[
+  {opt:"FTP",why:"FTP (File Transfer Protocol) بروتوكول تطبيقي لنقل الملفات بين العميل والخادم. لا علاقة له بالعنونة أو التوجيه."},
+  {opt:"TCP",why:"TCP مسؤول عن ضمان الموثوقية والترتيب. التوجيه والعنونة ليست مهمته — هذا دور IP تحديداً."},
+  {opt:"HTML",why:"HTML لغة ترميز لبناء صفحات الويب. ليست بروتوكول شبكات على الإطلاق."}
+],
+key:"IP = عنونة + توجيه | TCP = موثوقية"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which decade transformed the Internet from an academic and military tool into a global information platform?",
+opts:["1970s","1980s","1990s","2000s"],ans:2,diff:"Medium",
+correct_exp:"<strong>التسعينيات (1990s)</strong> هي العقد الذي تحوّل فيه الإنترنت من أداة أكاديمية/عسكرية إلى منصة عالمية. في 1991 أطلق Tim Berners-Lee الويب العالمي (WWW)، وفي 1993 ظهر متصفح Mosaic للعامة، مما فتح الباب للاستخدام التجاري والشعبي الواسع.",
+wrong_exp:[
+  {opt:"1970s",why:"السبعينيات شهدت نمو ARPANET وتطوير TCP/IP، لكنها بقيت حكراً على الجامعات والجيش. لم تكن منصة عامة بعد."},
+  {opt:"1980s",why:"الثمانينيات شهدت تبني TCP/IP (1983) وظهور DNS (1983)، لكن الإنترنت بقي محدوداً على المؤسسات الأكاديمية والحكومية."},
+  {opt:"2000s",why:"بحلول الألفية الثالثة كان الإنترنت قد انتشر بالفعل، وكانت أزمة فقاعة الدوت كوم (2000) دليلاً على ذلك. التحول الكبير حدث في التسعينيات."}
+],
+key:"1990s = WWW + Mosaic = الإنترنت للعامة"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which of the following is NOT a characteristic of Circuit Switching?",
+opts:["Dedicated path","Fixed bandwidth","Multiple possible paths","Low and consistent latency"],ans:2,diff:"Hard",
+correct_exp:"<strong>Multiple possible paths</strong> هي خاصية Packet Switching وليس Circuit Switching. في تبديل الدوائر (Circuit Switching) يُخصَّص مسار واحد ثابت طوال الاتصال، بينما في تبديل الحزم يمكن أن تسلك كل حزمة مساراً مختلفاً وفق الازدحام المتاح.",
+wrong_exp:[
+  {opt:"Dedicated path",why:"هذه فعلاً خاصية Circuit Switching — يُخصَّص مسار فيزيائي كامل للاتصال، لهذا الهاتف التقليدي لا يُشارَك."},
+  {opt:"Fixed bandwidth",why:"صحيح أيضاً — لأن المسار محجوز بالكامل، فعرض النطاق الترددي ثابت ومضمون طوال الاتصال."},
+  {opt:"Low and consistent latency",why:"صحيح — لأن المسار محجوز مسبقاً لا تأخير في التوجيه لكل حزمة، لذا التأخير منخفض وثابت. هذا ميزة في الهاتف التقليدي."}
+],
+key:"Circuit Switching = مسار ثابت + عرض نطاق ثابت + تأخير منخفض | لكن ليس متعدد المسارات"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Packet Switching is more efficient because:",
+opts:["Resources are reserved permanently","Data is sent as a continuous stream","Resources are shared dynamically","It always uses one path only"],ans:2,diff:"Medium",
+correct_exp:"<strong>Resources are shared dynamically</strong> — كفاءة Packet Switching تأتي من مشاركة الموارد ديناميكياً. عندما لا يُرسل مستخدم بيانات، تُستخدم سعة الشبكة لمستخدمين آخرين. هذا يعني أن آلاف المستخدمين يمكنهم مشاركة نفس البنية التحتية بكفاءة عالية.",
+wrong_exp:[
+  {opt:"Resources are reserved permanently",why:"هذا وصف Circuit Switching وليس Packet Switching. حجز الموارد دائماً يُسبب낭 هدراً لأن المسار محجوز حتى لو لم تُرسَل بيانات."},
+  {opt:"Data is sent as a continuous stream",why:"هذا أيضاً يصف Circuit Switching. في Packet Switching البيانات تُقسَّم لحزم منفصلة وليست تدفقاً مستمراً."},
+  {opt:"It always uses one path only",why:"العكس صحيح — ميزة Packet Switching أن كل حزمة يمكنها اتخاذ مسار مختلف، مما يجعل الشبكة مرنة ومقاومة للأعطال."}
+],
+key:"Packet Switching = Dynamic resource sharing = كفاءة عالية"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which device determines the shortest path for packets?",
+opts:["Modem","Router","Switch","Firewall"],ans:1,diff:"Easy",
+correct_exp:"<strong>Router (الموجه)</strong> هو الجهاز المسؤول عن تحديد أفضل مسار للحزم عبر الشبكات المختلفة. يحتوي على routing tables يُحدّثها باستمرار، ويستخدم بروتوكولات مثل OSPF و BGP لاختيار الطريق الأمثل بين المصدر والوجهة.",
+wrong_exp:[
+  {opt:"Modem",why:"Modem (مودم) يُحوّل الإشارات الرقمية إلى تناظرية (والعكس) للإرسال عبر خط الهاتف أو الكابل. لا يُوجّه الحزم بين الشبكات."},
+  {opt:"Switch",why:"Switch يعمل داخل الشبكة المحلية (LAN) ويُوجِّه البيانات بين الأجهزة المتصلة به بناءً على عناوين MAC. لا يتعامل مع التوجيه بين شبكات مختلفة."},
+  {opt:"Firewall",why:"Firewall يُراقب ويُفلتر حركة المرور وفق قواعد أمنية. وظيفته الحماية وليس تحديد أفضل مسار للحزم."}
+],
+key:"Router = يوجّه بين الشبكات | Switch = داخل الشبكة المحلية فقط"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which network type is private and restricted to authorized users within an organization?",
+opts:["Internet","Extranet","Intranet","WWW"],ans:2,diff:"Easy",
+correct_exp:"<strong>Intranet</strong> هي شبكة خاصة داخل المنظمة تستخدم تقنيات الإنترنت (TCP/IP, HTTP) لكنها مقيدة للموظفين والمستخدمين المصرح لهم فقط. تُستخدم لتبادل المعلومات الداخلية ومشاركة الملفات والتطبيقات الداخلية.",
+wrong_exp:[
+  {opt:"Internet",why:"الإنترنت شبكة عامة مفتوحة للجميع، لا مالك واحد لها وليست مقيدة بمنظمة."},
+  {opt:"Extranet",why:"Extranet امتداد للـ Intranet للمستخدمين الخارجيين المصرح لهم (كالموردين والشركاء التجاريين)، وليست محصورة داخل المنظمة."},
+  {opt:"WWW",why:"WWW (الويب العالمي) خدمة فوق الإنترنت تستخدم HTTP لعرض صفحات الويب. عامة ومتاحة للجميع."}
+],
+key:"Intranet = خاصة داخلية | Extranet = للشركاء الخارجيين | Internet = عامة للكل"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which network extends an Intranet to external partners and suppliers?",
+opts:["VPN","Extranet","LAN","MAN"],ans:1,diff:"Medium",
+correct_exp:"<strong>Extranet</strong> هي شبكة تمتد خارج حدود المنظمة لتشمل المستخدمين الخارجيين المصرح لهم كالموردين والشركاء التجاريين والعملاء. تستخدم نفس تقنيات الإنترنت لكن مع قيود وصلاحيات محددة.",
+wrong_exp:[
+  {opt:"VPN",why:"VPN (Virtual Private Network) تقنية تشفير لإنشاء اتصال آمن عبر الإنترنت. يمكن استخدامها للوصول للـ Extranet لكنها ليست الـ Extranet نفسها."},
+  {opt:"LAN",why:"LAN شبكة محلية تربط أجهزة في مبنى أو مكان واحد. لا تمتد لشركاء خارجيين."},
+  {opt:"MAN",why:"MAN شبكة تغطي مدينة أو منطقة جغرافية — تصنيف بالحجم الجغرافي وليس نوع الوصول."}
+],
+key:"Extranet = Intranet + الشركاء الخارجيين المصرح لهم"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which network has no single owner and is decentralized?",
+opts:["Intranet","Extranet","Internet","LAN"],ans:2,diff:"Easy",
+correct_exp:"<strong>الإنترنت (Internet)</strong> لا يملكها أحد — هي شبكة من الشبكات (Network of Networks) لا مالك مركزي لها. تتكون من ملايين الشبكات المستقلة المترابطة عبر بروتوكول TCP/IP. هذا اللامركزية هو ما جعلها مقاومة للأعطال.",
+wrong_exp:[
+  {opt:"Intranet",why:"الـ Intranet مملوكة ومُدارة من المنظمة — لها مالك واحد ومركزية الإدارة."},
+  {opt:"Extranet",why:"الـ Extranet أيضاً يُديرها ويتحكم فيها طرف محدد (المنظمة المضيفة) مع صلاحيات للشركاء."},
+  {opt:"LAN",why:"الـ LAN دائماً مملوكة لكيان واحد (شركة، منزل، مدرسة) وهي أكثر الشبكات مركزيةً في الإدارة."}
+],
+key:"Internet = لا مالك واحد = شبكة الشبكات"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which Internet access technology is considered obsolete and has a maximum speed of 56 Kbps?",
+opts:["DSL","Dial-up","Cable Internet","Fiber Optic"],ans:1,diff:"Easy",
+correct_exp:"<strong>Dial-up (الاتصال الهاتفي)</strong> التقنية التي تستخدم خط الهاتف العادي للاتصال بالإنترنت بسرعة قصوى 56 Kbps. أصبحت متقادمة (obsolete) مع ظهور DSL والنطاق العريض. كانت تشغّل خط الهاتف أثناء الاتصال.",
+wrong_exp:[
+  {opt:"DSL",why:"DSL (Digital Subscriber Line) يستخدم خط الهاتف أيضاً لكن بتقنية رقمية وسرعات أعلى بكثير (من عدة Mbps لعشرات Mbps). ليس متقادماً."},
+  {opt:"Cable Internet",why:"الإنترنت عبر الكابل يستخدم شبكات التلفزيون الكابلي وسرعاته عالية. ليس متقادماً."},
+  {opt:"Fiber Optic",why:"الألياف الضوئية أحدث وأسرع التقنيات (Gbps) — العكس تماماً من المتقادم."}
+],
+key:"Dial-up = 56 Kbps max = متقادم | DSL/Cable/Fiber = النطاق العريض الحديث"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which wired technology uses light pulses to transmit data?",
+opts:["DSL","Cable Internet","Fiber Optic","Dial-up"],ans:2,diff:"Easy",
+correct_exp:"<strong>Fiber Optic (الألياف الضوئية)</strong> تُرسل البيانات على شكل نبضات ضوئية (light pulses) عبر أسلاك من الزجاج أو البلاستيك الرفيع. هذا يعطيها سرعات هائلة (Gbps) ومناعة تامة من التداخل الكهرومغناطيسي (EMI) وقدرة على نقل البيانات لمسافات طويلة جداً.",
+wrong_exp:[
+  {opt:"DSL",why:"DSL يُرسل إشارات رقمية عبر أسلاك نحاسية (الخطوط الهاتفية). لا يستخدم الضوء."},
+  {opt:"Cable Internet",why:"يستخدم كابلات محورية (Coaxial Cable) وينقل إشارات كهرومغناطيسية، وليس نبضات ضوئية."},
+  {opt:"Dial-up",why:"يُرسل إشارات صوتية تناظرية عبر خطوط الهاتف النحاسية. التقنية الأبطأ والأقدم."}
+],
+key:"Fiber Optic = نبضات ضوئية + مناعة EMI + أعلى سرعة"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which wireless technology is best suited for remote areas despite having high latency?",
+opts:["WiFi","5G","Satellite Internet","Bluetooth"],ans:2,diff:"Medium",
+correct_exp:"<strong>Satellite Internet (إنترنت الأقمار الصناعية)</strong> الأنسب للمناطق النائية لأن الأقمار الصناعية تُغطي مساحات شاسعة لا تصلها الكابلات أو أبراج الخلايا. العيب الأساسي هو التأخير العالي (latency ~500ms لـ GEO) بسبب المسافة الهائلة بين الأرض والقمر الصناعي (35,000 كم).",
+wrong_exp:[
+  {opt:"WiFi",why:"WiFi تقنية لمنطقة صغيرة (عشرات الأمتار) داخل المباني وحول نقاط الوصول. لا تُغطي المناطق النائية."},
+  {opt:"5G",why:"5G يحتاج أبراج خلوية كثيفة قريبة من بعض. المناطق النائية الأخيرة في بنيته التحتية."},
+  {opt:"Bluetooth",why:"Bluetooth لمسافات قصيرة جداً (حتى 10 متر) للشبكات الشخصية PAN. لا علاقة له بتغطية المناطق النائية."}
+],
+key:"Satellite = تغطية شاملة + Latency عالي | مناسب للمناطق النائية"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"The World Wide Web (WWW) is:",
+opts:["The physical infrastructure of the Internet","A distributed client-server service using hyperlinks","A type of router","A packet-switching protocol"],ans:1,diff:"Medium",
+correct_exp:"<strong>WWW</strong> هي خدمة فوق الإنترنت تعتمد على نموذج Client-Server الموزع، تستخدم HTTP لنقل صفحات الويب المترابطة بـ Hyperlinks. اخترعها Tim Berners-Lee عام 1991. الإنترنت هي البنية التحتية، والويب هي واحدة من الخدمات التي تعمل عليها.",
+wrong_exp:[
+  {opt:"The physical infrastructure of the Internet",why:"البنية التحتية للإنترنت هي الكابلات والموجهات والخوادم. الويب خدمة تعمل فوق هذه البنية وليست هي."},
+  {opt:"A type of router",why:"الموجه (Router) جهاز شبكي. الويب برنامج/خدمة وليست جهازاً."},
+  {opt:"A packet-switching protocol",why:"Packet Switching تقنية النقل التي تستخدمها الشبكة. الويب تطبيق يستفيد من هذه التقنية وليست هي."}
+],
+key:"الفرق المهم: Internet = البنية التحتية | WWW = خدمة تعمل فوق الإنترنت"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which Web generation introduced user-generated content and social media?",
+opts:["Web 1.0","Web 2.0","Web 3.0","ARPANET"],ans:1,diff:"Easy",
+correct_exp:"<strong>Web 2.0</strong> (منتصف 2000s) هو جيل الويب التفاعلي الذي أدخل مفهوم المحتوى الذي ينشئه المستخدم (User-Generated Content). ظهرت مواقع التواصل الاجتماعي (Facebook, Twitter, YouTube) والمدونات والويكي. الويب تحوّل من قراءة فقط إلى قراءة وكتابة.",
+wrong_exp:[
+  {opt:"Web 1.0",why:"Web 1.0 (التسعينيات - مطلع الألفية) كان ويباً للقراءة فقط (Read-Only). المحتوى يصنعه المطورون فقط، والزوار يقرؤون فقط بلا تفاعل."},
+  {opt:"Web 3.0",why:"Web 3.0 الجيل الحالي والمستقبلي، يركز على الذكاء الاصطناعي والـ Blockchain والبيانات الدلالية (Semantic Web) واللامركزية."},
+  {opt:"ARPANET",why:"ARPANET شبكة بحثية عسكرية من 1969، لا علاقة لها بأجيال الويب."}
+],
+key:"Web 1.0 = قراءة | Web 2.0 = قراءة + كتابة + تفاعل | Web 3.0 = AI + Blockchain"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which Web generation focuses on Artificial Intelligence and decentralized technologies?",
+opts:["Web 1.0","Web 2.0","Web 3.0","Dial-up Web"],ans:2,diff:"Medium",
+correct_exp:"<strong>Web 3.0</strong> هو الجيل الثالث للويب، يركز على: الذكاء الاصطناعي وتفهّم المحتوى (Semantic Web)، اللامركزية عبر Blockchain، المتصفح اللامركزي، وامتلاك المستخدم لبياناته. يُعرف أحياناً بـ Read-Write-Execute Web.",
+wrong_exp:[
+  {opt:"Web 1.0",why:"Web 1.0 = الويب الثابت، محتوى HTML بسيط للقراءة فقط، بلا تفاعل ولا AI."},
+  {opt:"Web 2.0",why:"Web 2.0 = التفاعل والمحتوى الاجتماعي. بداياته مع Facebook وYouTube عام 2004-2006. الـ AI والـ Blockchain جاءا لاحقاً مع Web 3.0."},
+  {opt:"Dial-up Web",why:"هذا مصطلح غير موجود — Dial-up وسيلة وصول للإنترنت (اتصال هاتفي)، وليست جيلاً من أجيال الويب."}
+],
+key:"Web 3.0 = AI + Blockchain + اللامركزية + امتلاك المستخدم لبياناته"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"In the URL https://www.example.com/products?id=123#reviews, what does #reviews represent?",
+opts:["Protocol","Query","Fragment","Domain"],ans:2,diff:"Hard",
+correct_exp:"<strong>#reviews = Fragment (المقطع)</strong>. في بنية URL: المقطع يبدأ بـ # ويُشير إلى موقع معين داخل الصفحة (anchor). لا يُرسَل للخادم — المتصفح يستخدمه محلياً للانتقال لعنصر له id='reviews' في الصفحة. مفيد في الصفحات الطويلة.",
+wrong_exp:[
+  {opt:"Protocol",why:"البروتوكول هو https:// في بداية الـ URL."},
+  {opt:"Query",why:"الـ Query String يبدأ بـ ? وتأتي بعده معاملات مثل ?id=123. أما # فيأتي بعدها."},
+  {opt:"Domain",why:"الـ Domain هو www.example.com — الجزء الذي يُعرِّف الخادم."}
+],
+key:"URL structure: https(protocol)://www.example.com(domain)/products(path)?id=123(query)#reviews(fragment)"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which client-side language is used to add interactivity to web pages?",
+opts:["SQL","CSS","JavaScript","PHP"],ans:2,diff:"Easy",
+correct_exp:"<strong>JavaScript</strong> اللغة الوحيدة التي تعمل داخل المتصفح (Client-Side) لإضافة التفاعلية لصفحات الويب. تُغيّر محتوى الصفحة ديناميكياً دون إعادة تحميلها، تستجيب للنقرات والأحداث، وتتواصل مع الخوادم عبر AJAX/Fetch.",
+wrong_exp:[
+  {opt:"SQL",why:"SQL لغة استعلامات قواعد البيانات تعمل على الخادم. لا تعمل في المتصفح مباشرة."},
+  {opt:"CSS",why:"CSS مسؤول عن التنسيق والمظهر (الألوان، الخطوط، التخطيط). لا يضيف تفاعلية بل مظهراً."},
+  {opt:"PHP",why:"PHP لغة Server-Side تعمل على الخادم وتُولّد HTML. لا تعمل في المتصفح."}
+],
+key:"JavaScript = Client-Side = تفاعلية | PHP = Server-Side | CSS = مظهر"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which server-side component stores and manages application data?",
+opts:["Browser","Database","HTML","CSS"],ans:1,diff:"Easy",
+correct_exp:"<strong>Database (قاعدة البيانات)</strong> هي المكوّن الذي يُخزن ويُدير بيانات التطبيق على الخادم. في نموذج Client-Server: المتصفح يطلب، الخادم (Web Server) يُعالج، وقاعدة البيانات تُخزن البيانات الدائمة. أمثلة: MySQL, PostgreSQL, MongoDB.",
+wrong_exp:[
+  {opt:"Browser",why:"المتصفح هو Client يعمل على جهاز المستخدم. يعرض المحتوى لكنه لا يُخزّن بيانات التطبيق الدائمة."},
+  {opt:"HTML",why:"HTML لغة ترميز لهيكلة صفحات الويب. لا تُخزّن بيانات."},
+  {opt:"CSS",why:"CSS للتنسيق فقط. لا تُخزّن أي بيانات."}
+],
+key:"معمارية التطبيق: Browser → Web Server → Database"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which HTTP method is commonly used to retrieve data?",
+opts:["POST","DELETE","GET","PUT"],ans:2,diff:"Easy",
+correct_exp:"<strong>GET</strong> يُستخدم لاسترداد البيانات من الخادم. عندما تكتب URL في المتصفح وتضغط Enter، يُرسَل GET request. البيانات تُرسَل في الـ URL نفسه (query string). آمن (Safe) ولا يُغيّر حالة الخادم.",
+wrong_exp:[
+  {opt:"POST",why:"POST يُرسِل بيانات جديدة للخادم (مثل إرسال نموذج). يُغيّر حالة الخادم ويُنشئ موارد جديدة."},
+  {opt:"DELETE",why:"DELETE يحذف مورداً من الخادم. وظيفته حذف البيانات وليس استرجاعها."},
+  {opt:"PUT",why:"PUT يُحدِّث أو يُستبدِل مورداً موجوداً على الخادم. وظيفته تحديث وليس قراءة."}
+],
+key:"HTTP Methods: GET=قراءة | POST=إنشاء | PUT=تحديث | DELETE=حذف"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"What does HTTP status code 404 mean?",
+opts:["Success","Unauthorized","Not Found","Internal Server Error"],ans:2,diff:"Easy",
+correct_exp:"<strong>404 Not Found</strong>: الخادم لم يجد المورد المطلوب. يعني أن الـ URL صحيح والخادم يعمل، لكن الصفحة أو الملف المطلوب غير موجود على الخادم. شائع عند حذف صفحة أو كتابة URL خاطئ.",
+wrong_exp:[
+  {opt:"Success",why:"200 هو كود النجاح (OK). الخادم وجد الطلب وأرجع الإجابة بنجاح."},
+  {opt:"Unauthorized",why:"401 Unauthorized: المستخدم غير مُصادَق (لم يسجّل دخوله). 403 Forbidden: مُصادَق لكن لا صلاحية."},
+  {opt:"Internal Server Error",why:"500 Internal Server Error: خطأ في كود الخادم نفسه (bug في التطبيق)."}
+],
+key:"HTTP Codes: 200=OK | 401=Unauthorized | 403=Forbidden | 404=Not Found | 500=Server Error"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which organization publishes RFCs (Requests for Comments) to define Internet protocols?",
+opts:["W3C","ICANN","IETF","IEEE"],ans:2,diff:"Hard",
+correct_exp:"<strong>IETF (Internet Engineering Task Force)</strong> تنشر وثائق RFC التي تُعرِّف بروتوكولات الإنترنت رسمياً. مثلاً RFC 793 يُعرِّف TCP، و RFC 791 يُعرِّف IP. IETF منظمة مفتوحة يمكن لأي مهندس المشاركة فيها.",
+wrong_exp:[
+  {opt:"W3C",why:"W3C (World Wide Web Consortium) تُطوّر معايير الويب مثل HTML5 وCSS3 وSVG. ليست المسؤولة عن بروتوكولات الإنترنت الأساسية."},
+  {opt:"ICANN",why:"ICANN (Internet Corporation for Assigned Names and Numbers) تُدير أسماء النطاقات وعناوين IP. ليست مسؤولة عن نشر RFCs."},
+  {opt:"IEEE",why:"IEEE (Institute of Electrical and Electronics Engineers) تُطوّر معايير الشبكات المحلية مثل IEEE 802.11 (WiFi) وIEEE 802.3 (Ethernet). ليست المصدر الرئيسي لـ RFCs."}
+],
+key:"IETF = RFCs = بروتوكولات الإنترنت | W3C = معايير الويب | ICANN = أسماء النطاقات"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which organization develops standards such as HTML and CSS?",
+opts:["IETF","W3C","ICANN","ISO"],ans:1,diff:"Medium",
+correct_exp:"<strong>W3C (World Wide Web Consortium)</strong> أسّسه Tim Berners-Lee عام 1994، يُطوّر معايير الويب الأساسية: HTML, CSS, SVG, XML, WebAssembly وغيرها. هدفه ضمان توافق تقنيات الويب عبر المتصفحات المختلفة.",
+wrong_exp:[
+  {opt:"IETF",why:"IETF تُطوّر بروتوكولات الإنترنت (TCP, IP, HTTP, DNS) عبر وثائق RFC. ليس معايير HTML وCSS."},
+  {opt:"ICANN",why:"ICANN تُدير نظام أسماء النطاقات والعناوين IP العالمية. لا دور لها في تطوير HTML أو CSS."},
+  {opt:"ISO",why:"ISO (International Organization for Standardization) تُطوّر معايير دولية في مجالات متعددة، من بينها نموذج OSI للشبكات، لكن ليست المسؤولة عن HTML وCSS."}
+],
+key:"W3C = HTML + CSS + معايير الويب | أسّسه Tim Berners-Lee"},
+
+{ch:1,chName:"Chapter 1 — Internet & Web",
+q:"Which organization coordinates domain names and Internet unique identifiers?",
+opts:["ICANN","W3C","IETF","ITU"],ans:0,diff:"Medium",
+correct_exp:"<strong>ICANN (Internet Corporation for Assigned Names and Numbers)</strong> تتولى الإشراف على نظام أسماء النطاقات (DNS) على المستوى العالمي، وتُدير توزيع عناوين IP، وتنظّم ملفات المنطقة الجذرية (Root Zone). بدونها لن يعمل نظام النطاقات الموحّد عالمياً.",
+wrong_exp:[
+  {opt:"W3C",why:"W3C معنية بمعايير تقنيات الويب (HTML, CSS). لا تُدير أسماء النطاقات."},
+  {opt:"IETF",why:"IETF تُطوّر البروتوكولات (TCP/IP, DNS protocol) لكن لا تُدير قاعدة البيانات الفعلية لأسماء النطاقات."},
+  {opt:"ITU",why:"ITU (International Telecommunication Union) تابعة للأمم المتحدة وتُنظّم الاتصالات والطيف الراديوي عالمياً. لا تتولى إدارة أسماء النطاقات."}
+],
+key:"ICANN = أسماء النطاقات + عناوين IP عالمياً"},
+
+// ========================= CHAPTER 2 =========================
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which component of a data communication system defines the rules for formatting and transmitting data?",
+opts:["Medium","Message","Protocol","Receiver"],ans:2,diff:"Easy",
+correct_exp:"<strong>Protocol (البروتوكول)</strong> هو مجموعة القواعد والمعايير التي تُحدد كيفية تنسيق البيانات وإرسالها واستقبالها بين الأجهزة. بدون بروتوكول موحّد، لا يمكن لأجهزة مختلفة الصانعين التواصل. مثال: HTTP, TCP, IP, WiFi.",
+wrong_exp:[
+  {opt:"Medium",why:"الوسيط (Medium) هو القناة المادية التي تنتقل عبرها البيانات (كابل نحاسي، ألياف ضوئية، موجات راديو). يُحدد الكيف الفيزيائي وليس القواعد."},
+  {opt:"Message",why:"الرسالة (Message) هي البيانات أو المعلومات المراد إرسالها. هي المحتوى نفسه."},
+  {opt:"Receiver",why:"المستقبل (Receiver) هو الجهاز أو الشخص الذي يستقبل الرسالة. ليس من يُحدد قواعد التنسيق."}
+],
+key:"مكونات نظام الاتصال: Sender → Protocol → Medium → Protocol → Receiver | Protocol = القواعد"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"In a Simplex transmission mode:",
+opts:["Data flows in both directions simultaneously","Data flows in both directions, but one direction at a time","Data flows in only one direction","Data is transmitted in packets only"],ans:2,diff:"Medium",
+correct_exp:"<strong>Simplex</strong>: البيانات تتدفق في <strong>اتجاه واحد فقط</strong>، لا يمكن للمستقبل الإرسال. مثال: البث التلفزيوني (التلفزيون يُرسل، أنت تستقبل فقط)، لوحات الإعلانات الرقمية.",
+wrong_exp:[
+  {opt:"Data flows in both directions simultaneously",why:"هذا Full-Duplex — الاتصال الهاتفي وشبكات الإيثرنت الحديثة تعمل هكذا."},
+  {opt:"Data flows in both directions, but one direction at a time",why:"هذا Half-Duplex — اللاسلكي (Walkie-Talkie)، حيث تضغط الزر للتحدث والآخر ينتظر."},
+  {opt:"Data is transmitted in packets only",why:"هذا وصف Packet Switching وليس وصف Simplex. Simplex يمكنه نقل البيانات بأي طريقة."}
+],
+key:"Simplex = اتجاه واحد | Half-Duplex = اتجاهين بالتناوب | Full-Duplex = اتجاهين معاً"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which transmission mode is used in walkie-talkies?",
+opts:["Simplex","Half-Duplex","Full-Duplex","Broadcast"],ans:1,diff:"Easy",
+correct_exp:"<strong>Half-Duplex (نصف مزدوج)</strong>: يتيح الإرسال في الاتجاهين لكن <strong>واحداً في كل مرة</strong>. في الـ Walkie-Talkie تضغط الزر للتحدث (PTT = Push To Talk) والطرف الآخر يستمع، ثم تقول 'Over' ويتحدث الآخر.",
+wrong_exp:[
+  {opt:"Simplex",why:"Simplex اتجاه واحد فقط — الراديو التقليدي مثلاً. Walkie-Talkie يُرسل في الاتجاهين (لكن بالتناوب)."},
+  {opt:"Full-Duplex",why:"Full-Duplex مثل الهاتف المحمول — الاثنان يتحدثان ويستمعان في نفس الوقت. Walkie-Talkie لا يُتيح ذلك."},
+  {opt:"Broadcast",why:"Broadcast وضع إرسال لنقاط متعددة في آن واحد (One-to-Many). ليس تصنيفاً لاتجاه الإرسال."}
+],
+key:"Half-Duplex = اتجاهين بالتناوب = Walkie-Talkie | Full-Duplex = اتجاهين معاً = الهاتف"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which type of network is typically owned and managed by a single organization and accessible only to authorized users?",
+opts:["Public Network","Internet","Private Network","WAN"],ans:2,diff:"Easy",
+correct_exp:"<strong>Private Network</strong> مملوكة ومُدارة من كيان واحد (شركة، حكومة، مؤسسة) والوصول إليها مقصور على المستخدمين المصرح لهم. مثال: شبكة الشركة الداخلية (Intranet) التي يصل إليها الموظفون فقط.",
+wrong_exp:[
+  {opt:"Public Network",why:"الشبكة العامة (كالإنترنت) متاحة للجميع، لا قيود على الوصول."},
+  {opt:"Internet",why:"الإنترنت شبكة عامة لا مالك واحد لها — متاحة للجميع بلا قيود على الوصول الأساسي."},
+  {opt:"WAN",why:"WAN (Wide Area Network) تصنيف بالحجم الجغرافي وليس بنوع الملكية. يمكن أن تكون WAN عامة أو خاصة."}
+],
+key:"Private Network = مالك واحد + وصول محدود | مثال: Intranet الشركة"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which of the following is the largest example of a WAN (Wide Area Network)?",
+opts:["Corporate Intranet","LAN","Internet","MAN"],ans:2,diff:"Easy",
+correct_exp:"<strong>الإنترنت</strong> هو أكبر وأشمل مثال على الـ WAN — شبكة تغطي الكرة الأرضية بأكملها. WAN بطبيعتها تربط شبكات متعددة عبر مسافات جغرافية واسعة، والإنترنت يفعل ذلك على المستوى العالمي.",
+wrong_exp:[
+  {opt:"Corporate Intranet",why:"الـ Intranet عادةً شبكة LAN أو WAN محدودة داخل المنظمة. حجمها أصغر بكثير من الإنترنت."},
+  {opt:"LAN",why:"LAN (Local Area Network) شبكة صغيرة تغطي مبنى أو مجمعاً. العكس من WAN."},
+  {opt:"MAN",why:"MAN (Metropolitan Area Network) أكبر من LAN لكن تغطي مدينة فقط — أصغر من WAN."}
+],
+key:"LAN < MAN < WAN | الإنترنت = أكبر WAN في العالم"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"A MAN (Metropolitan Area Network) typically covers:",
+opts:["A single room","A building only","A city or metropolitan area","The entire globe"],ans:2,diff:"Easy",
+correct_exp:"<strong>MAN (Metropolitan Area Network)</strong> تغطي مدينة أو منطقة حضرية (Metropolitan Area). مثال: شبكة الكابل التلفزيوني في مدينة، شبكة الجامعة التي تربط حرماتها في نفس المدينة. أكبر من LAN وأصغر من WAN.",
+wrong_exp:[
+  {opt:"A single room",why:"غرفة واحدة نطاق PAN (Personal Area Network) أو جزء صغير من LAN."},
+  {opt:"A building only",why:"مبنى واحد نطاق LAN (Local Area Network)."},
+  {opt:"The entire globe",why:"تغطية الكرة الأرضية هي نطاق الإنترنت (أكبر WAN)."}
+],
+key:"PAN < LAN (غرفة/مبنى) < MAN (مدينة) < WAN (دولة/قارة) < Internet (عالمي)"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"In Bus Topology, all devices share:",
+opts:["A central hub","Multiple redundant links","A single backbone cable","Wireless channels"],ans:2,diff:"Easy",
+correct_exp:"<strong>Bus Topology</strong>: جميع الأجهزة متصلة بـ <strong>كابل خلفي واحد (Backbone Cable)</strong>. البيانات تنتقل على الكابل ويستقبلها كل الأجهزة، لكن الجهاز المقصود فقط يقبلها. المشكلة: إذا انقطع الكابل الرئيسي تتوقف الشبكة كلها.",
+wrong_exp:[
+  {opt:"A central hub",why:"المحور المركزي (Hub) خاصية Star Topology — الأجهزة تتصل بالـ Hub في المركز."},
+  {opt:"Multiple redundant links",why:"الروابط المتعددة المتكررة خاصية Mesh Topology لضمان الاستمرارية."},
+  {opt:"Wireless channels",why:"القنوات اللاسلكية خاصية الشبكات اللاسلكية (WiFi) وليست Bus Topology السلكية."}
+],
+key:"Bus = كابل واحد مشترك | Star = Hub مركزي | Ring = حلقة | Mesh = كل جهاز بكل الأجهزة"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which topology connects every device directly to every other device?",
+opts:["Ring","Bus","Star","Mesh"],ans:3,diff:"Medium",
+correct_exp:"<strong>Mesh Topology</strong>: كل جهاز متصل مباشرة بجميع الأجهزة الأخرى. يُوفّر أعلى مستوى من التكرار (Redundancy) والموثوقية — إذا فشل رابط واحد تستمر الاتصالات عبر المسارات الأخرى. مُكلف جداً لكنه الأكثر أماناً. يُستخدم في الشبكات الحيوية.",
+wrong_exp:[
+  {opt:"Ring",why:"Ring Topology: كل جهاز متصل بالجهاز التالي والسابق فقط، مكوّناً حلقة. ليس كل جهاز بجميع الأجهزة."},
+  {opt:"Bus",why:"Bus: كل الأجهزة على كابل واحد مشترك. كل جهاز 'يرى' الجميع لكن ليس متصلاً مباشرة بكل منهم."},
+  {opt:"Star",why:"Star: كل جهاز متصل بالـ Hub/Switch المركزي فقط، وليس بالأجهزة الأخرى مباشرة."}
+],
+key:"Mesh = Full Mesh: كل جهاز بكل جهاز = أعلى موثوقية + أغلى تكلفة"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"What is the primary disadvantage of Star Topology?",
+opts:["Data collisions are unavoidable","Difficult to add devices","Central device is a single point of failure","Requires no centralized management"],ans:2,diff:"Medium",
+correct_exp:"<strong>نقطة الفشل الواحدة (Single Point of Failure)</strong> هي العيب الرئيسي لـ Star Topology. إذا تعطّل الـ Hub أو Switch المركزي، تنقطع الاتصالات بين جميع الأجهزة رغم أنها فيزيائياً سليمة. الأجهزة لا تتصل ببعض مباشرة.",
+wrong_exp:[
+  {opt:"Data collisions are unavoidable",why:"في Star مع Switch الحديث، تُقلَّل الـ Collisions بشكل كبير لأن كل جهاز على Port منفصل. Bus Topology هي التي تُعاني من Collisions."},
+  {opt:"Difficult to add devices",why:"العكس صحيح — إضافة جهاز في Star سهلة جداً: فقط وصّل كابل جديد من الجهاز للـ Hub/Switch."},
+  {opt:"Requires no centralized management",why:"Star تحتاج إدارة مركزية (الـ Hub/Switch). هذه ليست عيباً بل وصف."}
+],
+key:"Star = سهل الإدارة والتوسع + لكن الـ Hub/Switch نقطة فشل واحدة"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"In Ring Topology, data typically travels:",
+opts:["Through a central switch","In one direction around the loop","Over multiple redundant paths","Only wirelessly"],ans:1,diff:"Medium",
+correct_exp:"<strong>Ring Topology</strong>: البيانات تنتقل في <strong>اتجاه واحد</strong> على شكل حلقة من جهاز لجهاز حتى تصل للوجهة. كل جهاز يُجدِّد الإشارة (يعمل كـ Repeater) ثم يُمررها للجهاز التالي. هذا يُقلل الـ Collisions لكن أي عطل في الكابل أو جهاز يُوقف الشبكة.",
+wrong_exp:[
+  {opt:"Through a central switch",why:"الـ Switch المركزي خاصية Star Topology. في Ring لا يوجد جهاز مركزي."},
+  {opt:"Over multiple redundant paths",why:"المسارات المتعددة خاصية Mesh Topology. في Ring مسار واحد دائري."},
+  {opt:"Only wirelessly",why:"Ring Topology عادةً سلكية (كانت في Token Ring). اللاسلكية ليست شرطاً."}
+],
+key:"Ring = حلقة + اتجاه واحد + كل جهاز يُجدد الإشارة"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which logical topology treats all computers as equals with no dedicated server?",
+opts:["Client-Server","Peer-to-Peer","Mesh","Ring"],ans:1,diff:"Medium",
+correct_exp:"<strong>Peer-to-Peer (P2P)</strong>: كل الأجهزة متساوية، كل منها يمكنه الإرسال والاستقبال والمشاركة. لا خادم مخصص. مناسب للشبكات الصغيرة (المنازل). مثال: مشاركة الملفات مباشرة بين جهازين، BitTorrent.",
+wrong_exp:[
+  {opt:"Client-Server",why:"Client-Server: يوجد خادم مخصص يُقدم الخدمات والعملاء يطلبونها. التسلسل الهرمي واضح."},
+  {opt:"Mesh",why:"Mesh Topology يصف الاتصال الفيزيائي (كيف تتصل الأجهزة) وليس نموذج الخدمة (من يُقدّم من)."},
+  {opt:"Ring",why:"Ring Topology يصف الترتيب الفيزيائي الدائري، ليس العلاقة بين الأجهزة من حيث الخادم والعميل."}
+],
+key:"P2P = كل جهاز خادم وعميل في نفس الوقت | Client-Server = تسلسل هرمي"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which medium is most susceptible to electromagnetic interference (EMI)?",
+opts:["Fiber Optic","Satellite","Twisted Pair Cable","Infrared"],ans:2,diff:"Medium",
+correct_exp:"<strong>Twisted Pair Cable</strong> (الكابل المجدول) أكثر الوسائط تأثراً بالتداخل الكهرومغناطيسي (EMI) لأنه يعتمد على نقل الإشارات الكهربائية عبر أسلاك نحاسية. التجديل يُقلل الـ EMI لكن لا يُلغيه تماماً. لهذا يُستخدم Shielded (STP) في البيئات المزدحمة كهربائياً.",
+wrong_exp:[
+  {opt:"Fiber Optic",why:"الألياف الضوئية مناعة تامة من EMI لأنها تنقل نبضات ضوئية وليس كهربائية. هذه ميزتها الكبرى."},
+  {opt:"Satellite",why:"الأقمار الصناعية تستخدم موجات راديو تُرسَل في الفضاء. تأثرها بـ EMI الأرضي محدود."},
+  {opt:"Infrared",why:"الأشعة تحت الحمراء وسيلة لاسلكية للمسافات القصيرة. تتأثر بالضوء المرئي أكثر من التداخل الكهرومغناطيسي."}
+],
+key:"Twisted Pair = أكثر تأثراً بـ EMI | Fiber Optic = مناعة تامة من EMI"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which guided medium transmits data as light pulses?",
+opts:["Coaxial Cable","Twisted Pair Cable","Fiber Optic Cable","Microwave"],ans:2,diff:"Easy",
+correct_exp:"<strong>Fiber Optic (الألياف الضوئية)</strong> الوسيط الموجَّه الوحيد الذي ينقل البيانات كنبضات ضوئية. الضوء يسير داخل خيوط من الزجاج أو البلاستيك عبر ظاهرة الانعكاس الداخلي الكلي. النتيجة: سرعات هائلة + مسافات طويلة + مناعة EMI.",
+wrong_exp:[
+  {opt:"Coaxial Cable",why:"الكابل المحوري يُرسِل إشارات كهربائية عبر موصّل مركزي نحاسي. كان شائعاً في شبكات Bus القديمة وتلفزيون الكابل."},
+  {opt:"Twisted Pair Cable",why:"الكابل المجدول يُرسِل إشارات كهربائية عبر أسلاك نحاسية. الأكثر شيوعاً في شبكات LAN الحديثة (Ethernet)."},
+  {opt:"Microwave",why:"الميكروويف وسيط غير موجَّه (Unguided) — موجات راديو تنتشر في الهواء. ليست كابلاً."}
+],
+key:"Guided Media: Twisted Pair + Coaxial = كهربائية | Fiber Optic = ضوئية | Microwave = Unguided"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which unguided medium requires line-of-sight and is commonly affected by rain fade?",
+opts:["Radio Waves","Infrared","Microwave","Bluetooth"],ans:2,diff:"Hard",
+correct_exp:"<strong>Microwave (الميكروويف)</strong> يتطلب Line-of-Sight (خط بصر مباشر) بين الهوائيين، ويتأثر بـ Rain Fade (ضعف الإشارة بسبب المطر) خاصةً في الترددات العالية (أعلى من 10 GHz). يُستخدم في الاتصالات الأرضية البعيدة والأقمار الصناعية.",
+wrong_exp:[
+  {opt:"Radio Waves",why:"موجات الراديو (خاصة منخفضة التردد) لا تتطلب خط بصر — تُحيط بالمباني وتتبع انحناء الأرض. Ground Wave و Sky Wave لا يحتاجان LOS."},
+  {opt:"Infrared",why:"الأشعة تحت الحمراء تتطلب LOS لكن تتأثر بالإضاءة لا بالمطر. تُستخدم للمسافات القصيرة جداً (ريموت كنترول)."},
+  {opt:"Bluetooth",why:"Bluetooth موجات راديو قصيرة المدى (2.4 GHz) لا تتطلب LOS دائماً وتتجاوز العوائق الصغيرة. Rain Fade لا يؤثر عليها بهذا القدر."}
+],
+key:"Microwave = LOS + Rain Fade + ترددات عالية | Radio = بدون LOS | IR = LOS قصير جداً"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which device connects different networks and selects the best path for packets?",
+opts:["Switch","Router","Hub","NIC"],ans:1,diff:"Easy",
+correct_exp:"<strong>Router (الموجّه)</strong> يعمل على طبقة الشبكة (Network Layer = Layer 3)، يقرأ عناوين IP، ويُحدد أفضل مسار للحزم بين شبكات مختلفة. يُنشئ ويُحدّث جداول التوجيه (Routing Tables) باستخدام بروتوكولات مثل OSPF و BGP.",
+wrong_exp:[
+  {opt:"Switch",why:"Switch يعمل على Layer 2 (Data Link) ويُوجِّه داخل الشبكة المحلية (LAN) بناءً على عناوين MAC. لا يربط شبكات مختلفة."},
+  {opt:"Hub",why:"Hub جهاز بدائي يُرسِل كل حزمة لجميع المنافذ (Broadcast). لا يقرأ العناوين ولا يُوجِّه."},
+  {opt:"NIC",why:"NIC (Network Interface Card) بطاقة الشبكة في الجهاز، تُمكّنه من الاتصال بالشبكة. لا تُوجِّه بين الشبكات."}
+],
+key:"Hub=Broadcast(L1) | Switch=MAC(L2) | Router=IP بين شبكات(L3)"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which device broadcasts incoming data to all connected devices without filtering?",
+opts:["Router","Switch","Bridge","Hub"],ans:3,diff:"Easy",
+correct_exp:"<strong>Hub (المحوّر)</strong> جهاز بدائي من Layer 1 (Physical Layer). عند استقبال إشارة من أي منفذ، يُعيد بثّها لجميع المنافذ الأخرى دون أي قراءة للعناوين أو فلترة. هذا يُولّد ازدحاماً وتصادمات كثيرة في الشبكات الكبيرة.",
+wrong_exp:[
+  {opt:"Router",why:"Router يقرأ عناوين IP ويُوجِّه كل حزمة للمنفذ الصحيح فقط. فلترة عالية الذكاء."},
+  {opt:"Switch",why:"Switch يقرأ عناوين MAC ويُرسِل كل إطار للمنفذ الصحيح فقط. لا Broadcast إلا للعناوين المجهولة."},
+  {opt:"Bridge",why:"Bridge يُقلِّص Collision Domains ويعمل بذكاء أكبر من Hub — يُوجِّه بناءً على MAC. لا يبثّ للجميع."}
+],
+key:"Hub = Broadcast للكل (Layer 1) | Switch = MAC-based (Layer 2) | Router = IP-based (Layer 3)"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which device regenerates and retransmits signals to extend network range?",
+opts:["Firewall","Repeater","Access Point","Modem"],ans:1,diff:"Easy",
+correct_exp:"<strong>Repeater (المُكرِّر)</strong> يعمل على Layer 1 (Physical). يستقبل الإشارة الضعيفة (المتراجعة بسبب المسافة)، يُقوّيها ويُجدِّدها، ثم يُعيد إرسالها. لا يفهم محتوى البيانات — فقط يُجدِّد الإشارة لمدّ نطاق الشبكة.",
+wrong_exp:[
+  {opt:"Firewall",why:"Firewall يفحص حركة المرور وفق قواعد أمنية للسماح أو الحظر. ليس وظيفته تقوية الإشارة."},
+  {opt:"Access Point",why:"Access Point (نقطة وصول) تُوسِّع نطاق شبكة WiFi لاسلكياً. يفهم بروتوكولات اللاسلكي (Layer 2) وليس فقط تقوية الإشارة."},
+  {opt:"Modem",why:"Modem يُحوِّل الإشارات بين الرقمية والتناظرية (تحويل تعديل). ليس مُكرِّراً."}
+],
+key:"Repeater = يُجدِّد الإشارة فقط (Layer 1) | بدون فهم المحتوى"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which protocol translates domain names into IP addresses?",
+opts:["HTTP","FTP","DNS","SMTP"],ans:2,diff:"Easy",
+correct_exp:"<strong>DNS (Domain Name System)</strong> يُترجم أسماء النطاقات المقروءة (مثل www.google.com) إلى عناوين IP رقمية (مثل 142.250.80.46). هذا ضروري لأن أجهزة الشبكة تستخدم العناوين الرقمية، لكن البشر يتذكرون الأسماء.",
+wrong_exp:[
+  {opt:"HTTP",why:"HTTP (Hypertext Transfer Protocol) لنقل صفحات الويب. يستخدم DNS ليعرف عنوان IP الوجهة، لكن هو نفسه لا يُترجم الأسماء."},
+  {opt:"FTP",why:"FTP (File Transfer Protocol) لنقل الملفات. يستفيد من DNS لكن لا يُترجم الأسماء."},
+  {opt:"SMTP",why:"SMTP (Simple Mail Transfer Protocol) لإرسال البريد الإلكتروني. لا علاقة له بترجمة الأسماء."}
+],
+key:"DNS = ترجمة الاسم → IP | مثل: www.google.com → 142.250.80.46"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which protocol is connectionless and suitable for real-time applications such as gaming?",
+opts:["TCP","SMTP","UDP","FTP"],ans:2,diff:"Medium",
+correct_exp:"<strong>UDP (User Datagram Protocol)</strong> بروتوكول بلا اتصال (Connectionless) — يُرسِل الحزم مباشرة دون مصافحة أو ضمان وصول. هذا يجعله أسرع وأقل تأخيراً. مثالي لتطبيقات الوقت الفعلي: الألعاب، بث الفيديو، مكالمات VoIP — حيث تأخير بسيط أفضل من إعادة إرسال متأخرة.",
+wrong_exp:[
+  {opt:"TCP",why:"TCP موثوق ومنظّم لكن أبطأ — يضمن الوصول والترتيب. لألعاب الوقت الفعلي قد يُسبّب تأخيراً غير مقبول."},
+  {opt:"SMTP",why:"SMTP لإرسال البريد الإلكتروني. يعمل فوق TCP (موثوق). لا علاقة له بالألعاب."},
+  {opt:"FTP",why:"FTP لنقل الملفات فوق TCP — يحتاج الموثوقية لضمان وصول الملف كاملاً وصحيحاً."}
+],
+key:"UDP = سريع + بدون ضمان = ألعاب/VoIP/Streaming | TCP = موثوق + بطيء نسبياً = ملفات/ويب"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which protocol is primarily used to transfer files between a client and a server?",
+opts:["FTP","DNS","HTTP","TCP"],ans:0,diff:"Easy",
+correct_exp:"<strong>FTP (File Transfer Protocol)</strong> البروتوكول الأساسي لنقل الملفات بين العميل والخادم. يستخدم منفذين: Port 21 للتحكم (الأوامر) وPort 20 للبيانات. يتيح رفع وتنزيل الملفات والتصفح في مجلدات الخادم.",
+wrong_exp:[
+  {opt:"DNS",why:"DNS يُترجم الأسماء لعناوين IP. لا يُستخدم لنقل الملفات."},
+  {opt:"HTTP",why:"HTTP يُستخدم أساساً لنقل صفحات الويب. يمكنه تنزيل ملفات لكن FTP مُصمَّم خصيصاً لإدارة الملفات."},
+  {opt:"TCP",why:"TCP بروتوكول نقل (Transport Layer) يُستخدم من FTP وHTTP وغيرهما كطبقة. ليس تطبيقاً لنقل الملفات بحد ذاته."}
+],
+key:"FTP = نقل ملفات (Port 21 control + Port 20 data)"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"What does Bandwidth represent?",
+opts:["Actual successful transfer rate","Delay in packet transmission","Maximum data capacity of a connection","Variation in delay"],ans:2,diff:"Medium",
+correct_exp:"<strong>Bandwidth (عرض النطاق الترددي)</strong> هو الحد الأقصى النظري لسعة الاتصال — كم بياناً يمكن نقله نظرياً في الثانية (Mbps, Gbps). كعرض الطريق: 4 حارات تعني قدرة أكبر، لكن ليس بالضرورة الأجهزة تُرسِل بهذه السرعة دائماً.",
+wrong_exp:[
+  {opt:"Actual successful transfer rate",why:"هذا Throughput (الإنتاجية الفعلية) — ما يُنقَل فعلاً مقارنةً بالحد الأقصى. دائماً أقل من أو مساوٍ للـ Bandwidth."},
+  {opt:"Delay in packet transmission",why:"هذا Latency (التأخير) — الوقت الذي تستغرقه الحزمة للوصول من المصدر للوجهة."},
+  {opt:"Variation in delay",why:"هذا Jitter (التذبذب) — تفاوت الـ Latency بين الحزم. يُؤثر على جودة VoIP والبث المباشر."}
+],
+key:"Bandwidth=سعة قصوى | Throughput=فعلي | Latency=تأخير | Jitter=تذبذب | Packet Loss=فقد حزم"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which metric measures the actual rate of successful data transfer?",
+opts:["Throughput","Bandwidth","Latency","Uptime"],ans:0,diff:"Medium",
+correct_exp:"<strong>Throughput (الإنتاجية)</strong> هو معدل نقل البيانات الفعلي الناجح — ما يُنقَل حقاً في الثانية بعد خصم حزم الشبكة، إعادة الإرسال، والفقد. دائماً أقل من الـ Bandwidth. مثال: خط بـ 100 Mbps bandwidth قد يُحقق 70 Mbps throughput.",
+wrong_exp:[
+  {opt:"Bandwidth",why:"Bandwidth السعة القصوى النظرية — الحد الأعلى لما يمكن نقله، وليس ما يُنقَل فعلاً."},
+  {opt:"Latency",why:"Latency زمن التأخير من المصدر للوجهة — يُقاس بالـ Milliseconds، وليس معدل نقل."},
+  {opt:"Uptime",why:"Uptime نسبة الوقت الذي تكون فيه الشبكة أو الخادم متاحاً وعاملاً (مثلاً 99.9%). ليس معدل نقل."}
+],
+key:"Throughput ≤ Bandwidth دائماً | Throughput = الأداء الفعلي المُقاس"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which performance metric refers to variation in packet delay?",
+opts:["Packet Loss","Latency","Jitter","Throughput"],ans:2,diff:"Hard",
+correct_exp:"<strong>Jitter (التذبذب)</strong> هو التفاوت في تأخير الحزم — حزمة تصل في 10ms، والتالية في 50ms، والثالثة في 20ms. هذا التذبذب يُؤثر سلباً على جودة الصوت والفيديو في الوقت الفعلي (VoIP, Video Conferencing) حيث التسلسل المنتظم حيوي.",
+wrong_exp:[
+  {opt:"Packet Loss",why:"Packet Loss نسبة الحزم التي لم تصل للوجهة. مختلف عن التذبذب في زمن الوصول."},
+  {opt:"Latency",why:"Latency زمن التأخير نفسه (الوقت من الإرسال للاستقبال). Jitter هو التفاوت في هذا الزمن."},
+  {opt:"Throughput",why:"Throughput معدل نقل البيانات الفعلي. لا علاقة له بتذبذب التأخير."}
+],
+key:"Jitter = Variation in Latency | يؤثر على VoIP وVideo streaming"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which metric measures the percentage of packets that fail to reach the destination?",
+opts:["Packet Loss","Uptime","Jitter","Bandwidth"],ans:0,diff:"Medium",
+correct_exp:"<strong>Packet Loss (فقدان الحزم)</strong> نسبة الحزم التي أُرسِلت ولم تصل للوجهة. يحدث بسبب الازدحام (Congestion)، أخطاء الإرسال، أو عطل الأجهزة. نسبة 0% مثالية. أكثر من 1-2% يُؤثر بشكل ملحوظ على جودة الاتصال.",
+wrong_exp:[
+  {opt:"Uptime",why:"Uptime نسبة الوقت الذي تعمل فيه الشبكة/الخادم. لا يقيس فقدان الحزم."},
+  {opt:"Jitter",why:"Jitter التذبذب في التأخير — الحزم تصل لكن بتوقيت غير منتظم. Packet Loss الحزم لا تصل أصلاً."},
+  {opt:"Bandwidth",why:"Bandwidth السعة القصوى النظرية للاتصال. لا علاقة له بنسبة فقدان الحزم."}
+],
+key:"Packet Loss = حزم لم تصل/إجمالي الحزم × 100% | Congestion أهم سبب"},
+
+{ch:2,chName:"Chapter 2 — Basic Networking",
+q:"Which metric indicates how long a network remains operational and accessible?",
+opts:["Throughput","Uptime","Latency","Packet Loss"],ans:1,diff:"Easy",
+correct_exp:"<strong>Uptime (وقت التشغيل)</strong> نسبة الوقت الذي تكون فيه الشبكة أو الخادم متاحاً وعاملاً. يُعبَّر عنه كنسبة مئوية: 99.9% = ~8.7 ساعة توقف سنوياً | 99.99% = ~52 دقيقة سنوياً | 99.999% = ~5 دقائق سنوياً (Five Nines).",
+wrong_exp:[
+  {opt:"Throughput",why:"Throughput معدل نقل البيانات الفعلي. يقيس الأداء وليس مدة التشغيل."},
+  {opt:"Latency",why:"Latency زمن التأخير — كم تستغرق الحزمة للوصول. لا يقيس مدة توفر الشبكة."},
+  {opt:"Packet Loss",why:"Packet Loss نسبة الحزم الضائعة. يقيس جودة الإرسال وليس توفر الشبكة."}
+],
+key:"Uptime = مدة التوفر | Five Nines (99.999%) = معيار الموثوقية العالية"},
+
+// ========================= CHAPTER 3 =========================
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"How many layers are in the OSI (Open Systems Interconnection) model?",
+opts:["4","5","7","8"],ans:2,diff:"Easy",
+correct_exp:"<strong>نموذج OSI يحتوي على 7 طبقات</strong>: 1.Physical, 2.Data Link, 3.Network, 4.Transport, 5.Session, 6.Presentation, 7.Application. طُوِّر من قِبَل ISO كنموذج مرجعي لفهم كيف تتواصل الأنظمة المختلفة. الطبقة 7 (Application) الأعلى، والطبقة 1 (Physical) الأدنى.",
+wrong_exp:[
+  {opt:"4",why:"4 طبقات هي نموذج TCP/IP العملي (Application, Transport, Internet, Network Interface). وليس OSI."},
+  {opt:"5",why:"5 طبقات ليست معياراً محدداً. لا يوجد نموذج معتمد بـ 5 طبقات."},
+  {opt:"8",why:"لا يوجد نموذج بـ 8 طبقات في المعايير. OSI = 7 طبقات."}
+],
+key:"OSI = 7 طبقات (Please Do Not Throw Sausage Pizza Away) | TCP/IP = 4 طبقات"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which OSI layer is responsible for logical addressing and routing?",
+opts:["Data Link Layer","Network Layer","Transport Layer","Session Layer"],ans:1,diff:"Medium",
+correct_exp:"<strong>Network Layer (الطبقة 3)</strong> مسؤولة عن العنونة المنطقية (IP Addresses) والتوجيه (Routing) بين الشبكات المختلفة. الجهاز الرئيسي: Router. البروتوكولات: IP, ICMP, OSPF, BGP.",
+wrong_exp:[
+  {opt:"Data Link Layer",why:"Data Link (Layer 2) مسؤولة عن العنونة الفيزيائية (MAC Addresses) والإطارات (Frames) داخل نفس الشبكة. الجهاز: Switch."},
+  {opt:"Transport Layer",why:"Transport (Layer 4) مسؤولة عن موثوقية النقل (TCP) والسرعة (UDP) وتجزئة البيانات. ليست التوجيه."},
+  {opt:"Session Layer",why:"Session (Layer 5) تُدير جلسات الاتصال (بداية وإنهاء الجلسات بين التطبيقات). ليست عنونة أو توجيه."}
+],
+key:"OSI Layers Routing: L1=Physical | L2=MAC/Frames | L3=IP/Routing | L4=TCP/UDP | L7=App"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"How many layers are in the TCP/IP model?",
+opts:["4","5","6","7"],ans:0,diff:"Easy",
+correct_exp:"<strong>نموذج TCP/IP = 4 طبقات</strong>: 1.Network Interface (= OSI L1+L2), 2.Internet (= OSI L3), 3.Transport (= OSI L4), 4.Application (= OSI L5+L6+L7). هو النموذج العملي المستخدم فعلياً في الإنترنت، بينما OSI نموذج مرجعي نظري.",
+wrong_exp:[
+  {opt:"5",why:"بعض الكتب تُقسّم TCP/IP إلى 5 طبقات بفصل Network Interface لـ Physical وData Link، لكن النموذج الأصلي المعتمد 4 طبقات."},
+  {opt:"6",why:"6 طبقات ليست معياراً. OSI=7، TCP/IP=4."},
+  {opt:"7",why:"7 طبقات هي OSI وليست TCP/IP."}
+],
+key:"TCP/IP = 4 طبقات: Application | Transport | Internet | Network Interface"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which TCP/IP layer includes HTTP, FTP, and DNS?",
+opts:["Internet Layer","Transport Layer","Application Layer","Network Interface Layer"],ans:2,diff:"Easy",
+correct_exp:"<strong>Application Layer (طبقة التطبيق)</strong> في TCP/IP هي أعلى الطبقات وتحتوي على بروتوكولات التطبيقات: HTTP (ويب), FTP (ملفات), DNS (أسماء نطاقات), SMTP (بريد), SSH (بُعد), Telnet. هي التي يتفاعل معها المستخدم مباشرة.",
+wrong_exp:[
+  {opt:"Internet Layer",why:"Internet Layer = IP + ICMP + ARP. هي طبقة التوجيه والعنونة، ليست طبقة التطبيقات."},
+  {opt:"Transport Layer",why:"Transport Layer = TCP + UDP. مسؤولة عن النقل الموثوق أو السريع. ليست HTTP أو DNS."},
+  {opt:"Network Interface Layer",why:"Network Interface = Ethernet, WiFi الطبقة الفيزيائية ومعالجة الإطارات. لا علاقة لها بـ HTTP أو DNS."}
+],
+key:"Application Layer: HTTP, FTP, DNS, SMTP, SSH | كل ما يُستخدمه المستخدم مباشرة"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which protocol is connection-oriented and guarantees ordered delivery?",
+opts:["UDP","IP","TCP","ICMP"],ans:2,diff:"Easy",
+correct_exp:"<strong>TCP (Transmission Control Protocol)</strong> Connection-Oriented: يُنشئ اتصالاً (Three-Way Handshake: SYN→SYN-ACK→ACK) قبل نقل البيانات. يُرقِّم الحزم ويضمن ترتيبها ويُعيد إرسال المفقودة. يُستخدم في HTTP, FTP, Email.",
+wrong_exp:[
+  {opt:"UDP",why:"UDP Connectionless — لا مصافحة، لا ضمان ترتيب أو وصول. أسرع لكن أقل موثوقية."},
+  {opt:"IP",why:"IP بروتوكول Best-Effort — يُوجِّه الحزم لكن لا يضمن ترتيبها أو وصولها."},
+  {opt:"ICMP",why:"ICMP يُستخدم للرسائل التشخيصية (ping, traceroute). ليس بروتوكول نقل بيانات."}
+],
+key:"TCP = Connection-Oriented + Reliable + Ordered | UDP = Connectionless + Fast + Unreliable"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which protocol is faster but does not guarantee delivery?",
+opts:["TCP","UDP","ARP","DHCP"],ans:1,diff:"Easy",
+correct_exp:"<strong>UDP (User Datagram Protocol)</strong> أسرع من TCP لأنه: لا Three-Way Handshake، لا تأكيد استلام، لا إعادة إرسال للمفقود. يُرسل ويُكمل. مثالي حيث السرعة أهم من الكمال: بث الفيديو، الألعاب، DNS، VoIP.",
+wrong_exp:[
+  {opt:"TCP",why:"TCP يضمن الوصول والترتيب لكن على حساب السرعة (overhead من المصافحة والتأكيدات)."},
+  {opt:"ARP",why:"ARP (Address Resolution Protocol) يُحوّل عناوين IP إلى عناوين MAC. ليس بروتوكول نقل بيانات."},
+  {opt:"DHCP",why:"DHCP يُعيِّن عناوين IP تلقائياً. ليس بروتوكول نقل بيانات بالمعنى الذي نتحدث عنه."}
+],
+key:"UDP = No guarantee + No ordering + Fast | DNS يستخدم UDP | HTTP يستخدم TCP"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which TCP/IP layer is responsible for packet routing across multiple networks?",
+opts:["Application Layer","Internet Layer","Transport Layer","Network Interface Layer"],ans:1,diff:"Medium",
+correct_exp:"<strong>Internet Layer</strong> في TCP/IP (= Network Layer في OSI) مسؤولة عن التوجيه (Routing) عبر شبكات متعددة. البروتوكولات: IP (العنونة والتوجيه), ICMP (التشخيص), ARP (IP→MAC). الجهاز الرئيسي: Router.",
+wrong_exp:[
+  {opt:"Application Layer",why:"Application Layer هي طبقة التطبيقات (HTTP, FTP, DNS). تعمل فوق الطبقات الأخرى ولا تتعامل مع التوجيه."},
+  {opt:"Transport Layer",why:"Transport Layer (TCP/UDP) تتعامل مع النقل الموثوق داخل الاتصال. لا تتولى التوجيه بين الشبكات."},
+  {opt:"Network Interface Layer",why:"Network Interface تتعامل مع الإطارات والإشارات الفيزيائية داخل الشبكة المحلية. ليست التوجيه بين الشبكات."}
+],
+key:"Internet Layer = IP + ICMP + ARP | التوجيه بين الشبكات المختلفة"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which protocol is used for diagnostics such as ping and traceroute?",
+opts:["ARP","ICMP","DNS","SMTP"],ans:1,diff:"Medium",
+correct_exp:"<strong>ICMP (Internet Control Message Protocol)</strong> بروتوكول تشخيصي في Internet Layer. أمر ping يُرسِل ICMP Echo Request ويستقبل Echo Reply. traceroute يُستخدم ICMP Time Exceeded لتتبع المسار. لا يُرسِل بيانات المستخدم.",
+wrong_exp:[
+  {opt:"ARP",why:"ARP (Address Resolution Protocol) يُحوِّل عناوين IP إلى MAC. أمر ping لا يستخدمه مباشرة."},
+  {opt:"DNS",why:"DNS يُترجم الأسماء لعناوين IP. عند ping لاسم نطاق يُستعلم DNS أولاً، لكن الـ ping نفسه ICMP."},
+  {opt:"SMTP",why:"SMTP لإرسال البريد. لا علاقة له بالتشخيص أو ping."}
+],
+key:"ICMP = ping (Echo Request/Reply) + traceroute (Time Exceeded)"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which protocol maps IP addresses to MAC addresses?",
+opts:["ICMP","ARP","DHCP","NAT"],ans:1,diff:"Medium",
+correct_exp:"<strong>ARP (Address Resolution Protocol)</strong>: عندما يُريد جهاز إرسال بيانات لـ IP محدد في نفس الشبكة المحلية، يُرسِل ARP Request ('من يملك هذا الـ IP؟') broadcast. صاحب الـ IP يُجيب بـ ARP Reply ('أنا، وMAC الخاص بي هو...'). يُخزَّن في ARP Cache.",
+wrong_exp:[
+  {opt:"ICMP",why:"ICMP للتشخيص (ping, traceroute). لا يُحوِّل IP إلى MAC."},
+  {opt:"DHCP",why:"DHCP يُعيِّن عناوين IP تلقائياً. المعكوس تقريباً — يُعطيك عنوان IP."},
+  {opt:"NAT",why:"NAT (Network Address Translation) يُحوِّل بين عناوين IP الخاصة والعامة. لا يتعامل مع عناوين MAC."}
+],
+key:"ARP = IP → MAC | في نفس الشبكة المحلية | ARP Cache يُخزّن النتائج"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"An IPv4 address consists of:",
+opts:["16 bits","32 bits","64 bits","128 bits"],ans:1,diff:"Easy",
+correct_exp:"<strong>IPv4 = 32 bits</strong>، مُقسَّمة إلى 4 أقسام (Octets) كل منها 8 bits، يُمثَّل بأرقام من 0-255 مفصولة بنقاط (مثل 192.168.1.1). هذا يُعطي إجمالي 2³² = ~4.3 مليار عنوان. مع تزايد الأجهزة نفدت العناوين مما دفع لتطوير IPv6.",
+wrong_exp:[
+  {opt:"16 bits",why:"16 bits = 65,536 عنوان فقط — لا يكفي حتى لمدينة صغيرة."},
+  {opt:"64 bits",why:"64 bits ليس معياراً في IPv4 أو IPv6. أحياناً تُقال كـ 64-bit prefixes في IPv6."},
+  {opt:"128 bits",why:"128 bits = IPv6 — الجيل التالي الذي طُوِّر لحل نفاد عناوين IPv4."}
+],
+key:"IPv4 = 32 bits = 4 bytes = 4 octets | مثال: 192.168.1.1"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"How many total addresses are available in IPv4?",
+opts:["2¹⁶","2²⁴","2³²","2¹²⁸"],ans:2,diff:"Medium",
+correct_exp:"<strong>2³² = 4,294,967,296 ≈ 4.3 مليار عنوان</strong>. هذا بدا كافياً في الثمانينيات، لكن مع تزايد الأجهزة (هواتف، IoT، سيارات ذكية) نُفِدَت العناوين المتاحة عملياً. حلول مؤقتة: NAT. الحل الدائم: IPv6 (2¹²⁸).",
+wrong_exp:[
+  {opt:"2¹⁶",why:"2¹⁶ = 65,536 — هذا عدد البورتات الممكنة في TCP/UDP، ليس عناوين IPv4."},
+  {opt:"2²⁴",why:"2²⁴ = 16,777,216 — عدد العناوين في الـ 24-bit host portion من Class A. ليس إجمالي IPv4."},
+  {opt:"2¹²⁸",why:"2¹²⁸ = عدد عناوين IPv6 — الجيل التالي (≈3.4×10³⁸ عنوان)."}
+],
+key:"IPv4 = 2³² ≈ 4.3 مليار | IPv6 = 2¹²⁸ ≈ 3.4×10³⁸"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which IPv4 class supports multicast addressing?",
+opts:["Class A","Class B","Class D","Class E"],ans:2,diff:"Medium",
+correct_exp:"<strong>Class D</strong> مخصصة لـ Multicast Addressing — إرسال رسالة واحدة لمجموعة من المستقبلين في آن واحد. نطاقها: 224.0.0.0 – 239.255.255.255. البتات الأربعة الأولى: 1110. تُستخدم في بث الفيديو والمؤتمرات.",
+wrong_exp:[
+  {opt:"Class A",why:"Class A للشبكات الكبيرة جداً: 1.0.0.0 – 126.255.255.255. أول بت = 0. Unicast فقط."},
+  {opt:"Class B",why:"Class B للشبكات المتوسطة: 128.0.0.0 – 191.255.255.255. البتان الأوليان = 10. Unicast."},
+  {opt:"Class E",why:"Class E محجوز للتجارب والبحث: 240.0.0.0 – 255.255.255.255. أول 4 بتات = 1111."}
+],
+key:"Class A=1.x (أكبر شبكة) | B=128.x | C=192.x | D=224.x (Multicast) | E=240.x (تجارب)"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which IPv4 class is reserved for experimental purposes?",
+opts:["Class C","Class D","Class E","Class A"],ans:2,diff:"Medium",
+correct_exp:"<strong>Class E</strong> محجوزة للأغراض التجريبية والبحثية. نطاقها: 240.0.0.0 – 255.255.255.255. البتات الأربعة الأولى: 1111. لا تُستخدم في الإنترنت العام ولم تُوزَّع تجارياً.",
+wrong_exp:[
+  {opt:"Class C",why:"Class C للشبكات الصغيرة: 192.0.0.0 – 223.255.255.255. 8 bits للهوست (256 جهاز). تُستخدم للشبكات المنزلية والصغيرة."},
+  {opt:"Class D",why:"Class D للـ Multicast: 224.0.0.0 – 239.255.255.255. ليست للتجارب."},
+  {opt:"Class A",why:"Class A للشبكات الكبيرة (الحكومات والشركات الكبرى). تُستخدم فعلاً وليست للتجارب."}
+],
+key:"Class D = Multicast | Class E = Experimental (لا يُستخدم تجارياً)"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which of the following is a valid private Class C IP range?",
+opts:["11.0.0.0 – 11.255.255.255","172.0.0.0 – 172.15.255.255","192.168.0.0 – 192.168.255.255","224.0.0.0 – 239.255.255.255"],ans:2,diff:"Hard",
+correct_exp:"<strong>192.168.0.0 – 192.168.255.255</strong> هو النطاق الخاص (Private) في Class C. العناوين الخاصة لا تُوجَّه على الإنترنت العام وتُستخدم داخل الشبكات المحلية. النطاقات الخاصة الثلاثة: 10.x.x.x (A), 172.16-31.x.x (B), 192.168.x.x (C).",
+wrong_exp:[
+  {opt:"11.0.0.0 – 11.255.255.255",why:"هذا Class A عام (Public). ليس نطاقاً خاصاً. النطاق الخاص في Class A هو 10.0.0.0 – 10.255.255.255."},
+  {opt:"172.0.0.0 – 172.15.255.255",why:"النطاق الخاص في Class B هو 172.16.0.0 – 172.31.255.255. الخيار المُقدَّم (172.0-15) غير صحيح."},
+  {opt:"224.0.0.0 – 239.255.255.255",why:"هذا نطاق Class D (Multicast). ليس نطاقاً خاصاً."}
+],
+key:"Private ranges: 10.x.x.x | 172.16-31.x.x | 192.168.x.x — لا تُوجَّه على الإنترنت"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"What is the CIDR notation for subnet mask 255.255.255.0?",
+opts:["/8","/16","/24","/27"],ans:2,diff:"Medium",
+correct_exp:"<strong>/24</strong>: قناع الشبكة 255.255.255.0 يعني أن أول 24 بت هي جزء الشبكة (Network). 255 = 11111111 (8 bits) × 3 = 24 bits. الـ 8 bits المتبقية للهوست = 256 عنوان (254 قابلة للاستخدام). مثال: 192.168.1.0/24.",
+wrong_exp:[
+  {opt:"/8",why:"/8 = 255.0.0.0 — 8 bits للشبكة. تُستخدم في Class A (مثلاً 10.0.0.0/8)."},
+  {opt:"/16",why:"/16 = 255.255.0.0 — 16 bits للشبكة. تُستخدم في Class B (مثلاً 172.16.0.0/16)."},
+  {opt:"/27",why:"/27 = 255.255.255.224 — 27 bits للشبكة. يُعطي 32 عنوان فقط في الـ Subnet."}
+],
+key:"255.255.255.0 = /24 | 255.255.0.0 = /16 | 255.0.0.0 = /8"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"What is the main reason for developing IPv6?",
+opts:["Faster DNS resolution","Address space exhaustion in IPv4","Better email support","Elimination of routers"],ans:1,diff:"Medium",
+correct_exp:"<strong>نفاد مساحة عناوين IPv4</strong> هو السبب الرئيسي لتطوير IPv6. IPv4 = 2³² ≈ 4.3 مليار عنوان — نفدت فعلياً مع تزايد الأجهزة. IPv6 = 2¹²⁸ ≈ 3.4×10³⁸ عنوان، يكفي لسنوات لا تُحصى مهما تضاعفت الأجهزة.",
+wrong_exp:[
+  {opt:"Faster DNS resolution",why:"IPv6 لا يُحسِّن DNS بشكل جوهري. DNS تحسينات مستقلة مثل DNSSEC وDNS-over-HTTPS."},
+  {opt:"Better email support",why:"البريد الإلكتروني يعمل بشكل جيد مع IPv4. IPv6 لم يُطوَّر لهذا."},
+  {opt:"Elimination of routers",why:"IPv6 لا يُلغي الـ Routers — لا يزالون ضروريين للتوجيه بين الشبكات."}
+],
+key:"IPv6 = حل نفاد عناوين IPv4 | من 4.3 مليار إلى 3.4×10³⁸"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"IPv6 uses addresses of:",
+opts:["32 bits","64 bits","96 bits","128 bits"],ans:3,diff:"Easy",
+correct_exp:"<strong>IPv6 = 128 bits</strong>، مُمثَّلة كـ 8 مجموعات من 4 أرقام ست عشرية مفصولة بـ ':' مثل: 2001:0db8:85a3:0000:0000:8a2e:0370:7334. هذا يُعطي 2¹²⁸ ≈ 3.4 × 10³⁸ عنوان — عدد هائل يكفي لكل جهاز على الأرض.",
+wrong_exp:[
+  {opt:"32 bits",why:"32 bits = IPv4. المشكلة التي أدت لاختراع IPv6."},
+  {opt:"64 bits",why:"64 bits ليست المعيار. في IPv6 الـ 64-bit الأولى غالباً Network Prefix والـ 64-bit الأخيرة Interface ID."},
+  {opt:"96 bits",why:"لا يوجد معيار بـ 96 bits. IPv6 = 128 bits ثابتة."}
+],
+key:"IPv4 = 32 bits | IPv6 = 128 bits | 4x أكبر بالبتات"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Approximately how many addresses does IPv6 provide?",
+opts:["4.3 billion","2³²","3.4 × 10³⁸","65,536"],ans:2,diff:"Hard",
+correct_exp:"<strong>2¹²⁸ ≈ 3.4 × 10³⁸</strong> — رقم هائل يبلغ 340 سيكستيليون (340 مليون مليار مليار مليار). للمقارنة: عدد ذرات رمل الأرض ≈ 10¹⁹. IPv6 يكفي بشكل نظري لإعطاء كل ذرة على كوكب الأرض عنوان IP!",
+wrong_exp:[
+  {opt:"4.3 billion",why:"4.3 مليار (2³²) = إجمالي عناوين IPv4. هذا ما نفد وسبّب الحاجة لـ IPv6."},
+  {opt:"2³²",why:"2³² = 4,294,967,296 ≈ 4.3 مليار — عدد عناوين IPv4 وليس IPv6."},
+  {opt:"65,536",why:"65,536 = 2¹⁶ — عدد البورتات الممكنة في TCP/UDP. لا علاقة له بعناوين IPv6."}
+],
+key:"IPv6 = 2¹²⁸ ≈ 3.4×10³⁸ | IPv4 = 2³² ≈ 4.3 billion"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which IPv6 address type delivers packets to all members of a group?",
+opts:["Unicast","Anycast","Multicast","Broadcast"],ans:2,diff:"Medium",
+correct_exp:"<strong>Multicast</strong>: يُرسِل الحزمة لمجموعة محددة من الأجهزة في آن واحد (One-to-Many). مثال: بث فيديو لمجموعة مشتركين. مهم: IPv6 <strong>لا يدعم Broadcast</strong> (إرسال للكل) — Multicast يحلّ محلّه بكفاءة أكبر.",
+wrong_exp:[
+  {opt:"Unicast",why:"Unicast = من جهاز لجهاز واحد محدد (One-to-One). البريد الإلكتروني، متصفح الويب."},
+  {opt:"Anycast",why:"Anycast = يُرسَل لأقرب جهاز في مجموعة (One-to-Nearest). يُستخدم لـ DNS servers و CDN."},
+  {opt:"Broadcast",why:"Broadcast غير موجود في IPv6! هذه نقطة مهمة. استُبدِل بـ Multicast في IPv6 لكفاءة أفضل."}
+],
+key:"Unicast=1→1 | Anycast=1→أقرب واحد | Multicast=1→مجموعة | Broadcast لا يوجد في IPv6"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which IPv6 address type sends a packet to the nearest member of a group?",
+opts:["Unicast","Anycast","Multicast","Broadcast"],ans:1,diff:"Hard",
+correct_exp:"<strong>Anycast</strong>: يُرسِل الحزمة لأقرب جهاز (في مفهوم التوجيه) من بين مجموعة أجهزة تحمل نفس العنوان. يُستخدم في: DNS Root Servers (أسرع سيرفر DNS)، شبكات CDN (أقرب خادم محتوى). يُحسِّن الأداء ويُوزِّع الحمل.",
+wrong_exp:[
+  {opt:"Unicast",why:"Unicast للجهاز الواحد المحدد. Anycast قد يُرسِل لأي جهاز في المجموعة (الأقرب)."},
+  {opt:"Multicast",why:"Multicast يُرسِل لجميع أعضاء المجموعة. Anycast يُرسِل لواحد فقط (الأقرب)."},
+  {opt:"Broadcast",why:"Broadcast (للكل) غير موجود في IPv6 نهائياً."}
+],
+key:"Anycast = الأقرب في المجموعة | يُستخدم في DNS و CDN"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"DNS (Domain Name System) translates:",
+opts:["MAC addresses into IP addresses","Domain names into IP addresses","IP addresses into MAC addresses","Hostnames into passwords"],ans:1,diff:"Easy",
+correct_exp:"<strong>DNS يُترجم أسماء النطاقات → عناوين IP</strong>. مثال: www.google.com → 142.250.80.46. هذا ضروري لأن أجهزة الشبكة تستخدم أرقام IP، لكن البشر يتذكرون الأسماء. DNS كـ 'دليل الهاتف' للإنترنت.",
+wrong_exp:[
+  {opt:"MAC addresses into IP addresses",why:"لا يوجد بروتوكول يُحوِّل MAC → IP. العكس (IP → MAC) يفعله ARP."},
+  {opt:"IP addresses into MAC addresses",why:"هذا ما يفعله ARP (Address Resolution Protocol) داخل الشبكة المحلية. ليس DNS."},
+  {opt:"Hostnames into passwords",why:"DNS لا يتعامل مع كلمات المرور على الإطلاق. هذا الخيار غير منطقي تقنياً."}
+],
+key:"DNS = Domain Name → IP Address | ARP = IP → MAC"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"NAT (Network Address Translation) allows:",
+opts:["Multiple public IPs to share one private IP","Multiple private IPs to share one public IP","Conversion of MAC addresses to IP addresses","Automatic host naming"],ans:1,diff:"Medium",
+correct_exp:"<strong>NAT</strong> يُمكِّن <strong>عدة عناوين IP خاصة من مشاركة عنوان IP عام واحد</strong>. الراوتر المنزلي يُترجم بين عناوين الشبكة الداخلية (192.168.x.x) وعنوان IP العام الواحد من ISP. حلّ مؤقت لنفاد عناوين IPv4.",
+wrong_exp:[
+  {opt:"Multiple public IPs to share one private IP",why:"العكس تماماً! في NAT: IP خاصة متعددة → IP عام واحد."},
+  {opt:"Conversion of MAC addresses to IP addresses",why:"هذا ARP بالعكس تقريباً. NAT يتعامل مع IP-to-IP فقط."},
+  {opt:"Automatic host naming",why:"الأسماء التلقائية من مهام DNS وDHCP وليس NAT."}
+],
+key:"NAT: شبكة منزلية (192.168.x.x) ← Router/NAT ← IP عام واحد من الإنترنت"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which protocol automatically assigns IP addresses to clients?",
+opts:["ARP","DHCP","DNS","ICMP"],ans:1,diff:"Easy",
+correct_exp:"<strong>DHCP (Dynamic Host Configuration Protocol)</strong> يُعيِّن تلقائياً: عنوان IP، قناع الشبكة (Subnet Mask)، بوابة الإنترنت الافتراضية (Default Gateway)، وعنوان DNS Server. بدونه يجب إعداد كل ذلك يدوياً لكل جهاز.",
+wrong_exp:[
+  {opt:"ARP",why:"ARP يُحوِّل IP→MAC. لا يُعيِّن عناوين IP."},
+  {opt:"DNS",why:"DNS يُترجم الأسماء لـ IP. لا يُعيِّن عناوين IP للأجهزة."},
+  {opt:"ICMP",why:"ICMP للتشخيص (ping, traceroute). لا يُعيِّن عناوين IP."}
+],
+key:"DHCP = يُعيِّن تلقائياً: IP + Mask + Gateway + DNS | بدله: إعداد يدوي"},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which ICMP message is generated when the TTL value reaches zero?",
+opts:["Redirect","Echo Reply","Time Exceeded","Destination Unreachable"],ans:2,diff:"Hard",
+correct_exp:"<strong>ICMP Time Exceeded</strong>: كل حزمة لها TTL (Time To Live) — عدد القفزات (Hops) المسموح بها. كل Router يُنقِص TTL بـ 1. عندما يصل للصفر، يُرسِل الـ Router رسالة ICMP Time Exceeded للمرسِل ويُتلِف الحزمة. traceroute يستغل هذا للرسم.",
+wrong_exp:[
+  {opt:"Redirect",why:"ICMP Redirect يُرسَل من Router لإخبار المُرسِل بمسار أفضل. لا علاقة له بانتهاء TTL."},
+  {opt:"Echo Reply",why:"ICMP Echo Reply الرد على أمر ping (Echo Request). لا علاقة له بـ TTL."},
+  {opt:"Destination Unreachable",why:"ICMP Destination Unreachable عندما لا يُمكن الوصول للوجهة (شبكة مقطوعة، منفذ مغلق). ليس عند انتهاء TTL."}
+],
+key:"TTL=0 → ICMP Time Exceeded | traceroute يستغل هذا بإرسال TTL=1,2,3,..."},
+
+{ch:3,chName:"Chapter 3 — Internet Protocol Suite",
+q:"Which TCP/IP layer handles framing and uses MAC addresses?",
+opts:["Application Layer","Transport Layer","Internet Layer","Network Interface Layer"],ans:3,diff:"Medium",
+correct_exp:"<strong>Network Interface Layer</strong> (= Data Link + Physical في OSI) تتولى: تأطير البيانات (Framing)، عنونة MAC، الوصول للوسيط (CSMA/CD في Ethernet). الأجهزة: Switch, NIC. بروتوكولات: Ethernet, WiFi (802.11).",
+wrong_exp:[
+  {opt:"Application Layer",why:"Application Layer = التطبيقات (HTTP, DNS, FTP). أعلى طبقة، لا تتعامل مع MAC أو Frames."},
+  {opt:"Transport Layer",why:"Transport Layer = TCP/UDP. تتعامل مع Segments وPorts. لا تعرف عناوين MAC."},
+  {opt:"Internet Layer",why:"Internet Layer = IP. تتعامل مع Packets وعناوين IP. لا تتعامل مباشرة مع MAC (يُترك لـ ARP والطبقة التحتية)."}
+],
+key:"Network Interface Layer: MAC + Frames + Ethernet + WiFi | يُقابل OSI L1+L2"},
+
+// ========================= CHAPTER 4 =========================
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which type of wave carries wireless signals through air and space?",
+opts:["Sound Waves","Electromagnetic Waves","Water Waves","Mechanical Waves"],ans:1,diff:"Easy",
+correct_exp:"<strong>Electromagnetic Waves (الموجات الكهرومغناطيسية)</strong> هي التي تحمل الإشارات اللاسلكية — تشمل موجات الراديو، الميكروويف، الأشعة تحت الحمراء. لا تحتاج لوسيط مادي لتنتشر (تنتشر في الفراغ). سرعتها سرعة الضوء.",
+wrong_exp:[
+  {opt:"Sound Waves",why:"الموجات الصوتية موجات ميكانيكية تحتاج وسيطاً مادياً (هواء، ماء، جوامد). لا تنتشر في الفراغ ولا تُستخدم لنقل الإشارات اللاسلكية."},
+  {opt:"Water Waves",why:"موجات الماء ميكانيكية لا علاقة لها بالاتصالات اللاسلكية."},
+  {opt:"Mechanical Waves",why:"الموجات الميكانيكية تحتاج وسيطاً مادياً. الاتصالات اللاسلكية تعمل في الفراغ وعبر الهواء."}
+],
+key:"Electromagnetic Waves = لا تحتاج وسيطاً + سرعة الضوء + تشمل Radio/Microwave/IR/Light"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which frequency band is used by Bluetooth?",
+opts:["900 MHz","2.4 GHz","5 GHz","24 GHz"],ans:1,diff:"Medium",
+correct_exp:"<strong>Bluetooth يعمل على 2.4 GHz</strong> (ISM Band = Industrial, Scientific, Medical). نفس النطاق الذي يعمل عليه WiFi 802.11b/g/n، لذا قد يحدث تداخل بينهما. Bluetooth مصمّم للمسافات القصيرة (PAN) وطاقة منخفضة.",
+wrong_exp:[
+  {opt:"900 MHz",why:"900 MHz يُستخدم في بعض أجهزة الهاتف اللاسلكي المنزلي القديمة وبعض تطبيقات IoT (مثل LoRa). ليس Bluetooth."},
+  {opt:"5 GHz",why:"5 GHz نطاق WiFi (802.11a/n/ac/ax). Bluetooth لا يعمل على 5 GHz."},
+  {opt:"24 GHz",why:"24 GHz في نطاق الميكروويف — يُستخدم في الرادار وبعض تطبيقات 5G mmWave. ليس Bluetooth."}
+],
+key:"Bluetooth = 2.4 GHz | WiFi = 2.4 GHz + 5 GHz + 6 GHz | قد يحدث تداخل بين BT وWiFi"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which Wi-Fi band offers the largest bandwidth and minimal congestion?",
+opts:["900 MHz","2.4 GHz","5 GHz","6 GHz"],ans:3,diff:"Hard",
+correct_exp:"<strong>6 GHz (WiFi 6E)</strong> أحدث نطاق WiFi — يُوفِّر أكبر عرض نطاق ترددي (1.2 GHz إضافية من الطيف) وأقل ازدحاماً لأنه جديد ولم تكثر الأجهزة عليه بعد. يتطلب WiFi 6E (802.11ax). المدى أقصر من 2.4 GHz.",
+wrong_exp:[
+  {opt:"900 MHz",why:"900 MHz ليس نطاق WiFi تجاري. أقل الترددات = أكبر مدى لكن أقل سرعة."},
+  {opt:"2.4 GHz",why:"2.4 GHz يُوفِّر مدى أكبر لكن مزدحم جداً (WiFi + Bluetooth + أجهزة منزلية). عرض نطاقه أضيق."},
+  {opt:"5 GHz",why:"5 GHz أفضل من 2.4 GHz (سرعة أعلى، ازدحام أقل) لكن 6 GHz أحدث وأكثر سعةً."}
+],
+key:"6 GHz (WiFi 6E) = أكبر bandwidth + أقل ازدحاماً | لكن مدى أقصر"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which component converts electrical signals to radio waves and vice versa?",
+opts:["Modem Chip","Access Point","Antenna","Firewall"],ans:2,diff:"Medium",
+correct_exp:"<strong>Antenna (الهوائي)</strong> يُحوِّل الإشارات الكهربائية إلى موجات راديو (للإرسال) والعكس (للاستقبال). هو حلقة الوصل بين الإلكترونيات الرقمية والموجات الكهرومغناطيسية التي تنتشر في الهواء. مختلف الأشكال لمختلف الترددات والاتجاهات.",
+wrong_exp:[
+  {opt:"Modem Chip",why:"شريحة المودم تُعالج البيانات رقمياً وتُنفِّذ بروتوكولات الاتصال. لكن الهوائي هو من يُحوِّل الإشارة للموجات."},
+  {opt:"Access Point",why:"نقطة الوصول (AP) جهاز كامل يحتوي على هوائي وغيره. الهوائي هو العنصر المحدد الذي يُحوِّل الإشارة."},
+  {opt:"Firewall",why:"Firewall جدار حماية يُفلتر حركة المرور. لا علاقة له بتحويل الإشارات."}
+],
+key:"Antenna = Electrical Signal ↔ Radio Waves | عنصر أساسي في كل جهاز لاسلكي"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which antenna type is highly directional and commonly used in satellite communication?",
+opts:["Dipole Antenna","Patch Antenna","Yagi Antenna","Parabolic Antenna"],ans:3,diff:"Medium",
+correct_exp:"<strong>Parabolic Antenna (الهوائي القطع مكافئ)</strong> يُركِّز الإشارة في حزمة ضيقة جداً باتجاه محدد (highly directional). هذا يجعله مثالياً للاتصالات البعيدة المدى: الأقمار الصناعية، الروابط الأرضية البعيدة. الصحن الفضائي في منزلك parabolic antenna.",
+wrong_exp:[
+  {opt:"Dipole Antenna",why:"Dipole هوائي بسيط نصف الموجة (Half-wave dipole) — يُشعِّع في كل الاتجاهات (Omnidirectional تقريباً). يُستخدم للمسافات القصيرة."},
+  {opt:"Patch Antenna",why:"Patch Antenna مسطّح ومدمج — يُستخدم في WiFi وGPS وبعض الأقمار الصناعية الصغيرة. أقل تركيزاً من Parabolic."},
+  {opt:"Yagi Antenna",why:"Yagi اتجاهي ولكن أقل تركيزاً من Parabolic. يُستخدم لاستقبال إشارات التلفزيون الأرضي."}
+],
+key:"Parabolic = أعلى توجيه + أبعد مدى = أقمار صناعية | Yagi = توجيه متوسط | Dipole = omnidirectional"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which wireless technology is designed for short-range personal area networks?",
+opts:["Cellular","Bluetooth","Satellite Microwave","Infrared only"],ans:1,diff:"Easy",
+correct_exp:"<strong>Bluetooth</strong> مصمّم لـ PAN (Personal Area Network) — المسافات القصيرة (حتى 10 متر للـ Class 3، 100 متر لـ Class 1). طاقة منخفضة ومثالي لربط الأجهزة الشخصية: سماعات، لوحة مفاتيح، ماوس، ساعة ذكية.",
+wrong_exp:[
+  {opt:"Cellular",why:"الشبكات الخلوية لتغطية المدن والدول — WAN بطبيعتها. ليست للـ PAN."},
+  {opt:"Satellite Microwave",why:"الأقمار الصناعية لتغطية القارات والكرة الأرضية — عكس المسافات القصيرة."},
+  {opt:"Infrared only",why:"الأشعة تحت الحمراء قصيرة المدى لكن تتطلب Line-of-Sight ومحدودة الاستخدام (ريموت كنترول). Bluetooth أكثر مرونة للـ PAN."}
+],
+key:"PAN = Bluetooth (حتى 10-100م) | LAN = WiFi | WAN = Cellular | WWAN = Satellite"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Ground Wave Propagation is primarily used by:",
+opts:["Satellite links","AM radio broadcasting","Wi-Fi networks","GPS systems"],ans:1,diff:"Hard",
+correct_exp:"<strong>AM Radio Broadcasting (بث راديو AM)</strong> هو الاستخدام الرئيسي لـ Ground Wave Propagation. موجات AM منخفضة التردد (530-1700 kHz) تتبع انحناء الأرض وتنتشر لمئات الكيلومترات من الهوائي. لهذا يمكن سماع محطة AM على بعد 500+ كم.",
+wrong_exp:[
+  {opt:"Satellite links",why:"الأقمار الصناعية تستخدم Line-of-Sight Propagation (خط بصر مباشر) في الفضاء. ليست Ground Wave."},
+  {opt:"Wi-Fi networks",why:"WiFi يستخدم 2.4/5/6 GHz — ترددات عالية جداً تمشي في خط مستقيم تقريباً. ليست Ground Wave."},
+  {opt:"GPS systems",why:"GPS يستخدم ترددات L-band (~1.5 GHz) وLine-of-Sight من الأقمار الصناعية. ليس Ground Wave."}
+],
+key:"Ground Wave = ترددات منخفضة (AM radio) + يتبع انحناء الأرض + مئات الكم"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which propagation method depends on reflection from the ionosphere?",
+opts:["Ground Wave","Sky Wave","Line-of-Sight","Infrared"],ans:1,diff:"Medium",
+correct_exp:"<strong>Sky Wave (موجة السماء)</strong>: الموجات عالية التردد (HF: 3-30 MHz) تنتشر للأعلى نحو الأيونوسفير (طبقة من الغلاف الجوي مشحونة بالأيونات) فتنعكس عائدةً للأرض. تُتيح اتصالات على مسافات شاسعة (آلاف الكم) خاصة ليلاً.",
+wrong_exp:[
+  {opt:"Ground Wave",why:"Ground Wave تتبع سطح الأرض بدون انعكاس من الأيونوسفير. ترددات منخفضة جداً (LF/MF)."},
+  {opt:"Line-of-Sight",why:"Line-of-Sight موجات مستقيمة من هوائي لهوائي مباشرة. لا تنعكس من الأيونوسفير."},
+  {opt:"Infrared",why:"الأشعة تحت الحمراء لا تصل الأيونوسفير — تُمتَص في الغلاف الجوي السفلي."}
+],
+key:"Sky Wave = HF + انعكاس من الأيونوسفير + آلاف الكم | يُستخدم في راديو الهام (Ham Radio)"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Microwave communication generally requires:",
+opts:["Optical fiber","Line-of-Sight","Underground cables","Coaxial repeaters only"],ans:1,diff:"Medium",
+correct_exp:"<strong>Line-of-Sight (LOS)</strong> ضروري لاتصالات الميكروويف. الموجات عالية التردد (GHz) تسير في خطوط مستقيمة ولا تنثني حول المباني أو الجبال. لهذا هوائيات الميكروويف تُركَّب على أبراج عالية أو قمم الجبال لضمان خط بصر مباشر.",
+wrong_exp:[
+  {opt:"Optical fiber",why:"الألياف الضوئية كابل مادي موجَّه. الميكروويف لاسلكي لا يحتاج كابلات."},
+  {opt:"Underground cables",why:"كابلات تحت الأرض وسيلة مادية. الميكروويف ينتشر في الهواء بلا كابلات."},
+  {opt:"Coaxial repeaters only",why:"المُكرِّرات المحورية لأنظمة الكابل السلكية. الميكروويف له مُكرِّرات لاسلكية خاصة."}
+],
+key:"Microwave = LOS + أبراج عالية + يتأثر بالمطر (Rain Fade) + GHz range"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which wireless technology requires line-of-sight and is affected by ambient light?",
+opts:["Bluetooth","Infrared (IR)","Cellular","Radio Waves"],ans:1,diff:"Medium",
+correct_exp:"<strong>Infrared (IR)</strong>: الأشعة تحت الحمراء تتطلب Line-of-Sight (خط بصر مباشر) — أي جسم حائل يقطع الاتصال. وتتأثر بالضوء المحيط (Ambient Light) لأن مصادر الضوء (شمس، مصابيح) تُصدر أشعة تحت حمراء تُسبِّب تداخلاً.",
+wrong_exp:[
+  {opt:"Bluetooth",why:"Bluetooth موجات راديو 2.4 GHz — لا تتطلب LOS وتعمل عبر الجدران والحواجز الصغيرة. لا تتأثر بالضوء."},
+  {opt:"Cellular",why:"الشبكات الخلوية تعمل في ترددات مختلفة (700 MHz - 3.5 GHz) — لا تتطلب LOS ولا تتأثر بالضوء."},
+  {opt:"Radio Waves",why:"موجات الراديو منخفضة التردد تنثني حول العوائق (Ground Wave) أو تنعكس (Sky Wave). لا تتأثر بالضوء."}
+],
+key:"IR = LOS + تتأثر بالضوء المحيط | ريموت كنترول التلفزيون مثال كلاسيكي"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which satellite type remains fixed relative to Earth?",
+opts:["LEO","MEO","GEO","Polar Orbit"],ans:2,diff:"Medium",
+correct_exp:"<strong>GEO (Geostationary Earth Orbit)</strong>: الأقمار الصناعية على ارتفاع ~35,786 كم تُكمِل دورة حول الأرض في 24 ساعة — نفس دوران الأرض. لذا تبدو ثابتة في السماء. مثالية لبث التلفزيون والتنبؤ بالطقس لأنها تُغطي مساحة واسعة ثابتة.",
+wrong_exp:[
+  {opt:"LEO",why:"LEO (Low Earth Orbit) على ارتفاع 200-2000 كم — يتحرك بسرعة ولا يبقى ثابتاً فوق نقطة. يُستخدم في Starlink و الاتصالات (Iridium)."},
+  {opt:"MEO",why:"MEO (Medium Earth Orbit) على ارتفاع 2000-35,786 كم — يتحرك أيضاً. يُستخدم في GPS و GLONASS."},
+  {opt:"Polar Orbit",why:"Polar Orbit يمر فوق القطبين — يُستخدم لاستشعار الأرض والتصوير. غير ثابت."}
+],
+key:"GEO = 35,786 كم + ثابت = TV/Weather | LEO = منخفض + سريع = Starlink/GPS"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"A major disadvantage of GEO satellites is:",
+opts:["Very short range","High latency","Low coverage area","Poor bandwidth only"],ans:1,diff:"Medium",
+correct_exp:"<strong>High Latency (تأخير عالٍ)</strong>: المسافة الهائلة (35,786 كم × 2 = ~70,000 كم ذهاباً وإياباً) تُسبِّب تأخيراً حوالي <strong>500-600ms</strong>. هذا يجعل GEO غير مناسب لتطبيقات الوقت الفعلي (ألعاب، VoIP) لكن مقبول لبث التلفزيون.",
+wrong_exp:[
+  {opt:"Very short range",why:"العكس — GEO يُغطي ثُلث الكرة الأرضية من موقعه الثابت. تغطيته ضخمة."},
+  {opt:"Low coverage area",why:"GEO يُغطي مساحة شاسعة (ثُلث الأرض). التغطية الواسعة ميزة وليست عيباً."},
+  {opt:"Poor bandwidth only",why:"GEO يمكنه تقديم bandwidth جيد. المشكلة الرئيسية التأخير وليس عرض النطاق."}
+],
+key:"GEO: ميزة = تغطية واسعة + ثابت | عيب = Latency ~500ms بسبب المسافة"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"In cellular systems, the process of transferring a call between cells is called:",
+opts:["Multiplexing","Handover (Handoff)","Modulation","Routing"],ans:1,diff:"Medium",
+correct_exp:"<strong>Handover (أو Handoff)</strong>: عملية نقل الاتصال النشط من خلية (Cell) لأخرى عند تحرك المستخدم. يحدث تلقائياً وبسلاسة دون انقطاع الاتصال. Hard Handover: الاتصال ينقطع ثم يتصل بالجديد | Soft Handover (3G): الاتصال بالخليتين معاً مؤقتاً.",
+wrong_exp:[
+  {opt:"Multiplexing",why:"Multiplexing تقسيم القناة لعدة مستخدمين (FDMA, TDMA, CDMA). لا علاقة له بنقل الاتصال بين الخلايا."},
+  {opt:"Modulation",why:"Modulation تضمين البيانات على الموجة الحاملة (AM, FM, QAM). عملية إرسال وليست نقل بين خلايا."},
+  {opt:"Routing",why:"Routing توجيه الحزم في شبكات البيانات. Handover مصطلح الشبكات الخلوية لنقل الاتصال بين الخلايا."}
+],
+key:"Handover/Handoff = نقل اتصال نشط بين خلايا عند التحرك | تلقائي وبلا انقطاع"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which cellular generation introduced SMS (Short Message Service)?",
+opts:["1G","2G","3G","4G"],ans:1,diff:"Easy",
+correct_exp:"<strong>2G (الجيل الثاني)</strong> أدخل SMS والاتصال الرقمي. 2G جاء بتشفير الصوت رقمياً (بدلاً من التناظري في 1G) وأضاف SMS وبعد ذلك MMS. أبرز معايير 2G: GSM (معيار أوروبي) وCDMAone (أمريكي).",
+wrong_exp:[
+  {opt:"1G",why:"1G (الجيل الأول) من الثمانينيات — تناظري (Analog) فقط للصوت. لا SMS، لا بيانات رقمية."},
+  {opt:"3G",why:"3G أدخل الإنترنت المحمول الفعلي ومكالمات الفيديو. SMS كان موجوداً من 2G قبله."},
+  {opt:"4G",why:"4G (All-IP) سرعات إنترنت عالية وHD Video. SMS موجود من 2G — قبل 4G بكثير."}
+],
+key:"1G=Analog voice | 2G=Digital + SMS | 3G=Mobile internet | 4G=All-IP, HD video | 5G=Ultra-low latency"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which generation was based on analog voice communication?",
+opts:["1G","2G","3G","5G"],ans:0,diff:"Easy",
+correct_exp:"<strong>1G (الجيل الأول)</strong> من أواخر السبعينيات وأوائل الثمانينيات — اعتمد على الإرسال التناظري (Analog) للصوت فقط. لم يكن مشفَّراً ويمكن التنصت عليه بجهاز راديو. أول شبكة 1G: NMT (1981) ثم AMPS (1983).",
+wrong_exp:[
+  {opt:"2G",why:"2G رقمي (Digital) — شفّر الصوت وأضاف SMS. أول تحسين جوهري على 1G."},
+  {opt:"3G",why:"3G رقمي متقدم مع إنترنت محمول. بُني على الرقمية الكاملة."},
+  {opt:"5G",why:"5G أحدث الأجيال — رقمي بالكامل مع سرعات هائلة وتأخير منخفض جداً."}
+],
+key:"1G = تناظري (Analog) + صوت فقط + بلا تشفير"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which generation first provided practical mobile internet and video calling?",
+opts:["2G","3G","4G","5G"],ans:1,diff:"Easy",
+correct_exp:"<strong>3G (الجيل الثالث)</strong> أتاح إنترنت المحمول العملي (سرعات تصل لـ 384 Kbps - 14.4 Mbps مع HSPA+) ومكالمات الفيديو. بدأ الانتشار الفعلي في أوائل 2000s. أبرز معايير 3G: UMTS/WCDMA وCDMA2000.",
+wrong_exp:[
+  {opt:"2G",why:"2G أتاح إنترنت محمول بدائياً (GPRS: ~50 Kbps وEDGE: ~200 Kbps) — غير عملي للاستخدام الفعلي وبطيء جداً لمكالمات الفيديو."},
+  {opt:"4G",why:"4G أتاح إنترنت فائق السرعة (Mbps عديدة وGbps نظرياً) وHD Streaming. لكن 3G أتى بالإنترنت المحمول العملي الأول."},
+  {opt:"5G",why:"5G يُقدِّم سرعات خارقة وتأخيراً أقل من 1ms. إنترنت المحمول الأول العملي كان 3G."}
+],
+key:"3G = أول إنترنت محمول عملي + Video calling | ~2001-2003"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which generation uses an All-IP packet-switched architecture?",
+opts:["2G","3G","4G","1G"],ans:2,diff:"Medium",
+correct_exp:"<strong>4G LTE</strong> أول جيل يعتمد All-IP بالكامل — كل شيء بما فيه الصوت (VoLTE = Voice over LTE) يُرسَل كحزم بيانات IP. لا دوائر صوت منفصلة. سرعات تصل لـ 1 Gbps نظرياً. أبرز معايير: LTE وWiMAX.",
+wrong_exp:[
+  {opt:"2G",why:"2G هجين: صوت على دوائر رقمية (Circuit Switching) وبيانات على حزم (Packet Switching). ليس All-IP."},
+  {opt:"3G",why:"3G أضاف packet switching للبيانات لكن الصوت لا يزال على circuit switching. ليس All-IP كاملاً."},
+  {opt:"1G",why:"1G تناظري بالكامل — Circuit Switching فقط. أبعد ما يكون عن All-IP."}
+],
+key:"4G/LTE = All-IP + VoLTE | أول جيل يُرسِل الصوت كبيانات IP"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Typical latency in 4G networks is approximately:",
+opts:["1–10 ms","50–100 ms","250–300 ms","1–2 seconds"],ans:1,diff:"Hard",
+correct_exp:"<strong>4G: ~50-100ms تأخير</strong>. مناسب لمعظم التطبيقات (بث الفيديو، تصفح الويب) لكن ليس مثالياً للألعاب الحرجة أو الجراحة عن بُعد. 5G يُهدف لتقليله لأقل من 1ms (URLLC).",
+wrong_exp:[
+  {opt:"1–10 ms",why:"1-10ms هو هدف 5G URLLC (Ultra-Reliable Low-Latency). 4G لا يصل لهذا المستوى."},
+  {opt:"250–300 ms",why:"250-300ms تأخير GEO Satellite (الأقمار الصناعية). أعلى بكثير من 4G."},
+  {opt:"1–2 seconds",why:"ثانية أو ثانيتان تأخير غير مقبول لأي اتصال حديث. تأخير Dial-up القديم أو اتصال فضائي سيئ."}
+],
+key:"4G = 50-100ms | 5G = <1ms (URLLC) | 3G = 100-500ms | Satellite GEO = 500-600ms"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which 5G feature allows one physical network to be divided into multiple logical networks?",
+opts:["Frequency Reuse","Edge Computing","Network Slicing","Beamforming only"],ans:2,diff:"Hard",
+correct_exp:"<strong>Network Slicing (تقطيع الشبكة)</strong>: ميزة 5G ثورية تُتيح تقسيم الشبكة الفيزيائية الواحدة إلى عدة شبكات منطقية مستقلة مُخصَّصة لتطبيقات مختلفة. مثال: شريحة لمركبات ذاتية القيادة (latency منخفض جداً)، شريحة للهواتف، شريحة لـ IoT.",
+wrong_exp:[
+  {opt:"Frequency Reuse",why:"Frequency Reuse مفهوم قديم في الشبكات الخلوية — إعادة استخدام نفس الترددات في خلايا متباعدة. موجود من 1G."},
+  {opt:"Edge Computing",why:"Edge Computing معالجة البيانات قريباً من المستخدم (في حافة الشبكة). ميزة تُعزِّز 5G لكنها مستقلة عن Network Slicing."},
+  {opt:"Beamforming only",why:"Beamforming توجيه الإشارة نحو المستخدم تحديداً. تقنية هوائي في 5G، وليست تقسيم الشبكة."}
+],
+key:"Network Slicing = شبكة فيزيائية واحدة → شبكات منطقية متعددة مستقلة"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which 5G service category supports ultra-reliable low-latency communication?",
+opts:["eMBB","mMTC","URLLC","LTE-Advanced"],ans:2,diff:"Hard",
+correct_exp:"<strong>URLLC (Ultra-Reliable Low-Latency Communications)</strong>: فئة خدمة 5G للتطبيقات الحرجة التي تحتاج موثوقية عالية جداً وتأخير أقل من 1ms. مثال: الجراحة عن بُعد، السيارات ذاتية القيادة، أنظمة التحكم الصناعي.",
+wrong_exp:[
+  {opt:"eMBB",why:"eMBB (Enhanced Mobile Broadband) = سرعات نقل عالية للهواتف والأجهزة. للفيديو 4K/8K والواقع الافتراضي."},
+  {opt:"mMTC",why:"mMTC (massive Machine-Type Communications) = ربط مليارات أجهزة IoT بكثافة عالية. للمدن الذكية ومتتبعات الأجهزة."},
+  {opt:"LTE-Advanced",why:"LTE-Advanced تطوير على 4G، وليست فئة خدمة 5G."}
+],
+key:"5G Service categories: eMBB=سرعة عالية | URLLC=latency منخفض جداً | mMTC=IoT بالمليارات"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which wireless challenge occurs when multiple devices compete for the same frequencies?",
+opts:["Handover","Interference","Multiplexing","Modulation"],ans:1,diff:"Medium",
+correct_exp:"<strong>Interference (التداخل)</strong>: يحدث عندما تُرسِل أجهزة متعددة على نفس التردد في نفس الوقت، مما يُسبِّب تشويشاً للإشارات. مثال: كثير من أجهزة WiFi في نفس المبنى على نفس القناة. الحل: التخطيط الجيد للقنوات أو تقنيات الوصول المتعدد.",
+wrong_exp:[
+  {opt:"Handover",why:"Handover نقل الاتصال بين الخلايا عند التحرك. ليس تنافساً على الترددات."},
+  {opt:"Multiplexing",why:"Multiplexing الحل للتنافس — يُقسِّم القناة للمستخدمين (FDMA/TDMA/CDMA). Interference هو المشكلة والـ Multiplexing أحد الحلول."},
+  {opt:"Modulation",why:"Modulation تضمين البيانات على الموجة. تقنية إرسال وليست تحدياً ناتجاً عن التنافس."}
+],
+key:"Interference = تداخل إشارات على نفس التردد | الحل: channel planning + Multiplexing"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which security technology is recommended for protecting Wi-Fi networks?",
+opts:["FTP","WPA3","SMTP","ARP"],ans:1,diff:"Medium",
+correct_exp:"<strong>WPA3 (Wi-Fi Protected Access 3)</strong> أحدث وأقوى بروتوكول تشفير لحماية شبكات WiFi. أُطلِق عام 2018 ليحلّ محل WPA2. يُقدِّم: تشفيراً أقوى (SAE بدل PSK)، حماية من هجمات القاموس، وتشفيراً فردياً لكل جلسة.",
+wrong_exp:[
+  {opt:"FTP",why:"FTP بروتوكول نقل ملفات — ليس له علاقة بحماية WiFi. FTP نفسه غير آمن (لا تشفير)."},
+  {opt:"SMTP",why:"SMTP بروتوكول البريد الإلكتروني. لا علاقة له بأمان الشبكات اللاسلكية."},
+  {opt:"ARP",why:"ARP بروتوكول تحويل IP→MAC. لا علاقة له بتشفير WiFi."}
+],
+key:"WiFi Security: WEP(ضعيف) → WPA → WPA2 → WPA3(الأحدث والأقوى)"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which wireless characteristic allows users to stay connected while moving between locations?",
+opts:["Installation","Scalability","Mobility and Reachability","Modulation"],ans:2,diff:"Easy",
+correct_exp:"<strong>Mobility and Reachability (التنقل وإمكانية الوصول)</strong>: الميزة الأساسية للشبكات اللاسلكية — الاتصال لا ينقطع عند تحرك المستخدم (Handover بين خلايا/APs). تُزيد الإنتاجية والمرونة وتُتيح العمل من أي مكان.",
+wrong_exp:[
+  {opt:"Installation",why:"Installation (سهولة التركيب) ميزة أخرى للشبكات اللاسلكية — بدون كابلات، لكنها لا تصف الاتصال أثناء الحركة."},
+  {opt:"Scalability",why:"Scalability قابلية التوسع — إضافة مستخدمين جدد بسهولة. لا علاقة له بالاتصال أثناء الحركة."},
+  {opt:"Modulation",why:"Modulation تقنية إرسال الإشارة. ليست ميزة من مميزات الشبكة للمستخدم."}
+],
+key:"Mobility and Reachability = البقاء متصلاً أثناء الحركة = الميزة الأبرز للشبكات اللاسلكية"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which 5G application requires extremely low latency and high reliability?",
+opts:["Email synchronization","Remote surgery","SMS messaging","FM radio broadcasting"],ans:1,diff:"Medium",
+correct_exp:"<strong>Remote Surgery (الجراحة عن بُعد)</strong> تحتاج تأخيراً أقل من 1ms وموثوقية 99.9999% — الدقة اللازمة لتحريك ذراع روبوتية جراحية من مسافة. أي تأخير أو انقطاع قد يُشكّل خطراً على حياة المريض. هذا ما يُتيحه URLLC في 5G.",
+wrong_exp:[
+  {opt:"Email synchronization",why:"البريد الإلكتروني يتحمل تأخير ثوانٍ أو دقائق. لا يحتاج low latency."},
+  {opt:"SMS messaging",why:"SMS غير حرج زمنياً — ثوانٍ أو دقائق تأخير مقبول."},
+  {opt:"FM radio broadcasting",why:"FM راديو أرضي (Terrestrial broadcast) لا يمر عبر شبكات 5G."}
+],
+key:"URLLC في 5G = <1ms latency + 99.9999% reliability = جراحة عن بُعد + سيارات ذاتية"},
+
+{ch:4,chName:"Chapter 4 — Wireless Technology",
+q:"Which frequency range is associated with 5G mmWave (Millimeter Wave)?",
+opts:["600 MHz – 6 GHz","24 GHz – 100 GHz","3 kHz – 300 MHz","800 MHz – 2.6 GHz"],ans:1,diff:"Hard",
+correct_exp:"<strong>mmWave = 24-100 GHz</strong>: الطيف فوق الـ 24 GHz يوفر سرعات خارقة (Gbps متعددة) وسعة ضخمة. العيب: مدى قصير جداً (مئات الأمتار) وتعيقه الجدران والمطر والأشجار. يُستخدم في المناطق كثيفة السكان والأماكن المغلقة.",
+wrong_exp:[
+  {opt:"600 MHz – 6 GHz",why:"600 MHz – 6 GHz = نطاق Sub-6GHz في 5G — أبطأ من mmWave لكن مدى أكبر. 5G Sub-6 أكثر انتشاراً."},
+  {opt:"3 kHz – 300 MHz",why:"3kHz-300MHz = Very Low Frequency إلى UHF — ترددات AM/FM الراديو وليست 5G mmWave."},
+  {opt:"800 MHz – 2.6 GHz",why:"هذا نطاق 4G LTE المستخدم. ليس 5G mmWave."}
+],
+key:"5G: Sub-6GHz (مدى أكبر) + mmWave 24-100GHz (سرعة أعلى/مدى أقل)"},
+
+// ========================= CHAPTER 5 =========================
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Index Server originally evolved from:",
+opts:["IIS","SQL Server","Content Indexer (CI)","Active Directory"],ans:2,diff:"Hard",
+correct_exp:"<strong>Content Indexer (CI)</strong>: Microsoft Index Server تطوّر من مشروع Content Indexer الأصلي. CI كان النواة الأولى التي طُوِّرت لاحقاً لتصبح Index Server المتكاملة مع IIS لتوفير قدرات البحث في مستودعات الوثائق.",
+wrong_exp:[
+  {opt:"IIS",why:"IIS (Internet Information Services) خادم الويب من Microsoft. Index Server يتكامل مع IIS لكنه لم يتطوّر منه."},
+  {opt:"SQL Server",why:"SQL Server نظام إدارة قواعد بيانات علائقية. مختلف تماماً عن Index Server."},
+  {opt:"Active Directory",why:"Active Directory نظام إدارة هوية المستخدمين والشبكات. لا علاقة له بأصول Index Server."}
+],
+key:"Index Server = تطوّر من Content Indexer (CI) → إضافة قدرات بحث متقدمة"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which feature allows Index Server to automatically detect and index new or changed documents?",
+opts:["Query Aggregation","Dynamic Corpus Detection","Network Slicing","Content Replication"],ans:1,diff:"Hard",
+correct_exp:"<strong>Dynamic Corpus Detection</strong>: ميزة في Index Server تُراقِب تلقائياً التغييرات في المستودعات (إضافة وثائق جديدة أو تعديل قائمة) وتُحدِّث الفهرس تلقائياً دون تدخل يدوي. تضمن أن نتائج البحث دائماً محدَّثة.",
+wrong_exp:[
+  {opt:"Query Aggregation",why:"Query Aggregation دمج نتائج الاستعلامات من خوادم فهرسة متعددة. ليست اكتشاف التغييرات."},
+  {opt:"Network Slicing",why:"Network Slicing مفهوم 5G لتقسيم الشبكة. لا علاقة له بـ Index Server."},
+  {opt:"Content Replication",why:"Content Replication نسخ المحتوى لخوادم متعددة. ليست مراقبة التغييرات وتحديث الفهرس."}
+],
+key:"Dynamic Corpus Detection = مراقبة تلقائية للتغييرات + تحديث الفهرس فوراً"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"In distributed index search, each index server returns:",
+opts:["All matching documents","Only metadata properties","Top-k most relevant pages","One random result"],ans:2,diff:"Hard",
+correct_exp:"<strong>Top-k most relevant pages</strong>: في نظام البحث الموزع، كل خادم فهرسة يبحث في جزئه ويُرجِع أفضل k نتيجة (مُرتَّبة حسب الصلة). ثم يُجمِّع Aggregator هذه النتائج من جميع الخوادم ويُرتِّبها ليُقدِّم أفضل النتائج الإجمالية.",
+wrong_exp:[
+  {opt:"All matching documents",why:"إرجاع كل الوثائق المطابقة من كل خادم سيُثقِل الشبكة بلا داعٍ. الكفاءة تقتضي إرجاع Top-k فقط."},
+  {opt:"Only metadata properties",why:"البحث يُعيد المحتوى والـ metadata. ليس metadata فقط."},
+  {opt:"One random result",why:"نتيجة واحدة عشوائية لا قيمة لها للمستخدم. البحث يستهدف أفضل النتائج."}
+],
+key:"Distributed Search: كل Server → Top-k | Aggregator → يدمج ويُرتِّب → النتائج النهائية"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which component combines and ranks results from multiple index servers?",
+opts:["Filter","Crawler","Aggregator","Parser"],ans:2,diff:"Hard",
+correct_exp:"<strong>Aggregator (المُجمِّع)</strong>: في البحث الموزع، الـ Aggregator يستقبل نتائج Top-k من كل خادم فهرسة، يدمجها ويُعيد ترتيبها حسب الصلة الإجمالية، ثم يُقدِّم النتائج النهائية للمستخدم. هو 'عقل' نظام البحث الموزع.",
+wrong_exp:[
+  {opt:"Filter",why:"Filter يُرشِّح المستندات حسب نوع الملف أو النطاق. لا يُجمِّع نتائج الخوادم المتعددة."},
+  {opt:"Crawler",why:"Crawler (الزاحف) يتجول على الويب أو الملفات لاكتشاف المستندات وإضافتها للفهرس. ليس تجميع نتائج."},
+  {opt:"Parser",why:"Parser يُحلِّل المستندات لاستخراج الكلمات والبيانات للفهرسة. عملية فهرسة وليست بحث."}
+],
+key:"Distributed Search Architecture: Crawler→Index→Search→Aggregator→User"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"What is the primary bottleneck in a parallel index cluster?",
+opts:["Excess memory","Slow client browser","One slow index server delaying the aggregator","Too many filters installed"],ans:2,diff:"Hard",
+correct_exp:"<strong>خادم فهرسة بطيء واحد يُعيق الـ Aggregator</strong>: في العمليات المتوازية، الـ Aggregator ينتظر نتائج من جميع الخوادم قبل تقديم الإجابة النهائية. إذا كان خادم واحد بطيئاً (straggler)، يتأخر الرد الكلي بقدر تأخيره.",
+wrong_exp:[
+  {opt:"Excess memory",why:"الذاكرة الزائدة لا تُسبِّب عُنُق الزجاجة — بل نقصها. المزيد من الذاكرة يُحسِّن الأداء."},
+  {opt:"Slow client browser",why:"المتصفح على جهاز المستخدم لا يُؤثِّر على أداء خوادم الفهرسة."},
+  {opt:"Too many filters installed",why:"كثرة الفلاتر تُؤثِّر لكنها ليست العُنُق الرئيسي. المشكلة الرئيسية هي الخادم الأبطأ."}
+],
+key:"Straggler Problem: في الأنظمة المتوازية، أبطأ خادم يُحدِّد سرعة النتيجة الكلية"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"A fast-response strategy may:",
+opts:["Increase query completeness","Terminate long queries early","Disable ranking","Duplicate results"],ans:1,diff:"Hard",
+correct_exp:"<strong>Terminate long queries early</strong>: استراتيجية Fast-Response تُنهي الاستعلامات الطويلة مبكراً وتُعيد ما وجدته حتى الآن. المقايضة (Trade-off): <strong>السرعة مقابل الاكتمالية (Speed vs. Completeness)</strong>. بعض النتائج الأفضل قد تُفوَّت.",
+wrong_exp:[
+  {opt:"Increase query completeness",why:"العكس — Fast-response يُضحي بالاكتمالية لصالح السرعة."},
+  {opt:"Disable ranking",why:"الترتيب لا يُعطَّل بالضرورة — النتائج المُسترجَعة تُرتَّب. فقط كميتها تُقيَّد."},
+  {opt:"Duplicate results",why:"تكرار النتائج ليس جزءاً من استراتيجية Fast-Response."}
+],
+key:"Fast-Response Trade-off = Speed vs. Completeness | ينهي الاستعلامات الطويلة مبكراً"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which indexing method focuses on specific document fields and properties?",
+opts:["Full-Text Indexing","Content Indexing","Packet Indexing","Cluster Indexing"],ans:1,diff:"Medium",
+correct_exp:"<strong>Content Indexing</strong>: يُركِّز على فهرسة خصائص وحقول محددة في الوثيقة مثل: المؤلف (Author)، التاريخ (Date)، العنوان (Title)، حجم الملف (Size). أسرع في البحث من Full-Text لأن الفهرس أصغر. مثال: البحث عن كل ملفات شخص محدد.",
+wrong_exp:[
+  {opt:"Full-Text Indexing",why:"Full-Text Indexing يفهرس كل كلمة في كل وثيقة. شامل لكن أبطأ وأكبر حجماً."},
+  {opt:"Packet Indexing",why:"مصطلح غير موجود في سياق Index Server. مشتق من Packet Switching وليس له معنى هنا."},
+  {opt:"Cluster Indexing",why:"Cluster Index مصطلح في قواعد البيانات (ترتيب السجلات حسب مفتاح). ليس نوع فهرسة في Index Server."}
+],
+key:"Content Indexing = خصائص/حقول محددة | Full-Text = كل كلمة في الوثيقة"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which indexing method stores every word in every document?",
+opts:["Content Indexing","Metadata Indexing","Full-Text Indexing","Incremental Indexing"],ans:2,diff:"Medium",
+correct_exp:"<strong>Full-Text Indexing</strong>: يُفهرِس كل كلمة في كل وثيقة في مستودع الفهرس. يُنشئ فهرساً عكسياً (Inverted Index): كل كلمة مربوطة بقائمة الوثائق التي تحتوي عليها. يُتيح بحثاً شاملاً لكنه يحتاج مساحة تخزين أكبر ووقت بناء أطول.",
+wrong_exp:[
+  {opt:"Content Indexing",why:"Content Indexing يفهرس الخصائص/الحقول فقط (Author, Date). لا يفهرس كل كلمة."},
+  {opt:"Metadata Indexing",why:"Metadata Indexing مشابه لـ Content Indexing — يفهرس البيانات الوصفية فقط."},
+  {opt:"Incremental Indexing",why:"Incremental Indexing أسلوب تحديث الفهرس (فهرسة التغييرات الجديدة فقط). ليس نوع الفهرسة."}
+],
+key:"Full-Text Indexing = كل كلمة + Inverted Index = بحث شامل"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which of the following is NOT one of the three core query components?",
+opts:["Query Scope","Restrictions","Result Set","Modulation"],ans:3,diff:"Hard",
+correct_exp:"<strong>Modulation ليست من مكونات الاستعلام</strong>. المكونات الثلاثة الأساسية في Index Server: 1) <strong>Query Scope</strong> (نطاق البحث: أي مجلدات/خوادم)، 2) <strong>Restrictions</strong> (قيود البحث: شروط الاستعلام)، 3) <strong>Result Set</strong> (مجموعة النتائج المُرجَعة). Modulation مصطلح اتصالات.",
+wrong_exp:[
+  {opt:"Query Scope",why:"Query Scope مكوّن حقيقي — يُحدِّد نطاق البحث (أي مجلدات أو خوادم يشملها الاستعلام)."},
+  {opt:"Restrictions",why:"Restrictions مكوّن حقيقي — القيود التي تُضيِّق نتائج البحث (الكلمات المفتاحية، الخصائص)."},
+  {opt:"Result Set",why:"Result Set مكوّن حقيقي — مجموعة الوثائق التي تُطابق الاستعلام وتُعاد للمستخدم."}
+],
+key:"مكونات الاستعلام الثلاثة: Scope + Restrictions + Result Set | Modulation = اتصالات"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"In Boolean queries, which operator has higher precedence?",
+opts:["OR","NOT only","AND","NEAR"],ans:2,diff:"Hard",
+correct_exp:"<strong>AND له أولوية أعلى من OR</strong> في Index Server. مثال: A OR B AND C = A OR (B AND C). يُفيد معرفة الأولوية في بناء استعلامات دقيقة. NOT له أولوية أعلى من AND. ترتيب: NOT > AND > OR. استخدم الأقواس للتحكم.",
+wrong_exp:[
+  {opt:"OR",why:"OR له أولوية أدنى من AND. B AND C يُحسَب أولاً، ثم تُطبَّق OR."},
+  {opt:"NOT only",why:"NOT له أعلى أولوية (مثل NOT في Python و Java) لكن السؤال يقارن مع AND وOR. AND > OR وهذا ما يُختبَر هنا."},
+  {opt:"NEAR",why:"NEAR (Proximity Operator) له أولوية مختلفة وعمله مختلف عن المعاملات المنطقية."}
+],
+key:"أولوية: NOT > AND > OR | مثل الرياضيات: AND=ضرب، OR=جمع"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:'Which query finds the exact phrase "Barnes and Noble"?',
+opts:['Barnes AND Noble','"Barnes and Noble"','Barnes OR Noble','#filename Barnes Noble'],ans:1,diff:"Hard",
+correct_exp:'<strong>"Barnes and Noble" بين علامات الاقتباس</strong>: للبحث عن عبارة بالضبط (Exact Phrase) يجب وضعها بين علامتَي اقتباس مزدوجتين. بدون الاقتباس، سيبحث عن وثائق تحتوي على الكلمات بشكل منفصل في أي موضع.',
+wrong_exp:[
+  {opt:"Barnes AND Noble",why:"Barnes AND Noble يبحث عن وثائق تحتوي على كلتا الكلمتين لكن ليس بالضرورة بهذا الترتيب المتتالي. قد يكون 'Noble...Barnes'."},
+  {opt:"Barnes OR Noble",why:"Barnes OR Noble يبحث عن وثائق تحتوي على أي من الكلمتين. نطاق أوسع بكثير ولا يضمن الترتيب."},
+  {opt:"#filename Barnes Noble",why:"#filename للبحث في أسماء الملفات. ليس للبحث عن عبارة في محتوى الوثيقة."}
+],
+key:'"عبارة بالضبط" = Exact Phrase Search | الاقتباس يُقيِّد الكلمات بهذا الترتيب المتتالي'},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"The proximity operator in Index Server is:",
+opts:["BETWEEN","ADJ","NEAR or ~","LIKE"],ans:2,diff:"Medium",
+correct_exp:"<strong>NEAR أو التيلدا (~)</strong>: كلاهما يُمثِّل Proximity Operator في Index Server. يُرجِع TRUE إذا وُجِدت الكلمتان في نفس الوثيقة. ويُعطي نتائج أعلى تصنيفاً عندما تكون الكلمتان أقرب لبعضهما.",
+wrong_exp:[
+  {opt:"BETWEEN",why:"BETWEEN مستخدم في قواعد البيانات (SQL) للبحث في نطاق قيم رقمية. ليس Proximity Operator في Index Server."},
+  {opt:"ADJ",why:"ADJ مستخدم في بعض محركات البحث الأخرى (مثل AltaVista القديم) ليعني 'مجاور'. Index Server يستخدم NEAR."},
+  {opt:"LIKE",why:"LIKE مستخدم في SQL للبحث بالأنماط (wildcards). ليس Proximity Operator في Index Server."}
+],
+key:"Index Server Proximity = NEAR أو ~ | يزيد ترتيب النتائج كلما اقتربت الكلمتان"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which statement about NEAR is correct?",
+opts:["It ignores term distance","It ranks documents higher when terms are closer together","It works only with filenames","It disables stemming"],ans:1,diff:"Hard",
+correct_exp:"<strong>NEAR يُعطي تصنيفاً أعلى للوثائق التي تقترب فيها الكلمتان</strong>: ليس فقط TRUE/FALSE — بل يُصنِّف النتائج: الوثائق التي تحتوي الكلمتين قريبتين من بعض تحصل على تصنيف أعلى (higher relevance score) من تلك التي تحتويهما بعيداً.",
+wrong_exp:[
+  {opt:"It ignores term distance",why:"العكس تماماً — NEAR حساس لمسافة الكلمتين: كلما اقتربتا، ارتفع التصنيف."},
+  {opt:"It works only with filenames",why:"NEAR يعمل على محتوى الوثائق بالكامل وليس الأسماء فقط. #filename هو ما يخص أسماء الملفات."},
+  {opt:"It disables stemming",why:"NEAR لا يُعطِّل Stemming. الاثنان يمكن استخدامهما معاً."}
+],
+key:"NEAR = وجود الكلمتين في نفس الوثيقة + كلما اقتربتا ارتفع تصنيف الوثيقة"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which prefix is used for relational property queries?",
+opts:["#","$","@","*"],ans:2,diff:"Hard",
+correct_exp:"<strong>@ (at sign)</strong>: يُستخدَم في Index Server للاستعلامات العلائقية على الخصائص. الصياغة: @<property name> <relational operator> <property value>. مثال: @Write > 96/09/19 (وثائق أُعدِّلت بعد هذا التاريخ).",
+wrong_exp:[
+  {opt:"#",why:"# يُستخدم للاستعلامات بالتعبيرات النظامية (Regular Expression Property Queries). مثال: #filename *.htm"},
+  {opt:"$",why:"$ يُستخدم في $contents للاستعلامات النصية الحرة (Free-text queries). مثال: $contents يبحث في محتوى الوثيقة."},
+  {opt:"*",why:"* wildcard يُستخدَم في داخل قيم البحث للبحث بالأنماط. مثال: govern* للبحث عن govern وgovernment وgovernor."}
+],
+key:"@ = Relational queries | # = Regular expression | $ = Free-text ($contents)"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which query returns documents updated after September 19, 1996?",
+opts:["#Write > 96/09/19","@Write > 96/09/19","$contents Write after 96/09/19","@filename *.htm"],ans:1,diff:"Hard",
+correct_exp:"<strong>@Write > 96/09/19</strong>: استخدام @ للاستعلام العلائقي على الخاصية Write (تاريخ آخر تعديل)، مع عامل المقارنة > (أكبر من). يُرجِع الوثائق التي تاريخ تعديلها بعد 19/09/1996.",
+wrong_exp:[
+  {opt:"#Write > 96/09/19",why:"# للتعبيرات النظامية وليس للمقارنات الزمنية. #Write ليس صياغة صحيحة لهذا الاستعلام."},
+  {opt:"$contents Write after 96/09/19",why:"$contents للبحث النصي في محتوى الوثيقة. لا تُفهمه كاستعلام على تاريخ التعديل."},
+  {opt:"@filename *.htm",why:"@filename للبحث عن أسماء ملفات بنمط معين (HTML files). ليس بحثاً بالتاريخ."}
+],
+key:"@<property> <op> <value> | @Write > 96/09/19 = وثائق عُدِّلت بعد هذا التاريخ"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which prefix is used for regular expression property queries?",
+opts:["@","$contents","#","~"],ans:2,diff:"Hard",
+correct_exp:"<strong># (hash/pound)</strong>: يُستخدَم في Index Server للاستعلامات بالتعبيرات النظامية (Regular Expressions) على الخصائص. الصياغة: #<property name> <regular expression>. مثال: #filename *.htm للبحث عن ملفات HTML.",
+wrong_exp:[
+  {opt:"@",why:"@ للاستعلامات العلائقية (مقارنات: >, <, =). مثال: @size > 1000."},
+  {opt:"$contents",why:"$contents للبحث النصي الحر في محتوى الوثائق. ليس للتعبيرات النظامية على الخصائص."},
+  {opt:"~",why:"~ (تيلدا) هو الرمز البديل لكلمة NEAR (Proximity Operator). ليس بادئة التعبيرات النظامية."}
+],
+key:"# = Regular Expression | @ = Relational | $contents = Free-text | ~ = NEAR"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which query finds all HTML files by filename pattern?",
+opts:["#filename *.htm","@filename = *.htm","$contents *.htm","@filetype htm"],ans:0,diff:"Hard",
+correct_exp:"<strong>#filename *.htm</strong>: استخدام # مع خاصية filename والـ Wildcard * للبحث عن جميع الملفات التي ينتهي اسمها بـ .htm. الـ * يعني 'أي عدد من الأحرف' قبل .htm.",
+wrong_exp:[
+  {opt:"@filename = *.htm",why:"@ للاستعلامات العلائقية وليس أنماط الملفات. Wildcard * لا يعمل بشكل مناسب مع @."},
+  {opt:"$contents *.htm",why:"$contents للبحث في المحتوى النصي للوثائق. لا يبحث في أسماء الملفات."},
+  {opt:"@filetype htm",why:"filetype ليست الخاصية الصحيحة — استخدم filename للبحث بنمط اسم الملف."}
+],
+key:"#filename *.htm = جميع ملفات HTML | * wildcard = أي أحرف قبل .htm"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"In wildcard searches, govern* can match:",
+opts:["Only govern","govern, government, governor","Only government","Unrelated terms"],ans:1,diff:"Medium",
+correct_exp:"<strong>govern* يُطابق: govern, government, governor, governing, governance</strong>... إلخ. الـ * (Single Asterisk) في Wildcard Search = أي عدد من الأحرف. يُفيد في العثور على كل الكلمات المشتقة من جذر معين.",
+wrong_exp:[
+  {opt:"Only govern",why:"إذا أردت govern بالضبط، اكتب govern بدون * ضمن علامات اقتباس."},
+  {opt:"Only government",why:"* يُطابق أي لاحقة، ليس government فقط."},
+  {opt:"Unrelated terms",why:"* يمتد من الجذر المحدد فقط (govern). لا يُطابق كلمات لا علاقة لها."}
+],
+key:"* Wildcard = أي عدد أحرف | govern* = govern + government + governor + ..."},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"In word stemming, fly** can match:",
+opts:["fly only","flying, flown, flew","flyer only","Files beginning with fly but not linguistic variants"],ans:1,diff:"Hard",
+correct_exp:"<strong>fly** (Double Asterisk = Stemming)</strong>: النجمتان ** تُفعِّلان التجذير (Stemming) — البحث عن جميع الأشكال الصرفية والاشتقاقية لكلمة fly: flying, flown, flew, flies. مفيد جداً للغات المعقدة.",
+wrong_exp:[
+  {opt:"fly only",why:"fly بدون * = البحث عن هذه الكلمة تحديداً. ** للتجذير."},
+  {opt:"flyer only",why:"flyer ليست شكلاً صرفياً (grammatical form) لـ fly — بل مشتقة اسمية. ** يبحث في التصريفات الصرفية."},
+  {opt:"Files beginning with fly but not linguistic variants",why:"* الواحدة للـ Wildcard في الأسماء. ** للتجذير اللغوي."}
+],
+key:"* Wildcard (أي أحرف) | ** Stemming (جميع التصريفات الصرفية)"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which prefix is required for free-text queries?",
+opts:["@contents","#contents","$contents","~contents"],ans:2,diff:"Hard",
+correct_exp:"<strong>$contents</strong>: البادئة المستخدمة في Index Server للاستعلامات النصية الحرة (Free-text queries). تُعطي مرونة في البحث — تُطابق المعاني والمفاهيم المرتبطة وليس فقط الكلمات بالضبط.",
+wrong_exp:[
+  {opt:"@contents",why:"@ للاستعلامات العلائقية (مقارنات). @contents ليست صياغة صحيحة للبحث الحر."},
+  {opt:"#contents",why:"# للتعبيرات النظامية. #contents ليست للبحث الحر النصي."},
+  {opt:"~contents",why:"~ (تيلدا) = NEAR Proximity Operator. ليست بادئة لنوع استعلام."}
+],
+key:"$contents = Free-text queries | @ = Relational | # = Regex"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Free-text queries are designed to:",
+opts:["Match exact filenames only","Search similar meanings and related concepts","Disable ranking","Search only metadata"],ans:1,diff:"Medium",
+correct_exp:"<strong>البحث عن معانٍ مشابهة ومفاهيم مرتبطة</strong>: Free-text queries ($contents) تُفسِّر الاستعلام بشكل طبيعي وتُطابق الوثائق ذات الصلة الدلالية، مثل مرادفات الكلمات والمفاهيم المرتبطة. أكثر مرونة من البحث الحرفي الدقيق.",
+wrong_exp:[
+  {opt:"Match exact filenames only",why:"أسماء الملفات تُستخدَم مع #filename. Free-text يبحث في المحتوى."},
+  {opt:"Disable ranking",why:"Free-text لا يُعطِّل الترتيب — بل يُرتِّب النتائج حسب الصلة الدلالية."},
+  {opt:"Search only metadata",why:"Metadata (خصائص الوثيقة) يُستعلَم عنها بـ @ و#. Free-text يبحث في المحتوى النصي."}
+],
+key:"Free-text = مرونة دلالية + معانٍ مشابهة + مفاهيم مرتبطة"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"Which property is commonly searchable in property-value queries?",
+opts:["Screen brightness","Author","CPU temperature","Battery percentage"],ans:1,diff:"Medium",
+correct_exp:"<strong>Author (المؤلف)</strong>: من أكثر خصائص الوثائق استخداماً في property-value queries. خصائص شائعة أخرى: Write (تاريخ التعديل), Created (تاريخ الإنشاء), Size (الحجم), Title (العنوان). هذه من metadata الوثيقة.",
+wrong_exp:[
+  {opt:"Screen brightness",why:"سطوع الشاشة إعداد في نظام التشغيل وليس خاصية وثيقة يمكن البحث فيها."},
+  {opt:"CPU temperature",why:"درجة حرارة المعالج بيانات نظام وليست خاصية وثيقة."},
+  {opt:"Battery percentage",why:"نسبة البطارية بيانات جهاز وليست خاصية وثيقة."}
+],
+key:"Document properties: Author, Write, Created, Size, Title = قابلة للاستعلام"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"In regular expressions, ? typically represents:",
+opts:["Zero or more characters","Any one character","End of line only","Logical NOT"],ans:1,diff:"Medium",
+correct_exp:"<strong>? = أي حرف واحد بالضبط</strong> في التعبيرات النظامية (Regex). مثال: gr?y يُطابق 'gray' أو 'grey' (حرف واحد مختلف). يختلف عن * الذي يُطابق أي عدد من الأحرف (صفر فأكثر).",
+wrong_exp:[
+  {opt:"Zero or more characters",why:"صفر أو أكثر من الأحرف = * (النجمة). ? = حرف واحد تحديداً."},
+  {opt:"End of line only",why:"نهاية السطر في Regex يُمثَّل بـ $ (الدولار). ليس ?."},
+  {opt:"Logical NOT",why:"النفي المنطقي في Index Server هو NOT (الكلمة) أو ! في بعض محركات البحث. ليس ?."}
+],
+key:"Regex: ? = حرف واحد | * = صفر أو أكثر | + = حرف واحد أو أكثر | $ = نهاية السطر"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"In character classes, [aeiou] matches:",
+opts:["Any consonant","Any vowel","Any digit","Any punctuation mark"],ans:1,diff:"Medium",
+correct_exp:"<strong>[aeiou] = أي حرف علّة (vowel)</strong>: في Regex، الأقواس المربعة [] تُعرِّف مجموعة أحرف محتملة. [aeiou] تُطابق أي حرف واحد من هذه القائمة (a أو e أو i أو o أو u). مثال: [aeiou]pple يُطابق 'apple'.",
+wrong_exp:[
+  {opt:"Any consonant",why:"الحروف الساكنة هي كل الحروف عدا حروف العلة. للتعبير عنها: [^aeiou] (النفي داخل الأقواس)."},
+  {opt:"Any digit",why:"أي رقم = [0-9] أو \\d في Regex. ليس [aeiou]."},
+  {opt:"Any punctuation mark",why:"علامات الترقيم = \\p{P} أو قائمة محددة مثل [.,!?]. ليس [aeiou]."}
+],
+key:"[abc] = أحد هذه الأحرف | [^abc] = ليس هذه الأحرف | [0-9] = رقم"},
+
+{ch:5,chName:"Chapter 5 — Index Server",
+q:"What is the main trade-off when terminating long-running queries early?",
+opts:["Security vs. storage","Speed vs. completeness","Accuracy vs. encryption","Compression vs. bandwidth"],ans:1,diff:"Hard",
+correct_exp:"<strong>Speed vs. Completeness (السرعة مقابل الاكتمالية)</strong>: إنهاء الاستعلامات الطويلة مبكراً يُعطي استجابة أسرع للمستخدم، لكن قد تُفوَّت وثائق ذات صلة لم تُفحَص بعد. هذه المقايضة الجوهرية في أنظمة البحث.",
+wrong_exp:[
+  {opt:"Security vs. storage",why:"الأمان مقابل التخزين مقايضة في التشفير وحماية البيانات. لا علاقة لها بإنهاء الاستعلامات."},
+  {opt:"Accuracy vs. encryption",why:"الدقة مقابل التشفير ليست مقايضة معروفة في سياق أنظمة البحث."},
+  {opt:"Compression vs. bandwidth",why:"الضغط مقابل عرض النطاق مقايضة في نقل البيانات. لا علاقة لها بإنهاء الاستعلامات."}
+],
+key:"Fast-Response Trade-off = Speed vs. Completeness | القاعدة في كل أنظمة البحث"},
+
+// ========================= CHAPTER 6 =========================
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"A proxy server primarily acts as:",
+opts:["A database engine","An intermediary between client and destination server","A file compression tool","A physical network cable"],ans:1,diff:"Easy",
+correct_exp:"<strong>الوسيط (Intermediary)</strong> بين العميل والخادم الوجهة — الدور الأساسي والتعريفي للـ Proxy Server. يستقبل طلب العميل، يُعالجه أو يُحيله، ويُعيد الاستجابة. يُمكِّن تطبيق سياسات الأمان والتخزين المؤقت والتوجيه.",
+wrong_exp:[
+  {opt:"A database engine",why:"قاعدة البيانات تُخزِّن وتُدير البيانات. Proxy Server لا يُخزِّن بيانات التطبيق بهذا الشكل."},
+  {opt:"A file compression tool",why:"ضغط الملفات يمكن أن يكون ميزة إضافية في بعض Proxies لكنه ليس دوره الأساسي."},
+  {opt:"A physical network cable",why:"الكابل وسيط فيزيائي. Proxy Server برمجية/خادم."}
+],
+key:"Proxy = Intermediary (وسيط) | الدور الأساسي: استقبال الطلبات وإحالتها"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Which of the following is NOT one of the main functions of a proxy server?",
+opts:["Evaluating requests","Forwarding requests","Filtering requests","Compiling source code"],ans:3,diff:"Medium",
+correct_exp:"<strong>Compiling source code ليست وظيفة Proxy Server</strong>. وظائف Proxy الرئيسية: تقييم الطلبات (Evaluating)، إحالتها (Forwarding)، فلترتها (Filtering)، التخزين المؤقت (Caching)، أمان الشبكة. ترجمة الكود وظيفة compiler وليست proxy.",
+wrong_exp:[
+  {opt:"Evaluating requests",why:"Evaluating وظيفة حقيقية — Proxy يفحص الطلب ويُقرِّر كيفية التعامل معه."},
+  {opt:"Forwarding requests",why:"Forwarding الوظيفة الأساسية — الـ Proxy يُحيل الطلبات للخادم المطلوب."},
+  {opt:"Filtering requests",why:"Filtering وظيفة حقيقية — Proxy يُفلتر المحتوى غير المرغوب أو يمنع مواقع محددة."}
+],
+key:"وظائف Proxy: Evaluate + Forward + Filter + Cache + Security | لا علاقة له بـ Compilation"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Which proxy type passes requests and responses without modification?",
+opts:["Reverse Proxy","Forward Proxy","Gateway / Tunneling Proxy","Translation Proxy"],ans:2,diff:"Medium",
+correct_exp:"<strong>Gateway / Tunneling Proxy</strong>: يُمرِّر الطلبات والاستجابات دون أي تعديل. يعمل كـ 'نفق' شفاف بين العميل والخادم. مفيد عندما تريد استخدام Proxy دون التأثير على المحتوى.",
+wrong_exp:[
+  {opt:"Reverse Proxy",why:"Reverse Proxy قد يُعدِّل الطلبات/الاستجابات (تشفير SSL، ضغط، تعديل headers). ليس unmodified."},
+  {opt:"Forward Proxy",why:"Forward Proxy قد يُضيف headers (مثل X-Forwarded-For) أو يُفلتر المحتوى."},
+  {opt:"Translation Proxy",why:"Translation Proxy يُعدِّل المحتوى بالترجمة. التعديل جزء أساسي منه."}
+],
+key:"Gateway/Tunneling Proxy = Unmodified pass-through | كالنفق الشفاف"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"A Forward Proxy is typically located:",
+opts:["In front of public web servers","Inside the internal network","On satellite links only","Inside a DNS root server"],ans:1,diff:"Medium",
+correct_exp:"<strong>داخل الشبكة الداخلية</strong>: Forward Proxy يُوضَع داخل الشبكة الداخلية (Internal Network) بين عملاء المؤسسة والإنترنت. يُتيح التحكم في: ما يصل إليه الموظفون، تخزين المحتوى المتكرر، وإخفاء هوية الشبكة الداخلية.",
+wrong_exp:[
+  {opt:"In front of public web servers",why:"هذا موقع Reverse Proxy — أمام الخوادم العامة لحمايتها. Forward Proxy أمام العملاء."},
+  {opt:"On satellite links only",why:"Forward Proxy تقنية تُوضَع في الشبكة المحلية. لا علاقة حصرية له بالأقمار الصناعية."},
+  {opt:"Inside a DNS root server",why:"DNS root servers بنية تحتية مختلفة تماماً. Proxy لا يُنصَب فيها."}
+],
+key:"Forward Proxy = داخل الشبكة الداخلية + يُحيل للخارج | Reverse Proxy = أمام الخوادم"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Which proxy type appears to clients as if it were the actual web server?",
+opts:["Open Proxy","Translation Proxy","Reverse Proxy","DNS Proxy"],ans:2,diff:"Medium",
+correct_exp:"<strong>Reverse Proxy (أو Surrogate)</strong>: يبدو للعميل كأنه الخادم الفعلي. العميل لا يعرف أنه يتحدث مع Proxy. يُستخدم لـ: Load Balancing (توزيع الحمل)، SSL Acceleration (تحميل عملية التشفير)، Caching (تخزين مؤقت لتسريع الاستجابة).",
+wrong_exp:[
+  {opt:"Open Proxy",why:"Open Proxy وسيط يمكن لأي مستخدم إنترنت استخدامه. لا يُخفي هوية الخادم الحقيقي."},
+  {opt:"Translation Proxy",why:"Translation Proxy يُترجم المحتوى. العميل يعرف أنه يستخدم Proxy."},
+  {opt:"DNS Proxy",why:"DNS Proxy يُحيل استعلامات DNS. ليس وسيطاً شفافاً أمام الخوادم."}
+],
+key:"Reverse Proxy = Surrogate = يبدو كالخادم الأصلي | Load balance + SSL + Cache"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Which Java class is a well-known example of a Dynamic Proxy?",
+opts:["java.net.Socket","java.lang.reflect.Proxy","java.io.File","java.util.ArrayList"],ans:1,diff:"Hard",
+correct_exp:"<strong>java.lang.reflect.Proxy</strong>: الفئة في Java لإنشاء Dynamic Proxies برمجياً. تُنشئ فئة وكيل في وقت التشغيل (Runtime) تُطبِّق Interfaces محددة. تُستخدم في أطر عمل مثل Spring للـ AOP (Aspect-Oriented Programming).",
+wrong_exp:[
+  {opt:"java.net.Socket",why:"Socket لإنشاء اتصالات TCP. ليست Dynamic Proxy."},
+  {opt:"java.io.File",why:"File للتعامل مع الملفات. ليست Dynamic Proxy."},
+  {opt:"java.util.ArrayList",why:"ArrayList هيكل بيانات قائمة. ليست Dynamic Proxy."}
+],
+key:"java.lang.reflect.Proxy = Dynamic Proxy في Java | تُنشأ في Runtime"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"An Open Proxy can be accessed by:",
+opts:["Authorized employees only","One local subnet only","Any Internet user","DNS servers only"],ans:2,diff:"Easy",
+correct_exp:"<strong>Any Internet user</strong>: Open Proxy متاح لأي مستخدم إنترنت — لا توثيق ولا قيود. يُستخدم لإخفاء الهوية (Anonymity)، تجاوز القيود الجغرافية، أو أحياناً لأغراض خبيثة. لهذا يُحظَر استخدامه في كثير من المؤسسات.",
+wrong_exp:[
+  {opt:"Authorized employees only",why:"الوصول المقيد للموظفين خاصية Forward Proxy داخل المؤسسة."},
+  {opt:"One local subnet only",why:"تقييد الشبكة الفرعية المحلية إعداد شبكي. Open Proxy عام للإنترنت."},
+  {opt:"DNS servers only",why:"DNS servers تتواصل مع بعضها بروتوكولياً. Open Proxy للمستخدمين العامين."}
+],
+key:"Open Proxy = عام لأي مستخدم إنترنت | يُستخدم للـ Anonymity وتجاوز القيود"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Which feature offloads encryption processing from the web server?",
+opts:["MIME Filtering","SSL Acceleration","DNS Proxy","Packet Switching"],ans:1,diff:"Medium",
+correct_exp:"<strong>SSL Acceleration (أو SSL Termination)</strong>: الـ Reverse Proxy يتولى عملية التشفير/فك التشفير (SSL/TLS handshake) بدلاً من خادم الويب. يُحرِّر خادم الويب من هذا العبء الحسابي الثقيل ويُحسِّن الأداء الكلي.",
+wrong_exp:[
+  {opt:"MIME Filtering",why:"MIME Filtering فلترة أنواع الملفات (مثل منع تنزيل .exe). ليست تسريعاً للتشفير."},
+  {opt:"DNS Proxy",why:"DNS Proxy يُحيل استعلامات DNS. لا علاقة له بتشفير SSL."},
+  {opt:"Packet Switching",why:"Packet Switching تقنية تبديل الحزم في الشبكة. ليست ميزة في Proxy Server."}
+],
+key:"SSL Acceleration = Proxy يتولى التشفير/فك التشفير → يُخفِّف حمل خادم الويب"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Load balancing in a reverse proxy:",
+opts:["Compresses files","Assigns IP addresses","Distributes requests across multiple servers","Translates content into other languages"],ans:2,diff:"Easy",
+correct_exp:"<strong>توزيع الطلبات على عدة خوادم</strong>: Load Balancing في Reverse Proxy يُوزِّع حركة المرور على مجموعة خوادم ويب (Server Farm). يمنع إثقال خادم واحد ويضمن التوافر العالي (High Availability). خوارزميات: Round-Robin, Least Connections, IP Hash.",
+wrong_exp:[
+  {opt:"Compresses files",why:"ضغط الملفات ميزة اختيارية يمكن أن يُقدِّمها Proxy لكنها ليست تعريف Load Balancing."},
+  {opt:"Assigns IP addresses",why:"تعيين IP وظيفة DHCP. Load Balancing يُوزِّع الطلبات."},
+  {opt:"Translates content into other languages",why:"الترجمة وظيفة Translation Proxy. ليست Load Balancing."}
+],
+key:"Load Balancing = توزيع الطلبات على عدة خوادم = High Availability"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Spoon Feeding means:",
+opts:["Encrypting traffic using SSL","Delivering cached data gradually to slow clients","Blocking harmful websites","Translating HTML pages"],ans:1,diff:"Hard",
+correct_exp:"<strong>Spoon Feeding</strong>: تقنية في Reverse Proxy — يستقبل الـ Proxy الاستجابة الكاملة من خادم الويب بسرعة عالية (ويُحرِّر الخادم فوراً)، ثم يُرسِلها تدريجياً للعملاء البطيئة (Slow Clients) الذين يستغرقون وقتاً في الاستقبال.",
+wrong_exp:[
+  {opt:"Encrypting traffic using SSL",why:"تشفير SSL وظيفة SSL Acceleration/Termination. ليست Spoon Feeding."},
+  {opt:"Blocking harmful websites",why:"حظر المواقع وظيفة Content Filtering Proxy. ليست Spoon Feeding."},
+  {opt:"Translating HTML pages",why:"ترجمة الصفحات وظيفة Translation Proxy. ليست Spoon Feeding."}
+],
+key:"Spoon Feeding: Server → Proxy (سريع) ↔ Proxy → Client (بطيء تدريجي) | يُحرِّر الخادم بسرعة"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Extranet Publishing allows:",
+opts:["Internal services to be selectively exposed to Internet users","IP addresses to be hidden","Database replication","Fiber optic communication"],ans:0,diff:"Hard",
+correct_exp:"<strong>Extranet Publishing</strong>: ميزة في Reverse Proxy تُتيح عرض خدمات وتطبيقات داخلية للمستخدمين الخارجيين المصرح لهم (شركاء، عملاء) عبر الإنترنت بشكل آمن وانتقائي. الـ Proxy يُشكِّل واجهة أمنية.",
+wrong_exp:[
+  {opt:"IP addresses to be hidden",why:"إخفاء IP وظيفة Anonymous Proxy. Extranet Publishing عرض الخدمات الداخلية."},
+  {opt:"Database replication",why:"Database Replication نسخ قواعد البيانات للخوادم المتعددة. لا علاقة له بـ Extranet Publishing."},
+  {opt:"Fiber optic communication",why:"الألياف الضوئية وسيط نقل فيزيائي. لا علاقة له بـ Extranet Publishing."}
+],
+key:"Extranet Publishing = Reverse Proxy يُعرِض خدمات داخلية للخارجيين المصرح لهم"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Dynamic Routing in Network Deployment Server is built on:",
+opts:["DNS","High Availability Manager","NAT","ICMP"],ans:1,diff:"Hard",
+correct_exp:"<strong>High Availability Manager</strong>: التوجيه الديناميكي (Dynamic Routing) في خادم Network Deployment مبني على High Availability Manager الذي يُدير توجيه الطلبات ديناميكياً بين الخوادم بناءً على حالتها وحمولتها.",
+wrong_exp:[
+  {opt:"DNS",why:"DNS يُترجم الأسماء لـ IP. High Availability Manager هو من يُدير التوجيه الديناميكي."},
+  {opt:"NAT",why:"NAT يُترجم عناوين IP. ليس الأساس للتوجيه الديناميكي في Network Deployment Server."},
+  {opt:"ICMP",why:"ICMP للتشخيص (ping). ليس أساس التوجيه الديناميكي."}
+],
+key:"Dynamic Routing in Network Deployment = مبني على High Availability Manager"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Built-in caching can store content in:",
+opts:["CPU registers only","Memory and disk","DNS records only","Routers only"],ans:1,diff:"Medium",
+correct_exp:"<strong>Memory and disk (الذاكرة والقرص)</strong>: Proxy Caching يُخزِّن المحتوى في المستويين: الذاكرة (RAM) للمحتوى الأسرع وصولاً، والقرص (Disk) للتخزين الأكبر والأطول أمداً. هذا التسلسل الهرمي للتخزين (Cache Hierarchy) يُوازن بين السرعة والسعة.",
+wrong_exp:[
+  {opt:"CPU registers only",why:"سجلات المعالج (Registers) أسرع أنواع التخزين لكن صغيرة جداً (bytes). Proxy Cache يحتاج MB أو GB."},
+  {opt:"DNS records only",why:"سجلات DNS لتخزين عناوين الأسماء. ليست للمحتوى الذي يُخزِّنه Proxy."},
+  {opt:"Routers only",why:"الراوتر يُخزِّن جداول التوجيه (Routing Tables). لا يُخزِّن محتوى الويب."}
+],
+key:"Proxy Cache: RAM (سريع/صغير) + Disk (أبطأ/أكبر) = تخزين هرمي كفء"},
+
+// ========================= CHAPTER 6 (Continued) =========================
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Why can a proxy server not fully replace a web server?",
+opts:["It cannot process any HTTP requests","It lacks capabilities such as CGI and native web serving","It does not support caching","It cannot communicate with clients"],ans:1,diff:"Hard",
+correct_exp:"<strong>يفتقر لـ CGI والخدمة الأصيلة للويب</strong>: الخادم الوكيل (Proxy) لا يُنفِّذ الكود من جانب الخادم (CGI, PHP, ASP.NET)، ولا يُولِّد المحتوى الديناميكي، ولا يُدير قواعد البيانات. Web Server لديه هذه القدرات. الـ Proxy هو وسيط في الأساس لتمرير الطلبات وتوزيع الحمل أو التخزين المؤقت[cite: 635].",
+wrong_exp:[
+  {opt:"It cannot process any HTTP requests",why:"غير صحيح، الـ Proxy يعالج طلبات HTTP بالفعل ليتمكن من تمريرها أو تصفيتها[cite: 635]."},
+  {opt:"It does not support caching",why:"التخزين المؤقت (Caching) هو أحد أهم الوظائف الأساسية للـ Proxy[cite: 707]."},
+  {opt:"It cannot communicate with clients",why:"الـ Proxy يتواصل مباشرة مع العملاء لاستقبال طلباتهم وإرجاع الاستجابات لهم[cite: 635]."}
+],
+key:"Proxy = وسيط للتمرير والتخزين | Web Server = معالجة أكواد (CGI) وتوليد محتوى"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"DMZ stands for:",
+opts:["Dynamic Memory Zone","Data Management Zone","Demilitarized Zone","Distributed Machine Zone"],ans:2,diff:"Medium",
+correct_exp:"<strong>Demilitarized Zone (المنطقة منزوعة السلاح)</strong>: هي منطقة شبكية معزولة تُستخدم لوضع الخوادم التي تحتاج إلى الوصول للإنترنت (مثل Web Proxy أو Web Server) لحماية الشبكة الداخلية (LAN). يوضع الـ Proxy في الـ DMZ ليكون نقطة عبور آمنة تمنع الاتصال المباشر بين الإنترنت والشبكة الداخلية[cite: 726].",
+wrong_exp:[
+  {opt:"Dynamic Memory Zone",why:"مصطلح لا علاقة له بأمن الشبكات أو هندسة الخوادم الوكيلة."},
+  {opt:"Data Management Zone",why:"إدارة البيانات ليست ما يشير إليه اختصار DMZ في معمارية الشبكات."},
+  {opt:"Distributed Machine Zone",why:"مصطلح غير صحيح تقنياً في هذا السياق."}
+],
+key:"DMZ = Demilitarized Zone | منطقة عازلة ومؤمنة بين الشبكة الداخلية والإنترنت"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Anonymous proxies are mainly used to:",
+opts:["Increase monitor resolution","Hide the user's IP address","Allocate RAM","Create databases"],ans:1,diff:"Easy",
+correct_exp:"<strong>Hide the user's IP address (إخفاء عنوان IP للمستخدم)</strong>: يُستخدم الخادم الوكيل المجهول (Anonymous Proxy) لإخفاء عنوان IP الخاص بالعميل أثناء تصفح الويب لحماية هويته من التتبع والمراقبة[cite: 642]. أمثلة على ذلك برامج مثل JonDonym التي تتيح التصفح المجهول[cite: 664].",
+wrong_exp:[
+  {opt:"Increase monitor resolution",why:"دقة الشاشة تعتمد على عتاد الشاشة وبطاقة الرسوميات، ولا علاقة لها بالشبكات."},
+  {opt:"Allocate RAM",why:"تخصيص الذاكرة العشوائية من مهام نظام التشغيل، وليس الخادم الوكيل."},
+  {opt:"Create databases",why:"إنشاء قواعد البيانات يتم عبر أنظمة إدارة قواعد البيانات (DBMS)."}
+],
+key:"Anonymous Proxy = إخفاء عنوان IP + تصفح مجهول لمنع التتبع"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Content filtering proxies commonly require:",
+opts:["BIOS updates","User authentication","Optical fiber","DHCP only"],ans:1,diff:"Medium",
+correct_exp:"<strong>User authentication (مصادقة المستخدم)</strong>: خوادم التصفية (Content-filtering proxies) تدعم بشكل عام مصادقة المستخدمين للتحكم في الوصول إلى الويب[cite: 668, 669]. في المؤسسات، يُطلب من المستخدمين تسجيل الدخول لتطبيق سياسات الاستخدام وتتبع نشاط كل فرد على حدة[cite: 720, 721].",
+wrong_exp:[
+  {opt:"BIOS updates",why:"تحديثات BIOS تخص اللوحة الأم في الحاسوب، ولا علاقة لها بصلاحيات التصفية."},
+  {opt:"Optical fiber",why:"الألياف الضوئية وسيط نقل فيزيائي للشبكات [cite: 291]، وليست متطلباً لتصفية المحتوى."},
+  {opt:"DHCP only",why:"DHCP يوزع عناوين IP تلقائياً [cite: 398]، لكنه لا يتحكم في صلاحيات الوصول للويب."}
+],
+key:"Content Filtering = يفرض User Authentication لتتبع وتحكم الأفراد"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Which protocol extends open caching architectures with plug-ins?",
+opts:["SMTP","ICAP","FTP","SNMP"],ans:1,diff:"Hard",
+correct_exp:"<strong>ICAP (Internet Content Adaptation Protocol)</strong>: هو بروتوكول صُمم لتوسيع خوادم التخزين المؤقت (Caching Proxies) المفتوحة عبر إضافة إضافات (Plug-ins). يتيح للـ Proxy تمرير المحتوى إلى خوادم خارجية لمعالجته (مثل فحص الفيروسات أو تعديل المحتوى) قبل إعادته للعميل.",
+wrong_exp:[
+  {opt:"SMTP",why:"SMTP (Simple Mail Transfer Protocol) هو بروتوكول لنقل البريد الإلكتروني[cite: 387]."},
+  {opt:"FTP",why:"FTP هو بروتوكول لنقل الملفات بين العميل والخادم[cite: 387]."},
+  {opt:"SNMP",why:"SNMP يُستخدم لإدارة ومراقبة أجهزة الشبكة، وليس لتوسيع بنية الـ Caching."}
+],
+key:"ICAP = Content Adaptation Protocol = إضافة Plug-ins لمعالجة المحتوى"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"MIME filtering is used to:",
+opts:["Block specific file types such as executables","Assign domain names","Measure latency","Encrypt sessions"],ans:0,diff:"Medium",
+correct_exp:"<strong>Block specific file types such as executables</strong>: تصفية MIME (MIME Filtering) تُستخدم كإحدى آليات الـ Proxy للتعرف على امتدادات وأنواع الملفات المارة عبر الشبكة وحظر أنواع محددة منها (مثل الملفات التنفيذية .exe التي قد تحتوي على برمجيات خبيثة).",
+wrong_exp:[
+  {opt:"Assign domain names",why:"تعيين أسماء النطاقات وتتبعها هو دور نظام DNS[cite: 408]."},
+  {opt:"Measure latency",why:"قياس التأخير يتم عبر بروتوكولات التشخيص مثل ICMP (Ping)[cite: 390]."},
+  {opt:"Encrypt sessions",why:"تشفير الجلسات يتم عبر بروتوكولات مثل SSL/IPsec[cite: 1017, 1019]."}
+],
+key:"MIME Filtering = تصفية أنواع الملفات (مثل حظر الملفات التنفيذية)"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"If dynamically filtered content is rejected, the proxy:",
+opts:["Caches it for later review","Returns an HTTP fetch error and does not cache it","Sends it directly to all clients","Converts to its DNS records"],ans:1,diff:"Hard",
+correct_exp:"<strong>Returns an HTTP fetch error and does not cache it</strong>: عندما يقوم خادم الويب بحظر محتوى بناءً على التصفية الديناميكية (Dynamic Filtering)، فإنه يُرجع رسالة خطأ (HTTP fetch error) للمستخدم، ويتم منع تخزين هذا المحتوى المرفوض في الذاكرة المخبئية (Nothing is cached)[cite: 678].",
+wrong_exp:[
+  {opt:"Caches it for later review",why:"النص صريح بأنه لا يتم تخزين أي شيء من المحتوى المرفوض (nothing is cached)[cite: 678]."},
+  {opt:"Sends it directly to all clients",why:"إرسال المحتوى للعملاء يتناقض تماماً مع فكرة حظره ورفضه."},
+  {opt:"Converts to its DNS records",why:"الـ Proxy لا يحول المحتوى المرفوض إلى سجلات DNS. وظيفة DNS هي ترجمة الأسماء[cite: 408]."}
+],
+key:"Rejected Content = HTTP fetch error + No caching (لا يتم تخزينه)"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"The main benefit of a Caching Proxy is:",
+opts:["Increased packet loss","Reduced bandwidth usage and faster responses","Slower content delivery","Automatic hardware replacement"],ans:1,diff:"Medium",
+correct_exp:"<strong>Reduced bandwidth usage and faster responses</strong>: الخادم الوكيل للتخزين المؤقت (Caching Proxy) يحتفظ بنسخ محلية من الموارد المطلوبة بشكل متكرر. هذا يسمح للمؤسسات بتقليل استهلاك النطاق الترددي (Bandwidth) وتكاليفه بشكل كبير، مع تسريع وقت الاستجابة للعملاء بشكل ملحوظ[cite: 707].",
+wrong_exp:[
+  {opt:"Increased packet loss",why:"فقدان الحزم (Packet loss) هو مشكلة سلبية تؤثر على جودة الشبكة [cite: 654]، وليس فائدة."},
+  {opt:"Slower content delivery",why:"العكس هو الصحيح؛ التخزين المؤقت يسرع من تسليم المحتوى لأنه يجلبه من الشبكة المحلية[cite: 706]."},
+  {opt:"Automatic hardware replacement",why:"الـ Proxy هو تقنية برمجية/خادم، ولا يمكنه استبدال الأجهزة مادياً."}
+],
+key:"Caching Proxy = نسخ محلية = توفير Bandwidth + سرعة استجابة هائلة"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Which translation method offers the highest accuracy and cultural nuance?",
+opts:["Machine Translation","Human Translation","DNS Translation","MIME Translation"],ans:1,diff:"Medium",
+correct_exp:"<strong>Human Translation (الترجمة البشرية)</strong>: في خوادم الترجمة (Translation Proxy)، يتم استبدال المحتوى الأصلي بمحتوى مترجم في الوقت الفعلي[cite: 716]. وتُعد الترجمة البشرية هي الخيار الأفضل لضمان الدقة العالية ومراعاة الفروق الدقيقة الثقافية (Cultural nuance)، مقارنة بالترجمة الآلية.",
+wrong_exp:[
+  {opt:"Machine Translation",why:"الترجمة الآلية سريعة، لكنها تفتقر للدقة والفهم العميق للفروق الثقافية والسياقية مقارنة بالبشر."},
+  {opt:"DNS Translation",why:"هذا مصطلح غير موجود في هذا السياق. DNS يترجم الأسماء إلى عناوين IP[cite: 408]."},
+  {opt:"MIME Translation",why:"MIME يستخدم لتحديد أنواع الملفات، ولا يقوم بترجمة اللغات."}
+],
+key:"Translation Proxy = Human Translation لأعلى دقة ومراعاة ثقافية"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"A DNS Proxy:",
+opts:["Translates web pages to other languages","Forwards DNS queries to external DNS servers","Compresses images","Balances application servers"],ans:1,diff:"Easy",
+correct_exp:"<strong>Forwards DNS queries to external DNS servers</strong>: وكيل الـ DNS (DNS Proxy) هو خادم يتلقى استعلامات أسماء النطاقات من أجهزة الشبكة المحلية ويقوم بتمريرها (Forwarding) إلى خوادم DNS خارجية على الإنترنت [cite: 86]، وقد يقوم بتخزين النتائج مؤقتاً لتسريع الاستعلامات المستقبلية.",
+wrong_exp:[
+  {opt:"Translates web pages to other languages",why:"هذه وظيفة وكيل الترجمة (Translation Proxy)[cite: 714]."},
+  {opt:"Compresses images",why:"ضغط البيانات يتم عبر خوادم تسريع الأداء (Performance Enhancing Proxies)."},
+  {opt:"Balances application servers",why:"موازنة الحمل (Load balancing) تتم عبر الـ Reverse Proxy[cite: 648]."}
+],
+key:"DNS Proxy = تمرير استعلامات DNS للخوادم الخارجية"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"Logging and Eavesdropping proxies can:",
+opts:["Record all traffic between clients and the web","Increase battery life","Generate SSL certificates automatically","Replace routers physically"],ans:0,diff:"Medium",
+correct_exp:"<strong>Record all traffic between clients and the web</strong>: خوادم التسجيل والتنصت (Logging Proxies) يمكنها تسجيل وتتبع جميع البيانات والطلبات المارة بين العملاء وشبكة الويب. يُستخدم ذلك في المؤسسات الكبيرة لتتبع استخدام الإنترنت لكل فرد وتطبيق سياسات الرقابة[cite: 721].",
+wrong_exp:[
+  {opt:"Increase battery life",why:"الـ Proxy لا يتحكم في استهلاك طاقة الأجهزة الطرفية للعملاء بأي شكل مباشر."},
+  {opt:"Generate SSL certificates automatically",why:"إنشاء الشهادات يتم عبر سلطات الشهادات (CAs)، وليس من مهام خوادم التسجيل."},
+  {opt:"Replace routers physically",why:"لا يمكن للـ Proxy استبدال الموجهات فيزيائياً؛ الـ Router يعمل في طبقة الشبكة[cite: 145]."}
+],
+key:"Logging Proxies = تسجيل حركة المرور + تتبع استخدام الأفراد بدقة"},
+
+{ch:6,chName:"Chapter 6 — Proxy Server",
+q:"A Private Network Gateway proxy can:",
+opts:["Bridge two separate networks securely","Translate HTML to PDF only","Disable authentication","Replace all switches and routers permanently"],ans:0,diff:"Hard",
+correct_exp:"<strong>Bridge two separate networks securely</strong>: يمكن للبوابات (Gateways) وتقنيات مثل الشبكة الخاصة الافتراضية (VPN) ربط شبكات متعددة أو منفصلة معاً بشكل آمن عبر الإنترنت[cite: 1024]. تُستخدم الخوادم الوكيلة في هذا السياق لتأمين وحماية تدفق البيانات بين هذه الشبكات المتباعدة.",
+wrong_exp:[
+  {opt:"Translate HTML to PDF only",why:"تحويل صيغ الملفات ليس من الوظائف الأساسية لبوابات الشبكات."},
+  {opt:"Disable authentication",why:"البوابات الآمنة تهدف لفرض وتشفير المصادقة (Authentication) وليس تعطيلها."},
+  {opt:"Replace all switches and routers permanently",why:"لا يمكن لأي Proxy أو Gateway استبدال البنية التحتية الأساسية (Switches/Routers) بالكامل، فهي تعمل بالاعتماد عليها."}
+],
+key:"Private Network Gateway = ربط الشبكات المنفصلة بشكل آمن (مثل الـ VPN)"}
+];
+// ============================================================
+// كود تشغيل الموقع (Logic)
+// ============================================================
+
+let currentQuestions = [];
+let currentQuestionIndex = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let wrongList = [];
+
+// دالة اختيار الفصل
+function setChapter(chIndex) {
+  // تفعيل الزرار
+  document.querySelectorAll('.ch-btn').forEach((btn, idx) => {
+    btn.classList.toggle('active', idx === chIndex);
+  });
+
+  // تصفية الأسئلة
+  if (chIndex === 0) {
+    currentQuestions = [...ALL_QUESTIONS];
+    document.getElementById('current-ch-name').innerText = "كل الفصول (150 سؤال)";
+  } else {
+    currentQuestions = ALL_QUESTIONS.filter(q => q.ch === chIndex);
+    document.getElementById('current-ch-name').innerText = `Chapter ${chIndex}`;
+  }
+  
+  retryQuiz();
+}
+
+// دالة بدء أو إعادة الاختبار
+function retryQuiz() {
+  currentQuestionIndex = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  wrongList = [];
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('quiz-area').style.display = 'block';
+  updateProgress();
+  renderQuestion();
+}
+
+// دالة إعادة الأسئلة الخاطئة فقط
+function retryWrong() {
+  if (wrongList.length === 0) return;
+  currentQuestions = [...wrongList];
+  retryQuiz();
+}
+
+// دالة عرض السؤال
+function renderQuestion() {
+  if (currentQuestionIndex >= currentQuestions.length) {
+    showResults();
+    return;
+  }
+
+  const qData = currentQuestions[currentQuestionIndex];
+  const quizArea = document.getElementById('quiz-area');
+  
+  let optionsHTML = '';
+  qData.opts.forEach((opt, index) => {
+    const letters = ['A', 'B', 'C', 'D'];
+    optionsHTML += `
+      <div class="opt" onclick="selectOption(${index}, this)">
+        <div class="opt-letter">${letters[index]}</div>
+        <div class="opt-text">${opt}</div>
+      </div>
+    `;
+  });
+
+  let wrongExpHTML = '';
+  if (qData.wrong_exp && qData.wrong_exp.length > 0) {
+    qData.wrong_exp.forEach(w => {
+      wrongExpHTML += `
+        <div class="wrong-item">
+          <div class="wrong-item-label">✗ ${w.opt}</div>
+          <div class="wrong-item-text">${w.why}</div>
+        </div>
+      `;
+    });
+  }
+
+  quizArea.innerHTML = `
+    <div class="q-card">
+      <div class="q-meta">
+        <span class="q-num">السؤال ${currentQuestionIndex + 1}</span>
+        <span class="q-diff">${qData.diff}</span>
+      </div>
+      <div class="q-text">${qData.q}</div>
+      <div class="options">${optionsHTML}</div>
+      
+      <div class="explain-box" id="explain-box">
+        <div class="explain-header">
+          <span class="explain-icon">💡</span>
+          <span class="explain-title">الشرح والتفاصيل</span>
+        </div>
+        <div class="explain-body">
+          <div class="explain-section">
+            <div class="explain-section-title green">✓ الإجابة الصحيحة</div>
+            <div class="explain-text">${qData.correct_exp}</div>
+          </div>
+          ${wrongExpHTML ? `
+          <div class="explain-section">
+            <div class="explain-section-title red">لماذا الخيارات الأخرى خاطئة؟</div>
+            <div class="explain-wrong-list">${wrongExpHTML}</div>
+          </div>` : ''}
+          ${qData.key ? `
+          <div class="key-concept">
+            <div class="key-concept-label">KEY CONCEPT</div>
+            <div class="key-concept-text">${qData.key}</div>
+          </div>` : ''}
+        </div>
+      </div>
+      <button class="next-btn" id="next-btn" onclick="nextQuestion()">السؤال التالي ←</button>
+    </div>
+  `;
+  updateProgress();
+}
+
+// دالة اختيار الإجابة
+function selectOption(selectedIndex, optElement) {
+  const qData = currentQuestions[currentQuestionIndex];
+  const allOpts = document.querySelectorAll('.opt');
+  
+  if (allOpts[0].classList.contains('disabled')) return; // تم الاختيار مسبقاً
+
+  allOpts.forEach(opt => opt.classList.add('disabled'));
+
+  if (selectedIndex === qData.ans) {
+    optElement.classList.add('correct');
+    correctCount++;
+  } else {
+    optElement.classList.add('wrong');
+    allOpts[qData.ans].classList.add('reveal-correct');
+    wrongCount++;
+    if (!wrongList.includes(qData)) wrongList.push(qData);
+  }
+
+  document.getElementById('explain-box').classList.add('show');
+  document.getElementById('next-btn').classList.add('show');
+  updateProgress();
+}
+
+// دالة الانتقال للسؤال التالي
+function nextQuestion() {
+  currentQuestionIndex++;
+  renderQuestion();
+}
+
+// دالة تحديث شريط التقدم
+function updateProgress() {
+  const total = currentQuestions.length;
+  document.getElementById('prog-text').innerText = `السؤال ${currentQuestionIndex + 1} من ${total}`;
+  document.getElementById('prog-c').innerText = `✓ ${correctCount}`;
+  document.getElementById('prog-w').innerText = `✗ ${wrongCount}`;
+  
+  const pct = total === 0 ? 0 : ((currentQuestionIndex) / total) * 100;
+  document.getElementById('prog-fill').style.width = `${pct}%`;
+}
+
+// دالة عرض النتائج النهائية
+function showResults() {
+  document.getElementById('quiz-area').style.display = 'none';
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.classList.add('show');
+  
+  const total = currentQuestions.length;
+  const pct = Math.round((correctCount / total) * 100) || 0;
+  
+  document.getElementById('ring-pct').innerText = `${pct}%`;
+  document.getElementById('r-correct').innerText = correctCount;
+  document.getElementById('r-wrong').innerText = wrongCount;
+  document.getElementById('r-total').innerText = total;
+  
+  let title = '';
+  let sub = '';
+  let ringColor = '';
+  
+  if (pct >= 90) { title = 'ممتاز جداً! 🏆'; sub = 'أداؤك استثنائي'; ringColor = '#10b981'; }
+  else if (pct >= 75) { title = 'جيد جداً! 👍'; sub = 'فهمك للمادة قوي'; ringColor = '#3b82f6'; }
+  else if (pct >= 50) { title = 'نجاح مقبول'; sub = 'تحتاج لمراجعة بعض المفاهيم'; ringColor = '#f59e0b'; }
+  else { title = 'تحتاج إلى تدريب أكثر 📚'; sub = 'راجع الشرح وجرب تاني'; ringColor = '#ef4444'; }
+  
+  document.getElementById('result-title').innerText = title;
+  document.getElementById('result-sub').innerText = sub;
+  document.getElementById('score-ring').style.borderColor = ringColor;
+  document.getElementById('ring-pct').style.color = ringColor;
+}
+
+// تشغيل أول فصل تلقائياً عند فتح الصفحة
+window.onload = () => {
+  setChapter(0);
+};
+</script>
+</body>
+</html>
