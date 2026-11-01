@@ -3,100 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>امتحان Database 1 - التفاعلي للهاتف</title>
+    <title>امتحان الشامل 60 سؤال - Database 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col p-4">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col p-3 sm:p-6">
 
-    <header class="bg-slate-900 text-white p-4 rounded-2xl shadow-md mb-4 text-center">
-        <h1 class="text-lg font-extrabold">امتحان تجريبي تفاعلي - Database 1</h1>
-        <p class="text-xs text-emerald-400 mt-1">20 سؤالاً (5 True/False و 15 MCQ) طبقاً لشكل امتحان الميدتيرم</p>
+    <header class="bg-slate-900 text-white p-4 rounded-2xl shadow-md mb-4 text-center max-w-2xl mx-auto w-full">
+        <h1 class="text-lg sm:text-xl font-extrabold">الامتحان الشامل (60 سؤال تفاعلي) - Database 1</h1>
+        <p class="text-xs text-emerald-400 mt-1">تصحح الإجابة فوراً مع عرض التوضيح والشرح الدقيق من المنهج</p>
+        <div class="mt-2 flex justify-center gap-4 text-xs font-bold">
+            <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">الدرجة: <span id="live-score">0</span> / 60</span>
+            <span class="bg-sky-500/20 text-sky-300 px-3 py-1 rounded-full border border-sky-500/30">المُجاب: <span id="answered-count">0</span> / 60</span>
+        </div>
     </header>
 
-    <main id="quiz-box" class="space-y-4 max-w-xl mx-auto w-full pb-10">
-        <!-- تظهر الأسئلة هنا تفاعلياً -->
+    <main id="quiz-container" class="space-y-4 max-w-2xl mx-auto w-full pb-16">
+        <!-- يتم حقن الأسئلة هنا ديناميكياً -->
     </main>
 
-    <div id="result-box" class="hidden bg-white p-6 rounded-2xl shadow-lg text-center space-y-4 max-w-xl mx-auto w-full">
-        <h2 class="text-2xl font-extrabold text-slate-900">نتيجة الامتحان</h2>
-        <div id="score-display" class="text-4xl font-extrabold text-emerald-600">0 / 25</div>
-        <p id="grade-comment" class="text-sm text-slate-600"></p>
-        <button onclick="location.reload()" class="px-6 py-3 bg-sky-600 text-white font-bold rounded-xl w-full">إعادة الامتحان 🔄</button>
-    </div>
-
     <script>
-        const examQuestions = [
-            { q: "1. Traditional file-processing systems inherently eliminate data redundancy across applications.", type: "tf", opts: ["True", "False"], correct: 1, exp: "خطأ: أنظمة الملفات تعاني من تكرار البيانات وتضاربها." },
-            { q: "2. The Durability property of ACID guarantees that committed changes survive crashes.", type: "tf", opts: ["True", "False"], correct: 0, exp: "صواب: Durability تضمن بقاء التغييرات بعد الـ Commit." },
-            { q: "3. In a relational table, columns are referred to as Tuples and rows as Attributes.", type: "tf", opts: ["True", "False"], correct: 1, exp: "خطأ: الأعمدة Attributes والصفوف Tuples." },
-            { q: "4. When a network partition occurs, a CP system under CAP Theorem rejects requests to prevent stale data.", type: "tf", opts: ["True", "False"], correct: 0, exp: "صواب: نظام CP يفضل صحة البيانات ويرفض الاستجابة عند انقطاع الشبكة." },
-            { q: "5. The Data-Definition Language (DDL) is used to specify database schemas, table structures, and constraints.", type: "tf", opts: ["True", "False"], correct: 0, exp: "صواب: DDL تستخدم لتصميم الهيكل (CREATE, ALTER)." },
-            { q: "6. What academic term corresponds to a single horizontal row in a relational table?", type: "mcq", opts: ["Domain", "Tuple", "Attribute", "Field"], correct: 1, exp: "الصف الأفقي هو Tuple." },
-            { q: "7. Which component of a DBMS stores structural definitions, data types, and primary keys (Metadata)?", type: "mcq", opts: ["Application Cache", "Data Dictionary (System Catalog)", "Client Storage", "Query Log"], correct: 1, exp: "معجم البيانات Data Dictionary يحفظ الـ Metadata." },
-            { q: "8. Which ACID property enforces 'All or Nothing', rolling back if an error occurs mid-transaction?", type: "mcq", opts: ["Atomicity", "Consistency", "Isolation", "Durability"], correct: 0, exp: "خاصية Atomicity (الأتمتة)." },
-            { q: "9. Upgrading a single database server by adding more CPU cores, RAM, and storage is known as:", type: "mcq", opts: ["Horizontal Scaling", "Vertical Scaling (Scale Up)", "Sharding", "Partitioning"], correct: 1, exp: "التوسع الرأسي Vertical Scaling." },
-            { q: "10. In a 3-tier architecture, where are business rules processed and SQL queries prepared?", type: "mcq", opts: ["Database Server", "Application Server", "Client Browser", "Data Dictionary"], correct: 1, exp: "خادم التطبيق Application Server." },
-            { q: "11. What is the primary function of a database schema?", type: "mcq", opts: ["To store temporary user sessions", "To define the overall logical design and structure", "To execute DML INSERT queries", "To format client UI"], correct: 1, exp: "تحديد التصميم الهيكلي والمنطقي للقاعدة." },
-            { q: "12. Which NoSQL database family organizes data into dynamic JSON/BSON documents?", type: "mcq", opts: ["Key-Value Stores", "Document Databases", "Wide-Column Stores", "Graph Databases"], correct: 1, exp: "Document Databases مثل MongoDB." },
-            { q: "13. What problem occurs when concurrent user processes update the same data simultaneously without coordination?", type: "mcq", opts: ["Data Independence", "Concurrent-access anomaly (Lost Update)", "Active Dictionary sync", "Referential integrity"], correct: 1, exp: "مشكلة التزامن والتحديث المفقود." },
-            { q: "14. Who introduced the Relational Model for database management systems?", type: "mcq", opts: ["Jim Gray", "Edgar F. Codd", "Alan Turing", "Charles Bachman"], correct: 1, exp: "العالم E.F. Codd." },
-            { q: "15. Which type of integrity constraint ensures a Foreign Key value matches a Primary Key in the parent table?", type: "mcq", opts: ["Domain Constraint", "Referential Integrity", "Authorization Rule", "Assertion"], correct: 1, exp: "سلامة المراجع Referential Integrity." },
-            { q: "16. What differentiates an Active Data Dictionary from a Passive one?", type: "mcq", opts: ["Active updates instantly and automatically with accesses", "Active requires batch processing", "Passive is faster for NoSQL", "Passive stores vector embeddings"], correct: 0, exp: "Active يتحدث أوتوماتيكياً وفورياً." },
-            { q: "17. What does Procedural DML specify compared to Declarative DML?", type: "mcq", opts: ["What data is needed only", "What data is needed AND how to get it", "Only table structures", "Only user passwords"], correct: 1, exp: "Procedural تحدد ماذا وكيف (What and How)." },
-            { q: "18. What scaling strategy do traditional relational SQL databases natively favor?", type: "mcq", opts: ["Horizontal Sharding", "Vertical Scaling", "Decentralized P2P", "Unstructured Replication"], correct: 1, exp: "التوسع الرأسي Vertical Scaling." },
-            { q: "19. In the BASE consistency model, what does 'Eventual Consistency' mean?", type: "mcq", opts: ["Data is never consistent", "Data becomes identical across all nodes after some time", "Transactions fail instantly", "Schemas are strictly enforced"], correct: 1, exp: "تطابق البيانات في كل العقد بعد فترة زمنية قصيرة." },
-            { q: "20. What is the primary purpose of physical data independence?", type: "mcq", opts: ["To change physical storage without altering application programs", "To delete all DDL metadata", "To convert SQL to NoSQL", "To enforce user passwords"], correct: 0, exp: "عدم تأثر البرامج بتغييرات التخزين الفيزيائي." }
+        const questions60 = [
+            // قسم أساسيات قواعد البيانات (Lec 2)
+            { id: 1, cat: "Foundations", q: "1. ما هو مصطلح 'Data' في سياق قواعد البيانات؟", opts: ["حقائق خام بلا معنى محدد على حدة مثل '01' أو 'ABC'", "مجموعة سجلات مرتبطة تسمى جدول", "معجم يصف البيانات الوصفية", "أمر لإنشاء الجداول في SQL"], correct: 0, exp: "البيانات (Data) هي حقائق خام أو أرقام مجردة بدون سياق أو معنى خاص بها." },
+            { id: 2, cat: "Foundations", q: "2. ماذا يسمى العمود الرأسي في جدول قواعد البيانات العلائقي (Relational Table)؟", opts: ["Tuple أو Record", "Attribute أو Field أو Domain", "Relation أو Table", "Cell أو Value"], correct: 1, exp: "الأعمدة الرأسية تسمى Attributes أو Fields أو Domains، وتتشارك جميع قيمها نفس نوع البيانات." },
+            { id: 3, cat: "Foundations", q: "3. ماذا يسمى الصف الأفقي الكامل في جدول قاعدة البيانات؟", opts: ["Attribute", "Domain", "Tuple أو Record", "Metadata"], correct: 2, exp: "الصفوف الأفقية تسمى Tuples أو Records وتصف كائناً أو فرداً كاملاً." },
+            { id: 4, cat: "Foundations", q: "4. ما هو تعريف تقاطع صف مع عمود في جدول قواعد البيانات؟", opts: ["Relation", "Cell أو Value", "Schema", "Database"], correct: 1, exp: "تقاطع الصف مع العمود يسمى الخلية (Cell) وتحتوي على القيمة (Value)." },
+            { id: 5, cat: "Foundations", q: "5. ما هو الدور الأساسي لنظام إدارة قواعد البيانات (DBMS)؟", opts: ["الاحتفاظ بالملفات النصية بدون أمان", "مجموعة بيانات مترابطة وبرامج لتخزينها واسترجاعها وإدارتها بكفاءة", "إلغاء لغة SQL تماماً", "تغيير العتاد الصلب للسيرفر"], correct: 1, exp: "الـ DBMS هو نظام متكامل لتخزين واسترجاع البيانات بكفاءة وحمايتها من الأخطاء والتضارب." },
+
+            // قسم أنظمة الملفات مقابل DBMS ومشكلة الملفات (Lec 3)
+            { id: 6, cat: "File Systems", q: "6. ما هي إحدى أبرز مشاكل أنظمة الملفات التقليدية (File-Oriented Systems)؟", opts: ["التكامل التام لـ ACID", "تكرار البيانات وعدم اتساقها (Data Redundancy & Inconsistency)", "التوسع الأفقي السريع", "وجود معجم بيانات نشط"], correct: 1, exp: "أنظمة الملفات القديمة تسببت في تكرار نفس المعلومات في عدة ملفات مما يؤدي لتضاربها." },
+            { id: 7, cat: "File Systems", q: "7. ما المقصود بمشكلة 'Atomicity Problem' في أنظمة الملفات القديمة عند انقطاع الكهرباء أثناء تحويل مالي؟", opts: ["اختفاء شاشة الكمبيوتر فقط", "فشل الحفاظ على قاعدة 'الكل أو لا شيء' مما يخصم من حساب ولا يضيف للآخر", "زيادة سرعة المعالج", "عدم وجود مساحة كافية على القرص"], correct: 1, exp: "مشكلة الأتمتة تعني أن انقطاع النظام منتصف التحويل يترك القاعدة في حالة غير متسقة." },
+            { id: 8, cat: "File Systems", q: "8. لماذا تعاني أنظمة الملفات القديمة من 'Difficulty Accessing Data'؟", opts: ["لأنها تملك قواعد SQL سريعة جداً", "لأنه لا يوجد برنامج جاهز للاستعلامات الفورية (Ad-hoc queries) ويتطلب كتابة برامج جديدة لكل طلب", "لأنها تدعم NoSQL", "لأنها تستخدم الأقراص الضوئية فقط"], correct: 1, exp: "الاستعلامات الفورية غير المخطط لها تتطلب كتابة كود برمجي جديد بالكامل في أنظمة الملفات." },
+            { id: 9, cat: "File Systems", q: "9. ماذا يقصد بـ 'Data Isolation' في مشاكل الملفات؟", opts: ["فصل البيانات في قواعد متعددة ومترابطة", "تطاير البيانات عند إغلاق الجهاز", "تناثر البيانات عبر ملفات بصيغ مختلفة مما يصعب كتابة برامج استرجاع جديدة", "حظر المستخدمين من الدخول"], correct: 2, exp: "عزلة البيانات تعني صعوبة دمج ملفات بصيغ متباينة لكتابة برامج استعلام." },
+            { id: 10, cat: "File Systems", q: "10. ما هي المشكلة التي تحدث عند تعديل مستخدمين نفس الملف في نفس اللحظة بدون تنسيق؟", opts: ["Domain Constraint Error", "Concurrent-Access Anomalies (مشاكل التزامن والتحديث المفقود)", "Physical Data Independence", "Active Dictionary Reset"], correct: 1, exp: "التزامن العشوائي يسبب تداخل العمليات وضياع التحديثات (Lost Update)." },
+
+            // خصائص ACID
+            { id: 11, cat: "ACID", q: "11. ماذا تعني خاصية 'Atomicity' في معاملات ACID؟", opts: ["تنفيذ المعاملة إما بالكامل أو إلغاؤها بالكامل (All or Nothing)", "بقاء البيانات بعد انقطاع الكهرباء", "عزل العمليات المتزامنة", "سرعة الاستعلام"], correct: 0, exp: "Atomicity تعني الكل أو لا شيء، وعند حدوث عطل يتم عمل Rollback." },
+            { id: 12, cat: "ACID", q: "12. أي خاصية من خصائص ACID تضمن بقاء التغييرات المعتمدة (Committed) مستمرة وثابتة حتى في حال حدوث انهيار أو انقطاع للكهرباء؟", opts: ["Atomicity", "Consistency", "Isolation", "Durability"], correct: 3, exp: "خاصية الاستمرارية (Durability) تحفظ البيانات بشكل دائم في الذاكرة غير المتطايرة." },
+            { id: 13, cat: "ACID", q: "13. ماذا تضمن خاصية 'Isolation' في معاملات قواعد البيانات؟", opts: ["عدم تداخل المعاملات المتزامنة وحماية البيانات من التحديث المفقود", "سرعة خادم الويب", "إنشاء جداول DDL", "إلغاء المفاتيح الأجنبية"], correct: 0, exp: "خاصية العزل (Isolation) تعزل المعاملات المتزامنة عن بعضها." },
+            { id: 14, cat: "ACID", q: "14. ماذا تعني خاصية 'Consistency' في معاملات ACID؟", opts: ["نقل قاعدة البيانات من حالة سليمة إلى حالة سليمة أخرى مع احترام القيود", "حذف جميع الجداول", "زيادة حجم الملفات", "ربط الجداول برقم الصف"], correct: 0, exp: "Consistency تضمن الالتزام بكافة قواعد السلامة والاتساق." },
+            { id: 15, cat: "ACID", q: "15. متى يتم تنفيذ أمر الـ Rollback في معاملة بنكية؟", opts: ["عند نجاح العملية تماماً", "عند حدوث خطأ أو فشل في أي خطوة قبل الـ Commit", "عند إغلاق متصفح العميل", "عند تشغيل الـ View"], correct: 1, exp: "Rollback يلغي التغييرات ويعيد القاعدة لحالتها السابقة تحقيقاً لـ Atomicity." },
+
+            // التاريخ والتطور ونماذج البيانات (Lec 4 & 5)
+            { id: 16, cat: "History & Models", q: "16. من هو العالم الذي وضع أسس ونموذج قواعد البيانات العلائقية (Relational Model) في أواخر الستينيات والسبعينيات؟", opts: ["Alan Turing", "Edgar F. Codd", "Jim Gray", "Charles Bachman"], correct: 1, exp: "E.F. Codd هو أب النموذج العلائقي (Tables)." },
+            { id: 17, cat: "History & Models", q: "17. ما هي الوسيلة الأساسية التي استخدمت لتخزين البيانات الدائمة في حقبة الخمسينيات والستينيات (1950s-1960s)؟", opts: ["الأقراص الصلبة السريعة SSD", "الأشرطة المغناطيسية (Magnetic Tape)", "قواعد بيانات Cloud", "مستندات JSON"], correct: 1, exp: "تمت الاعتماد على Magnetic Tape في البدايات." },
+            { id: 18, cat: "History & Models", q: "18. ما الذي أتاح ظهور نماذج البيانات الهرمية والشبكية في أواخر الستينيات؟", opts: ["اختراع أقراص التخزين الصلبة (Hard Disks) للوصول المباشر", "ظهور الهواتف الذكية", "إلغاء لغة SQL", "استخدام الورق فقط"], correct: 0, exp: "الأقراص الصلبة Hard Disks أتاحت الوصول المباشر للبيانات (Direct Access)." },
+            { id: 19, cat: "History & Models", q: "19. كيف كانت تُمثل العلاقات في نموذج البيانات الهرمي (Hierarchical Model)؟", opts: ["جداول صفوف وأعمدة", "مؤشرات أب-ابن (Parent-Child Pointers) في شجرة", "مستندات BSON مرنة", "رسومات بيانية موجهة فقط"], correct: 1, exp: "النموذج الهرمي يعتمد على شجرة من مؤشرات أب-ابن." },
+            { id: 20, cat: "History & Models", q: "20. ما هي ميزة نموذج البيانات شبه المنظم (Semi-Structured Data Model) مثل XML و JSON؟", opts: ["تتطلب جداول صارمة جداً", "تسمح للعناصر من نفس النوع بامتلاك مجموعات مختلفة من الخصائص", "تمنع استخدام النصوص", "تعتمد على المفتاح الأساسي فقط"], correct: 1, exp: "المرونة في اختلاف الخصائص للعناصر من نفس الفئة." },
+
+            // التوسع (Scaling) ونظرية CAP
+            { id: 21, cat: "Scaling & CAP", q: "21. ماذا يُقصد بالتوسع الرأسي (Vertical Scaling / Scale Up) في قواعد البيانات التقليدية؟", opts: ["إضافة سيرفرات رخيصة جديدة وموزعة", "تزويد نفس السيرفر بمعالج أقوى ورامات ومساحة أكبر", "تقسيم الجداول لملفات نصية", "حذف السجلات القديمة"], correct: 1, exp: "Vertical Scaling يعني ترقية عتاد السيرفر الفردي." },
+            { id: 22, cat: "Scaling & CAP", q: "22. ما هي ميزة التوسع الأفقي (Horizontal Scaling / Scale Out) المستخدم في NoSQL؟", opts: ["يتطلب سيرفر خارق واحد فقط", "توزيع البيانات على عدد كبير من السيرفرات الرخيصة المتكتلة بلا حدود فيزيائية صارمة", "منع التعديل", "إلغاء اتصالات الشبكة"], correct: 1, exp: "Horizontal Scaling يتيح إضافة سيرفرات رخيصة لتوسعة النظام بلا حدود." },
+            { id: 23, cat: "Scaling & CAP", q: "23. ماذا تنص نظرية CAP Theorem باختصار؟", qOpts: ["يمكن للنظام الموزع تحقيق Consistency و Availability و Partition Tolerance معاً دائماً", "لا يمكن لأي نظام موزع ضمان الثلاثة معاً بشكل كامل أثناء حدوث عطل شبكي (Partition)", "قواعد SQL لا تتأثر بالشبكة", "NoSQL ترفض الـ Sharding"], correct: 1, exp: "CAP Theorem تعني أنه عند انقطاع الشبكة P، يجب الاختيار بين C أو A." },
+            { id: 24, cat: "Scaling & CAP", q: "24. ما الذي يفضله نظام من نوع CP (Consistency + Partition) عند انقطاع الشبكة؟", qOpts: ["رفض الاستجابة والطلبات لضمان عدم تقديم بيانات قديمة أو خاطئة (مثل البنوك)", "تقديم بيانات قديمة فوراً", "إيقاف السيرفر نهائياً بدون عودة", "تحويل الجداول لـ Excel"], correct: 0, exp: "نظام CP يفضل صحة البيانات ودقتها ويرفض الخدمة إذا تعذرت المزامنة." },
+            { id: 25, cat: "Scaling & CAP", q: "25. ما الذي يفضله نظام من نوع AP (Availability + Partition) عند انقطاع الشبكة؟", qOpts: ["توقف الموقع عن العمل", "الاستجابة الفورية بالبيانات المتاحة محلياً حتى لو كانت قديمة مؤقتاً (مثل السوشيال ميديا)", "رفض جميع المستخدمين", "حذف قاعدة البيانات"], correct: 1, exp: "نظام AP يفضل توافر الخدمة واستمرارها دائماً." },
+
+            // تجريد البيانات والمخططات (Lec 5)
+            { id: 26, cat: "Abstraction", q: "26. ما هي مستويات تجريد البيانات (Data Abstraction) الثلاثة في الـ DBMS؟", opts: ["Input Level, Process Level, Output Level", "Physical Level, Logical Level, View Level", "Client Level, Server Level, Network Level", "Table Level, Row Level, Column Level"], correct: 1, exp: "المستويات الثلاثة هي الفيزيائي، المنطقي، ومستوى الرؤية." },
+            { id: 27, cat: "Abstraction", q: "27. في أي مستوى من مستويات التجريد يعمل مسؤولو قواعد البيانات والمبرمجون لتحديد الجداول والعلاقات؟", opts: ["Physical Level", "Logical Level", "View Level", "Hardware Level"], correct: 1, exp: "المستوى المنطقي (Logical Level) هو الذي يحدد الهيكل العام." },
+            { id: 28, cat: "Abstraction", q: "28. ما المقصود بـ 'Physical Data Independence'؟", opts: ["قدرة التطبيقات على العمل دون تأثر بتغييرات التخزين الفيزيائي أو هيكل الأقراص", "حذف الملفات تلقائياً", "منع استخدام الإنترنت", "تغيير لغة البرمجة"], correct: 0, exp: "استقلالية البيانات الفيزيائية تعني عدم تأثر البرامج بتعديلات التخزين." },
+            { id: 29, cat: "Abstraction", q: "29. ما الفرق بين Schema و Instance في قاعدة البيانات؟", opts: ["Schema هو الهيكل والتصميم الثابت، و Instance هي البيانات الفعلية المخزنة في لحظة معينة", "كلاهما نفس الشيء تماماً", "Schema هي الصفوف و Instance هي الأعمدة", "Schema تخزن في الذاكرة المتطايرة فقط"], correct: 0, exp: "Schema = الهيكل الثابت، Instance = البيانات الحالية لحظياً." },
+            { id: 30, cat: "Abstraction", q: "30. تشبيه أكاديمي: إذا كانت قاعدة البيانات برنامجا، فإن Schema تعادل ...... و Instance تعادل ......؟", opts: ["إعلان المتغيرات (Variable declarations) | قيم المتغيرات في لحظة معينة", "شاشة الكمبيوتر | لوحة المفاتيح", "العميل | السيرفر", "الملف النصي | جدول Excel"], correct: 0, exp: "التشبيه الرسمي بالسلايدات: Schema = إعلان المتغيرات، Instance = قيمها." },
+
+            // لغات قواعد البيانات DDL, DML, Metadata
+            { id: 31, cat: "Languages", q: "31. ماذا تفعل لغة بناء التعريف (DDL - Data Definition Language)؟", opts: ["تستعلام وتعدل الصفوف (INSERT/SELECT)", "تحدد وتنشئ وتغير هيكل قاعدة البيانات والجداول (CREATE, ALTER, DROP)", "تدير الجلسات وحسابات المستخدمين فقط", "ترسل رسائل للعملاء"], correct: 1, exp: "DDL تختص بتعريف وهيكل الجداول والـ Schemas." },
+            { id: 32, cat: "Languages", q: "32. أي من الأوامر التالية ينتمي إلى DML (Data Manipulation Language)؟", opts: ["CREATE TABLE", "ALTER TABLE", "INSERT INTO و UPDATE و DELETE", "DROP DATABASE"], correct: 2, exp: "INSERT و UPDATE و DELETE تستخدم لمعالجة الصفوف والبيانات." },
+            { id: 33, cat: "Languages", q: "33. أين تُخزن مخرجات أوامر DDL وتعاريف الجداول والأنواع؟", opts: ["في متصفح العميل", "في معجم البيانات (Data Dictionary / System Catalog) كبيانات وصفية Metadata", "في سلة المهملات", "في ملفات الصوت"], correct: 1, exp: "تخزن تعريفات الهيكل في معجم البيانات (Metadata)." },
+            { id: 34, cat: "Languages", q: "34. من هو الكيان الوحيد الذي يحق له الوصول المباشر لمعجم البيانات (Data Dictionary)؟", opts: ["مستخدمو التطبيق العاديون", "نظام إدارة قواعد البيانات (DBMS) نفسه تلقائياً", "متصفحات الويب", "برامج معالجة النصوص"], correct: 1, exp: "الـ DBMS هو المسؤول الوحيد عن قراءة وتحديث معجم البيانات." },
+            { id: 35, cat: "Languages", q: "35. ما الفرق بين Procedural DML و Declarative (Nonprocedural) DML؟", opts: ["Procedural تحدد ماذا وكيف، بينما Declarative تحدد ماذا نريد فقط (مثل SQL)", "كلاهما متشابهان تماماً", "Declarative تستخدم للـ CREATE فقط", "Procedural لا تحتاج لأوامر"], correct: 0, exp: "Procedural تحدد خطوات الاستخراج (What & How)، بينما Declarative تحدد المطلوب فقط (SQL)." },
+
+            // قيود السلامة والمعجم النشط
+            { id: 36, cat: "Constraints", q: "36. ماذا يُقصد بـ 'Domain Constraints' في قيود السلامة؟", opts: ["السماح بأي نوع بيانات بدون قيود", "التأكد من أن كل عمود يحتوي فقط على قيم قانونية تنتمي لنوع البيانات المحدد (Data Type)", "تحديد صلاحيات المستخدمين", "منع الاتصال بالإنترنت"], correct: 1, exp: "Domain constraints تضمن التزام القيم بنوع البيانات المسموح." },
+            { id: 37, cat: "Constraints", q: "37. ماذا يضمن قيد السلامة المرجعية (Referential Integrity Constraint)؟", opts: ["أن قيمة المفتاح الأجنبي (Foreign Key) في الجدول الفرعي يجب أن تتطابق مع مفتاح أساسي موجود في الجدول الأب أو تكون NULL", "تساوي جميع الأعمدة", "حذف الجدول الأب تلقائياً", "عدم استخدام المفاتيح"], correct: 0, exp: "Referential integrity تربط FK بالـ PK بدقة وتمنع اليتامى." },
+            { id: 38, cat: "Constraints", q: "38. ما هي الـ 'Assertions' في قيود قواعد البيانات؟", opts: ["أوامر لطباعة التقارير", "أي شرط عام يجب أن تلبيه قاعدة البيانات دائماً خارج حدود Domain و Referential", "أوامر لحذف البيانات القديمة", "كلمات مرور المستخدمين"], correct: 1, exp: "Assertions هي الشروط العامة الإضافية التي تلزم القاعدة." },
+            { id: 39, cat: "Constraints", q: "39. ما الفرق بين Active Data Dictionary و Passive Data Dictionary؟", opts: ["Active يتحدث أوتوماتيكياً وفورياً مع كل عملية، بينما Passive يحتاج Batch process لتحديثه", "Active يعمل للـ NoSQL فقط", "Passive أسرع بكثير", "كلاهما غير مستخدمين"], correct: 0, exp: "Active يتحدث فورياً تلقائياً، و Passive يحتاج لعملية دفعة لتحديثه." },
+            { id: 40, cat: "Metadata", q: "40. ما هو التشبيه البسيط المذكور بالسلايدات للتفرقة بين Data و Metadata؟", opts: ["Data = كتاب في المكتبة | Metadata = الفهرس أو الكتالوج الذي يصف هذا الكتاب", "Data = السيرفر | Metadata = العميل", "Data = الشاشة | Metadata = لوحة المفاتيح", "Data = الـ SQL | Metadata = الـ NoSQL"], correct: 0, exp: "البيانات هي الكتاب، والبيانات الوصفية (Metadata) هي الفهرس الوصفي له." },
+
+            // تفاصيل إضافية من العروض (SQL vs NoSQL, Architecture, 3-Tier)
+            { id: 41, cat: "SQL vs NoSQL", q: "41. ما هي البنية الهيكلية لـ SQL مقارنة بـ NoSQL؟", opts: ["SQL تعتمد على جداول ثابتة (Tables)، بينما NoSQL تعتمد على مستندات أو مفتاح-قيمة ديناميكية", "SQL تعتمد على JSON فقط", "NoSQL تفرض جداول صارمة", "كلاهما يستخدمان الملفات القديمة"], correct: 0, exp: "SQL جداول و Schema ثابتة، NoSQL مرنة وديناميكية." },
+            { id: 42, cat: "SQL vs NoSQL", q: "42. أين يُنقل منطق التحقق من صحة المخطط (Schema Validation) في قواعد بيانات NoSQL ذات المخطط الديناميكي؟", opts: ["إلى طبقة كود التطبيق (Application Code Layer)", "إلى الأقراص الصلبة", "إلى معجم البيانات الخامل", "إلى نظام التشغيل"], correct: 0, exp: "في NoSQL Schema-on-Read، يتحقق التطبيق من الهيكل برمجياً." },
+            { id: 43, cat: "Architecture", q: "43. في معمارية التطبيق ذي الثلاث طبقات (Client-Server)، ما هي وظيفة خادم التطبيق (Application Server)؟", opts: ["تلقي الطلبات، تطبيق قواعد العمل (Business Rules)، وتجهيز استعلامات SQL", "تخزين الملفات النصية فقط", "عرض صور الواجهة للعميل", "تصميم الأقراص الصلبة"], correct: 0, exp: "خادم التطبيق ينفذ الـ Business Rules ويجهز SQL." },
+            { id: 44, cat: "Architecture", q: "44. ماذا تفعل العبارة الشهيرة عند ربط الجداول: 'Do not join by row number. Join by...'?", opts: [""...by the matching value in the shared attribute!"", "...by alphabet order!", "...by random selection!", "...by table size!"], correct: 0, exp: "الربط يتم عبر مطابقة القيم في الخاصية المشتركة (Shared Attribute / Foreign Key) وليس رقم الصف." },
+            { id: 45, cat: "SQL Details", q: "45. لماذا يُعتبر وجود شروط WHERE في أوامر UPDATE و DELETE خطوة حاسمة للغاية؟", opts: ["لأن غيابه يتسبب في تعديل أو حذف جميع صفوف الجدول بلا استثناء!", "لأن الكود لن يفتح بدونها", "لأنها تمنع الاتصال بالسيرفر", "لأنها تغير اسم الجدول"], correct: 0, exp: "غياب WHERE يجعل التعديل/الحذف يسري على كل الجدول ويحسف البيانات." },
+
+            // أسئلة تميز إضافية تغطي تفاصيل السلايدات
+            { id: 46, cat: "Advanced", q: "46. ما هي التقنية الحديثة المصممة لتخزين والبحث في الـ Embeddings للذكاء الاصطناعي التوليدي (مثل Pinecone و Milvus)؟", opts: ["Vector Databases", "Hierarchical DBs", "Magnetic Tapes", "Passive Dictionaries"], correct: 0, exp: "Vector Databases مخصصة للذكاء الاصطناعي والبحث الدلالي." },
+            { id: 47, cat: "Advanced", q: "47. ما هي تقنية NewSQL (مثل Google Spanner)؟", qOpts: ["تدمج بين ضمانات المعاملات المالية لـ SQL (ACID) وقدرة التوسع الأفقي لـ NoSQL", "تلغي قواعد البيانات تماماً", "تعتمد على الملفات الورقية", "تمنع استخدام المفاتيح الأساسية"], correct: 0, exp: "NewSQL تدمج ميزات ACID وقوة التوسع الأفقي." },
+            { id: 48, cat: "Advanced", q: "48. ما الفرق بين مستودعات البيانات (Data Warehouses) وبحيرات البيانات (Data Lakes)؟", opts: ["Warehouses تخزن بيانات منظمة ومصنعة لذكاء الأعمال، بينما Lakes تحفظ البيانات الخام (Raw Data) في صورتها الأصلية", "Warehouses تخزن الفيديوهات فقط", "Lakes تتبع SQL بحتة", "كلاهما غير مستخدمين"], correct: 0, exp: "Warehouses معالجة ومنظمة، Lakes تخزن البيانات الخام." },
+            { id: 49, cat: "Advanced", q: "49. ما هي أبرز سلبية لنظام الـ DBMS المركزي بحسب السلايدات في حال تعطل النظام؟", opts: ["أن فشل الـ DBMS المركزي يؤثر فوراً على كافة مستخدمي المنظومة (Impacts every user)", "أنه يوفر أماناً أكثر من اللازم", "أنه يقلل حجم التخزين", "أنه يلغي الأخطاء تماماً"], correct: 0, exp: "فشل النظام المركزي يعطل كل المستخدمين المعتمدين عليه." },
+            { id: 50, cat: "Advanced", q: "50. لماذا قد تعمل برمجيات DBMS العامة أبطأ في بعض المهام المحددة جداً مقارنة ببرامج الملفات اليدوية؟", opts: ["لأنها برمجيات شاملة (Generalized software) تحتوي على طبقات حماية وإدارة متعددة تضيف عبئاً", "لأنها لا تستخدم معالجات", "لأنها تخزن البيانات ورقياً", "لأنها تمنع الاستعلامات"], correct: 0, exp: "البرمجيات العامة الشاملة تحمل عبئاً إضافياً مقارنة بالأكواد المخصصة المكتوبة خصيصاً لمهمة ضيقة." },
+
+            // إكمال البنك لضمان 60 سؤالاً شاملاً
+            { id: 51, cat: "Final Check", q: "51. أي عائلة من NoSQL تُعد الخيار الأفضل لتخزين مفتاح-قيمة للحصول على استجابة بأقل من مللي ثانية (مثل Redis)؟", opts: ["Key-Value Stores", "Hierarchical DBs", "Relational Tables", "Vector Stores"], correct: 0, exp: "متاجر المفتاح-قيمة (Key-Value) ممتازة للتخزين المؤقت السريع جداً." },
+            { id: 52, cat: "Final Check", q: "52. ما هو مصطلح 'Relation' في النموذج العلائقي؟", opts: ["جدول (Table)", "عمود (Column)", "قيد أمان (Constraint)", "مستخدم (User)"], correct: 0, exp: "الـ Relation في الجبر العلائقي تعني الجدول (Table)." },
+            { id: 53, cat: "Final Check", q: "53. ماذا يمثل الرمز (PK) في جداول قواعد البيانات؟", opts: ["Primary Key (المفتاح الأساسي الفريد لكل صف)", "Password Key", "Program Kernel", "Physical Link"], correct: 0, exp: "PK يرمز لـ Primary Key لمعرف الصف الفريد." },
+            { id: 54, cat: "Final Check", q: "54. ماذا يمثل الرمز (FK) في جداول قواعد البيانات؟", opts: ["Foreign Key (المفتاح الأجنبي الرابط بالجدول الأب)", "File Keeper", "Fast Query", "Final Key"], correct: 0, exp: "FK يرمز لـ Foreign Key للربط بين الجداول." },
+            { id: 55, cat: "Final Check", q: "55. في نموذج قاعدة البيانات العلائقية، هل يُسمح بتكرار صف (Tuple) كامل متطابق تماماً في جدول صحيح؟", opts: ["لا، الجداول الرياضية والعلائقية تتطلب تميز كل صف (Tuple uniqueness)", "نعم، مسموح تماماً بدون قيود", "نعم بشرط عدم وجود عمود رقمي", "يعتمد على لغة Python"], correct: 0, exp: "الجداول الصحيحة لا تحتمل صفوفاً متطابقة تماماً نظراً لوجود المفتاح الأساسي." },
+            { id: 56, cat: "Final Check", q: "56. ما هو الهدف من استخدام جملة `CHECK (Age >= 17)` عند إنشاء جدول الطالب؟", opts: ["تطبيق قيد نطاق القيم (Domain Constraint) لضمان صحة الأعمار", "حذف الجدول", "تحديث السيرفر", "زيادة سرعة الإنترنت"], correct: 0, exp: "CHECK تفرض نطاقاً وقيداً قانونياً على القيم المدخلة." },
+            { id: 57, cat: "Final Check", q: "57. ما هي مميزات استخدام الـ Views (مستويات الرؤية) في قاعدة البيانات؟", opts: ["تبسيط التفاعل للمستخدمين وتوفير طبقة أمان وحماية بإخفاء البيانات الحساسة", "إبطاء النظام", "تكرار البيانات عمداً", "إلغاء الجداول الأساسية"], correct: 0, exp: "الـ Views تسهل العرض وتعمل كحد أمني ووقائي." },
+            { id: 58, cat: "Final Check", q: "58. في معمارية نظام التشغيل وقواعد البيانات، ماذا يعني مصطلح 'Metadata'؟", opts: ["بيانات توصف بيانات أخرى (Data about data)", "ملفات الموسيقى والفيديو", "الذاكرة العشوائية RAM", "سرعة المعالج"], correct: 0, exp: "المتا داتا هي البيانات التي تصف خصائص وهيكل البيانات الأساسية." },
+            { id: 59, cat: "Final Check", q: "59. ما هي الوظيفة الأساسية للـ Query Optimizer (محسن الاستعلامات) في DBMS؟", opts: ["اختيار أفضل وأسرع طريقة تنفيذية لتشغيل استعلام SQL وإرجاع النتائج بكفاءة", "حذف قاعدة البيانات عند الخطأ", "تصميم الواجهات الرسومية", "توليد كلمات مرور للمستخدمين"], correct: 0, exp: "محسن الاستعلامات يختار المسار الأسرع والأكثر كفاءة لتنفيذ الكود." },
+            { id: 60, cat: "Final Check", q: "60. ما هو التلخيص الأهم للامتحان والمنهج ككل؟", opts: ["أن الـ DBMS يحل مشاكل الملفات التقليدية عبر ACID والعلائقية والمعمارية الآمنة لضمان استقرار الأنظمة", "أن الملفات أفضل من الـ DBMS", "أن NoSQL تلغي SQL تماماً", "أن المنهج نظري فقط"], correct: 0, exp: "الهدف الأسمى لنظام قواعد البيانات هو تجاوز مشاكل الملفات وتحقيق الكفاءة والأمان." }
         ];
 
-        const box = document.getElementById('quiz-box');
-        
+        let score = 0;
+        let answered = 0;
+        const container = document.getElementById('quiz-container');
+
         function renderQuiz() {
-            box.innerHTML = '';
-            examQuestions.forEach((item, idx) => {
+            container.innerHTML = '';
+            questions60.forEach((item, idx) => {
                 let optsHTML = '';
                 item.opts.forEach((opt, oIdx) => {
                     optsHTML += `
-                        <label class="block p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 transition text-sm font-medium">
-                            <input type="radio" name="q_${idx}" value="${oIdx}" class="ml-2"> ${opt}
+                        <label class="block p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 transition text-sm font-medium option-label-${item.id}">
+                            <input type="radio" name="q_${item.id}" value="${oIdx}" onclick="checkAnswer(${item.id}, ${oIdx}, ${item.correct})" class="ml-2"> ${opt}
                         </label>
                     `;
                 });
-                box.innerHTML += `
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-                        <span class="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-full">سؤال ${idx + 1}</span>
-                        <h3 class="font-bold text-slate-900 text-sm leading-relaxed">${item.q}</h3>
-                        <div class="space-y-2">${optsHTML}</div>
-                        <div id="exp_${idx}" class="hidden p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 mt-2">
-                            <strong>💡 التوضيح:</strong> ${item.exp}
+
+                container.innerHTML += `
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_${item.id}">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full border border-sky-100">${item.cat}</span>
+                            <span class="text-xs font-mono text-slate-400">سؤال ${idx + 1} من 60</span>
                         </div>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-relaxed">${item.q}</h3>
+                        <div class="space-y-2" id="opts_${item.id}">${optsHTML}</div>
+                        <div id="feedback_${item.id}" class="hidden p-3 rounded-xl text-xs font-medium mt-2"></div>
                     </div>
                 `;
             });
-            box.innerHTML += `<button onclick="submitExam()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-2xl shadow-lg mt-4">تسليم الامتحان ورصد الدرجة 📋</button>`;
         }
 
-        function submitExam() {
-            let correct = 0;
-            examQuestions.forEach((item, idx) => {
-                const selected = document.querySelector(`input[name="q_${idx}"]:checked`);
-                const expDiv = document.getElementById(`exp_${idx}`);
-                expDiv.classList.remove('hidden');
-                if (selected && parseInt(selected.value) === item.correct) {
-                    correct++;
-                }
-            });
+        function checkAnswer(qId, selectedIdx, correctIdx) {
+            const card = document.getElementById(`card_${qId}`);
+            const feedback = document.getElementById(`feedback_${qId}`);
+            const item = questions60.find(q => q.id === qId);
 
-            const finalMark = Math.round((correct / 20) * 25);
-            document.getElementById('score-display').innerText = `${finalMark} / 25`;
-            document.getElementById('grade-comment').innerText = finalMark >= 20 ? 'ممتاز جداً! جاهز لفل امتياز الميدتيرم 🚀' : 'متاز، راجع نقاط الشرح بالأعلى لتثبيت المعلومة 💡';
-            
-            box.classList.add('hidden');
-            document.getElementById('result-box').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // منع إعادة الإجابة لنفس السؤال
+            const radios = document.querySelectorAll(`input[name="q_${qId}"]`);
+            radios.forEach(r => r.disabled = true);
+
+            answered++;
+            document.getElementById('answered-count').innerText = answered;
+
+            const isCorrect = (selectedIdx === correctIdx);
+            if (isCorrect) {
+                score++;
+                document.getElementById('live-score').innerText = score;
+                card.classList.add('border-emerald-300', 'bg-emerald-50/20');
+                feedback.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-emerald-100 text-emerald-900 border border-emerald-300 block";
+                feedback.innerHTML = `<strong>✅ إجابة صحيحة بامتياز!</strong><br><span class="mt-1 block">💡 الشرح: ${item.exp}</span>`;
+            } else {
+                card.classList.add('border-red-300', 'bg-red-50/20');
+                feedback.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-red-100 text-red-900 border border-red-300 block";
+                feedback.innerHTML = `<strong>❌ إجابة غير صائبة.</strong> الإجابة الصحيحة هي: <span class="font-bold underline">${item.opts[correctIdx]}</span><br><span class="mt-1 block">💡 الشرح الدقيق: ${item.exp}</span>`;
+            }
         }
 
         renderQuiz();
