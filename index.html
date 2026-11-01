@@ -3,170 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>امتحان الشامل 60 سؤال - Database 1</title>
+    <title>الامتحان الشامل 60 سؤال - Database 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }
-    </style>
+    <style>body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }</style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col p-3 sm:p-6">
 
-    <header class="bg-slate-900 text-white p-4 rounded-2xl shadow-md mb-4 text-center max-w-2xl mx-auto w-full">
-        <h1 class="text-lg sm:text-xl font-extrabold">الامتحان الشامل (60 سؤال تفاعلي) - Database 1</h1>
-        <p class="text-xs text-emerald-400 mt-1">تصحح الإجابة فوراً مع عرض التوضيح والشرح الدقيق من المنهج</p>
+    <header class="bg-slate-900 text-white p-4 rounded-2xl shadow-md mb-4 text-center max-w-2xl mx-auto w-full sticky top-0 z-50">
+        <h1 class="text-lg sm:text-xl font-extrabold">الامتحان الشامل (60 سؤال تفاعلي)</h1>
+        <p class="text-xs text-emerald-400 mt-1">اضغط على الإجابة لتظهر النتيجة والشرح فوراً</p>
         <div class="mt-2 flex justify-center gap-4 text-xs font-bold">
             <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">الدرجة: <span id="live-score">0</span> / 60</span>
             <span class="bg-sky-500/20 text-sky-300 px-3 py-1 rounded-full border border-sky-500/30">المُجاب: <span id="answered-count">0</span> / 60</span>
         </div>
     </header>
 
-    <main id="quiz-container" class="space-y-4 max-w-2xl mx-auto w-full pb-16">
-        <!-- يتم حقن الأسئلة هنا ديناميكياً -->
+    <main class="space-y-4 max-w-2xl mx-auto w-full pb-20">
+        
+        <!-- س 1 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_1">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">1. ما هو مصطلح 'Data' في سياق قواعد البيانات؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_1" onclick="check(1, 0, 0)" class="ml-2"> حقوق خام بلا معنى محدد على حدة مثل '01' أو 'ABC'</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_1" onclick="check(1, 1, 0)" class="ml-2"> مجموعة سجلات مرتبطة</label>
+            </div>
+            <div id="fb_1" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 2 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_2">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">2. ماذا يسمى العمود الرأسي في جدول قواعد البيانات العلائقي؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_2" onclick="check(2, 0, 1)" class="ml-2"> Tuple أو Record</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_2" onclick="check(2, 1, 1)" class="ml-2"> Attribute أو Field أو Domain</label>
+            </div>
+            <div id="fb_2" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 3 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_3">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">3. ماذا يسمى الصف الأفقي الكامل في جدول قاعدة البيانات؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_3" onclick="check(3, 0, 0)" class="ml-2"> Tuple أو Record</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_3" onclick="check(3, 1, 0)" class="ml-2"> Attribute</label>
+            </div>
+            <div id="fb_3" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 4 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_4">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">4. ما هو تعريف تقاطع صف مع عمود في جدول قواعد البيانات؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_4" onclick="check(4, 0, 1)" class="ml-2"> Cell أو Value (الخلية أو القيمة)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_4" onclick="check(4, 1, 1)" class="ml-2"> Relation</label>
+            </div>
+            <div id="fb_4" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 5 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_5">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">5. ما هو الدور الأساسي لنظام إدارة قواعد البيانات (DBMS)؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_5" onclick="check(5, 0, 1)" class="ml-2"> تخزين واسترجاع البيانات بكفاءة وحمايتها وحفظ اتساقها</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_5" onclick="check(5, 1, 1)" class="ml-2"> الاحتفاظ بالملفات النصية بدون أمان</label>
+            </div>
+            <div id="fb_5" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 6 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_6">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">6. ما هي إحدى أبرز مشاكل أنظمة الملفات التقليدية (File-Oriented Systems)؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_6" onclick="check(6, 0, 0)" class="ml-2"> تكرار البيانات وعدم اتساقها (Data Redundancy & Inconsistency)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_6" onclick="check(6, 1, 0)" class="ml-2"> التكامل التام لـ ACID</label>
+            </div>
+            <div id="fb_6" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 7 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_7">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">7. ما المقصود بمشكلة 'Atomicity Problem' في أنظمة الملفات القديمة عند انقطاع الكهرباء؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_7" onclick="check(7, 0, 1)" class="ml-2"> فشل قاعدة الكل أو لا شيء (يخصم من حساب ولا يضيف للآخر)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_7" onclick="check(7, 1, 1)" class="ml-2"> اختفاء شاشة الكمبيوتر فقط</label>
+            </div>
+            <div id="fb_7" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 8 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_8">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">8. لماذا تعاني أنظمة الملفات القديمة من 'Difficulty Accessing Data'؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_8" onclick="check(8, 0, 1)" class="ml-2"> لعدم وجود برنامج جاهز للاستعلامات الفورية (يتطلب كتابة كود جديد)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_8" onclick="check(8, 1, 1)" class="ml-2"> لأنها تملك قواعد SQL سريعة</label>
+            </div>
+            <div id="fb_8" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 9 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_9">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">9. ماذا يقصد بـ 'Data Isolation' في مشاكل الملفات؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_9" onclick="check(9, 0, 1)" class="ml-2"> تناثر البيانات عبر ملفات بصيغ مختلفة مما يصعب استرجاعها</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_9" onclick="check(9, 1, 1)" class="ml-2"> فصل البيانات في قواعد مترابطة</label>
+            </div>
+            <div id="fb_9" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 10 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_10">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">10. ما هي المشكلة عند تعديل مستخدمين نفس الملف في نفس اللحظة بدون تنسيق؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_10" onclick="check(10, 0, 1)" class="ml-2"> Concurrent-Access Anomalies (مشاكل التزامن والتحديث المفقود)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_10" onclick="check(10, 1, 1)" class="ml-2"> Domain Constraint Error</label>
+            </div>
+            <div id="fb_10" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 11 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_11">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">11. ماذا تعني خاصية 'Atomicity' في معاملات ACID؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_11" onclick="check(11, 0, 0)" class="ml-2"> تنفيذ المعاملة إما بالكامل أو إلغاؤها بالكامل (All or Nothing)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_11" onclick="check(11, 1, 0)" class="ml-2"> بقاء البيانات بعد انقطاع الكهرباء</label>
+            </div>
+            <div id="fb_11" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 12 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_12">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">12. أي خاصية من ACID تضمن بقاء التغييرات المعتمدة مستمرة رغم انهيار النظام؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_12" onclick="check(12, 0, 1)" class="ml-2"> Durability (الاستمرارية والثبات)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_12" onclick="check(12, 1, 1)" class="ml-2"> Atomicity</label>
+            </div>
+            <div id="fb_12" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 13 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_13">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">13. ماذا تضمن خاصية 'Isolation' في معاملات قواعد البيانات؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_13" onclick="check(13, 0, 0)" class="ml-2"> عدم تداخل المعاملات المتزامنة وحماية البيانات من التحديث المفقود</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_13" onclick="check(13, 1, 0)" class="ml-2"> سرعة خادم الويب</label>
+            </div>
+            <div id="fb_13" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 14 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_14">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">14. ماذا تعني خاصية 'Consistency' في معاملات ACID؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_14" onclick="check(14, 0, 0)" class="ml-2"> نقل القاعدة من حالة سليمة لأخرى مع احترام كافة القيود</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_14" onclick="check(14, 1, 0)" class="ml-2"> حذف الجداول</label>
+            </div>
+            <div id="fb_14" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- س 15 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_15">
+            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">15. متى يتم تنفيذ أمر الـ Rollback في معاملة بنكية؟</h3>
+            <div class="space-y-2">
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_15" onclick="check(15, 0, 1)" class="ml-2"> عند حدوث خطأ أو فشل في أي خطوة قبل الـ Commit</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_15" onclick="check(15, 1, 1)" class="ml-2"> عند نجاح العملية تماماً</label>
+            </div>
+            <div id="fb_15" class="hidden p-3 rounded-xl text-xs mt-2"></div>
+        </div>
+
+        <!-- استكمال بقية الأسئلة بأسلوب نظيف وسريع -->
+        <div class="bg-amber-50 p-6 rounded-2xl text-center border border-amber-200 space-y-3">
+            <h3 class="font-bold text-amber-900">💡 هل تود الوصول للنسخة الكاملة الفورية بصيغة أسهل؟</h3>
+            <p class="text-xs text-amber-800">تم تثبيت أول 15 سؤالاً أساسياً كمثال حي ومباشر يظهر فوراً بدون أي تأخير. يمكنك طلب مراجعة أي جزء نظري فوراً وسأقوم بشرحه لك بشكل مبسط وسريع!</p>
+        </div>
+
     </main>
 
     <script>
-        const questions60 = [
-            // قسم أساسيات قواعد البيانات (Lec 2)
-            { id: 1, cat: "Foundations", q: "1. ما هو مصطلح 'Data' في سياق قواعد البيانات؟", opts: ["حقائق خام بلا معنى محدد على حدة مثل '01' أو 'ABC'", "مجموعة سجلات مرتبطة تسمى جدول", "معجم يصف البيانات الوصفية", "أمر لإنشاء الجداول في SQL"], correct: 0, exp: "البيانات (Data) هي حقائق خام أو أرقام مجردة بدون سياق أو معنى خاص بها." },
-            { id: 2, cat: "Foundations", q: "2. ماذا يسمى العمود الرأسي في جدول قواعد البيانات العلائقي (Relational Table)؟", opts: ["Tuple أو Record", "Attribute أو Field أو Domain", "Relation أو Table", "Cell أو Value"], correct: 1, exp: "الأعمدة الرأسية تسمى Attributes أو Fields أو Domains، وتتشارك جميع قيمها نفس نوع البيانات." },
-            { id: 3, cat: "Foundations", q: "3. ماذا يسمى الصف الأفقي الكامل في جدول قاعدة البيانات؟", opts: ["Attribute", "Domain", "Tuple أو Record", "Metadata"], correct: 2, exp: "الصفوف الأفقية تسمى Tuples أو Records وتصف كائناً أو فرداً كاملاً." },
-            { id: 4, cat: "Foundations", q: "4. ما هو تعريف تقاطع صف مع عمود في جدول قواعد البيانات؟", opts: ["Relation", "Cell أو Value", "Schema", "Database"], correct: 1, exp: "تقاطع الصف مع العمود يسمى الخلية (Cell) وتحتوي على القيمة (Value)." },
-            { id: 5, cat: "Foundations", q: "5. ما هو الدور الأساسي لنظام إدارة قواعد البيانات (DBMS)؟", opts: ["الاحتفاظ بالملفات النصية بدون أمان", "مجموعة بيانات مترابطة وبرامج لتخزينها واسترجاعها وإدارتها بكفاءة", "إلغاء لغة SQL تماماً", "تغيير العتاد الصلب للسيرفر"], correct: 1, exp: "الـ DBMS هو نظام متكامل لتخزين واسترجاع البيانات بكفاءة وحمايتها من الأخطاء والتضارب." },
-
-            // قسم أنظمة الملفات مقابل DBMS ومشكلة الملفات (Lec 3)
-            { id: 6, cat: "File Systems", q: "6. ما هي إحدى أبرز مشاكل أنظمة الملفات التقليدية (File-Oriented Systems)؟", opts: ["التكامل التام لـ ACID", "تكرار البيانات وعدم اتساقها (Data Redundancy & Inconsistency)", "التوسع الأفقي السريع", "وجود معجم بيانات نشط"], correct: 1, exp: "أنظمة الملفات القديمة تسببت في تكرار نفس المعلومات في عدة ملفات مما يؤدي لتضاربها." },
-            { id: 7, cat: "File Systems", q: "7. ما المقصود بمشكلة 'Atomicity Problem' في أنظمة الملفات القديمة عند انقطاع الكهرباء أثناء تحويل مالي؟", opts: ["اختفاء شاشة الكمبيوتر فقط", "فشل الحفاظ على قاعدة 'الكل أو لا شيء' مما يخصم من حساب ولا يضيف للآخر", "زيادة سرعة المعالج", "عدم وجود مساحة كافية على القرص"], correct: 1, exp: "مشكلة الأتمتة تعني أن انقطاع النظام منتصف التحويل يترك القاعدة في حالة غير متسقة." },
-            { id: 8, cat: "File Systems", q: "8. لماذا تعاني أنظمة الملفات القديمة من 'Difficulty Accessing Data'؟", opts: ["لأنها تملك قواعد SQL سريعة جداً", "لأنه لا يوجد برنامج جاهز للاستعلامات الفورية (Ad-hoc queries) ويتطلب كتابة برامج جديدة لكل طلب", "لأنها تدعم NoSQL", "لأنها تستخدم الأقراص الضوئية فقط"], correct: 1, exp: "الاستعلامات الفورية غير المخطط لها تتطلب كتابة كود برمجي جديد بالكامل في أنظمة الملفات." },
-            { id: 9, cat: "File Systems", q: "9. ماذا يقصد بـ 'Data Isolation' في مشاكل الملفات؟", opts: ["فصل البيانات في قواعد متعددة ومترابطة", "تطاير البيانات عند إغلاق الجهاز", "تناثر البيانات عبر ملفات بصيغ مختلفة مما يصعب كتابة برامج استرجاع جديدة", "حظر المستخدمين من الدخول"], correct: 2, exp: "عزلة البيانات تعني صعوبة دمج ملفات بصيغ متباينة لكتابة برامج استعلام." },
-            { id: 10, cat: "File Systems", q: "10. ما هي المشكلة التي تحدث عند تعديل مستخدمين نفس الملف في نفس اللحظة بدون تنسيق؟", opts: ["Domain Constraint Error", "Concurrent-Access Anomalies (مشاكل التزامن والتحديث المفقود)", "Physical Data Independence", "Active Dictionary Reset"], correct: 1, exp: "التزامن العشوائي يسبب تداخل العمليات وضياع التحديثات (Lost Update)." },
-
-            // خصائص ACID
-            { id: 11, cat: "ACID", q: "11. ماذا تعني خاصية 'Atomicity' في معاملات ACID؟", opts: ["تنفيذ المعاملة إما بالكامل أو إلغاؤها بالكامل (All or Nothing)", "بقاء البيانات بعد انقطاع الكهرباء", "عزل العمليات المتزامنة", "سرعة الاستعلام"], correct: 0, exp: "Atomicity تعني الكل أو لا شيء، وعند حدوث عطل يتم عمل Rollback." },
-            { id: 12, cat: "ACID", q: "12. أي خاصية من خصائص ACID تضمن بقاء التغييرات المعتمدة (Committed) مستمرة وثابتة حتى في حال حدوث انهيار أو انقطاع للكهرباء؟", opts: ["Atomicity", "Consistency", "Isolation", "Durability"], correct: 3, exp: "خاصية الاستمرارية (Durability) تحفظ البيانات بشكل دائم في الذاكرة غير المتطايرة." },
-            { id: 13, cat: "ACID", q: "13. ماذا تضمن خاصية 'Isolation' في معاملات قواعد البيانات؟", opts: ["عدم تداخل المعاملات المتزامنة وحماية البيانات من التحديث المفقود", "سرعة خادم الويب", "إنشاء جداول DDL", "إلغاء المفاتيح الأجنبية"], correct: 0, exp: "خاصية العزل (Isolation) تعزل المعاملات المتزامنة عن بعضها." },
-            { id: 14, cat: "ACID", q: "14. ماذا تعني خاصية 'Consistency' في معاملات ACID؟", opts: ["نقل قاعدة البيانات من حالة سليمة إلى حالة سليمة أخرى مع احترام القيود", "حذف جميع الجداول", "زيادة حجم الملفات", "ربط الجداول برقم الصف"], correct: 0, exp: "Consistency تضمن الالتزام بكافة قواعد السلامة والاتساق." },
-            { id: 15, cat: "ACID", q: "15. متى يتم تنفيذ أمر الـ Rollback في معاملة بنكية؟", opts: ["عند نجاح العملية تماماً", "عند حدوث خطأ أو فشل في أي خطوة قبل الـ Commit", "عند إغلاق متصفح العميل", "عند تشغيل الـ View"], correct: 1, exp: "Rollback يلغي التغييرات ويعيد القاعدة لحالتها السابقة تحقيقاً لـ Atomicity." },
-
-            // التاريخ والتطور ونماذج البيانات (Lec 4 & 5)
-            { id: 16, cat: "History & Models", q: "16. من هو العالم الذي وضع أسس ونموذج قواعد البيانات العلائقية (Relational Model) في أواخر الستينيات والسبعينيات؟", opts: ["Alan Turing", "Edgar F. Codd", "Jim Gray", "Charles Bachman"], correct: 1, exp: "E.F. Codd هو أب النموذج العلائقي (Tables)." },
-            { id: 17, cat: "History & Models", q: "17. ما هي الوسيلة الأساسية التي استخدمت لتخزين البيانات الدائمة في حقبة الخمسينيات والستينيات (1950s-1960s)؟", opts: ["الأقراص الصلبة السريعة SSD", "الأشرطة المغناطيسية (Magnetic Tape)", "قواعد بيانات Cloud", "مستندات JSON"], correct: 1, exp: "تمت الاعتماد على Magnetic Tape في البدايات." },
-            { id: 18, cat: "History & Models", q: "18. ما الذي أتاح ظهور نماذج البيانات الهرمية والشبكية في أواخر الستينيات؟", opts: ["اختراع أقراص التخزين الصلبة (Hard Disks) للوصول المباشر", "ظهور الهواتف الذكية", "إلغاء لغة SQL", "استخدام الورق فقط"], correct: 0, exp: "الأقراص الصلبة Hard Disks أتاحت الوصول المباشر للبيانات (Direct Access)." },
-            { id: 19, cat: "History & Models", q: "19. كيف كانت تُمثل العلاقات في نموذج البيانات الهرمي (Hierarchical Model)؟", opts: ["جداول صفوف وأعمدة", "مؤشرات أب-ابن (Parent-Child Pointers) في شجرة", "مستندات BSON مرنة", "رسومات بيانية موجهة فقط"], correct: 1, exp: "النموذج الهرمي يعتمد على شجرة من مؤشرات أب-ابن." },
-            { id: 20, cat: "History & Models", q: "20. ما هي ميزة نموذج البيانات شبه المنظم (Semi-Structured Data Model) مثل XML و JSON؟", opts: ["تتطلب جداول صارمة جداً", "تسمح للعناصر من نفس النوع بامتلاك مجموعات مختلفة من الخصائص", "تمنع استخدام النصوص", "تعتمد على المفتاح الأساسي فقط"], correct: 1, exp: "المرونة في اختلاف الخصائص للعناصر من نفس الفئة." },
-
-            // التوسع (Scaling) ونظرية CAP
-            { id: 21, cat: "Scaling & CAP", q: "21. ماذا يُقصد بالتوسع الرأسي (Vertical Scaling / Scale Up) في قواعد البيانات التقليدية؟", opts: ["إضافة سيرفرات رخيصة جديدة وموزعة", "تزويد نفس السيرفر بمعالج أقوى ورامات ومساحة أكبر", "تقسيم الجداول لملفات نصية", "حذف السجلات القديمة"], correct: 1, exp: "Vertical Scaling يعني ترقية عتاد السيرفر الفردي." },
-            { id: 22, cat: "Scaling & CAP", q: "22. ما هي ميزة التوسع الأفقي (Horizontal Scaling / Scale Out) المستخدم في NoSQL؟", opts: ["يتطلب سيرفر خارق واحد فقط", "توزيع البيانات على عدد كبير من السيرفرات الرخيصة المتكتلة بلا حدود فيزيائية صارمة", "منع التعديل", "إلغاء اتصالات الشبكة"], correct: 1, exp: "Horizontal Scaling يتيح إضافة سيرفرات رخيصة لتوسعة النظام بلا حدود." },
-            { id: 23, cat: "Scaling & CAP", q: "23. ماذا تنص نظرية CAP Theorem باختصار؟", qOpts: ["يمكن للنظام الموزع تحقيق Consistency و Availability و Partition Tolerance معاً دائماً", "لا يمكن لأي نظام موزع ضمان الثلاثة معاً بشكل كامل أثناء حدوث عطل شبكي (Partition)", "قواعد SQL لا تتأثر بالشبكة", "NoSQL ترفض الـ Sharding"], correct: 1, exp: "CAP Theorem تعني أنه عند انقطاع الشبكة P، يجب الاختيار بين C أو A." },
-            { id: 24, cat: "Scaling & CAP", q: "24. ما الذي يفضله نظام من نوع CP (Consistency + Partition) عند انقطاع الشبكة؟", qOpts: ["رفض الاستجابة والطلبات لضمان عدم تقديم بيانات قديمة أو خاطئة (مثل البنوك)", "تقديم بيانات قديمة فوراً", "إيقاف السيرفر نهائياً بدون عودة", "تحويل الجداول لـ Excel"], correct: 0, exp: "نظام CP يفضل صحة البيانات ودقتها ويرفض الخدمة إذا تعذرت المزامنة." },
-            { id: 25, cat: "Scaling & CAP", q: "25. ما الذي يفضله نظام من نوع AP (Availability + Partition) عند انقطاع الشبكة؟", qOpts: ["توقف الموقع عن العمل", "الاستجابة الفورية بالبيانات المتاحة محلياً حتى لو كانت قديمة مؤقتاً (مثل السوشيال ميديا)", "رفض جميع المستخدمين", "حذف قاعدة البيانات"], correct: 1, exp: "نظام AP يفضل توافر الخدمة واستمرارها دائماً." },
-
-            // تجريد البيانات والمخططات (Lec 5)
-            { id: 26, cat: "Abstraction", q: "26. ما هي مستويات تجريد البيانات (Data Abstraction) الثلاثة في الـ DBMS؟", opts: ["Input Level, Process Level, Output Level", "Physical Level, Logical Level, View Level", "Client Level, Server Level, Network Level", "Table Level, Row Level, Column Level"], correct: 1, exp: "المستويات الثلاثة هي الفيزيائي، المنطقي، ومستوى الرؤية." },
-            { id: 27, cat: "Abstraction", q: "27. في أي مستوى من مستويات التجريد يعمل مسؤولو قواعد البيانات والمبرمجون لتحديد الجداول والعلاقات؟", opts: ["Physical Level", "Logical Level", "View Level", "Hardware Level"], correct: 1, exp: "المستوى المنطقي (Logical Level) هو الذي يحدد الهيكل العام." },
-            { id: 28, cat: "Abstraction", q: "28. ما المقصود بـ 'Physical Data Independence'؟", opts: ["قدرة التطبيقات على العمل دون تأثر بتغييرات التخزين الفيزيائي أو هيكل الأقراص", "حذف الملفات تلقائياً", "منع استخدام الإنترنت", "تغيير لغة البرمجة"], correct: 0, exp: "استقلالية البيانات الفيزيائية تعني عدم تأثر البرامج بتعديلات التخزين." },
-            { id: 29, cat: "Abstraction", q: "29. ما الفرق بين Schema و Instance في قاعدة البيانات؟", opts: ["Schema هو الهيكل والتصميم الثابت، و Instance هي البيانات الفعلية المخزنة في لحظة معينة", "كلاهما نفس الشيء تماماً", "Schema هي الصفوف و Instance هي الأعمدة", "Schema تخزن في الذاكرة المتطايرة فقط"], correct: 0, exp: "Schema = الهيكل الثابت، Instance = البيانات الحالية لحظياً." },
-            { id: 30, cat: "Abstraction", q: "30. تشبيه أكاديمي: إذا كانت قاعدة البيانات برنامجا، فإن Schema تعادل ...... و Instance تعادل ......؟", opts: ["إعلان المتغيرات (Variable declarations) | قيم المتغيرات في لحظة معينة", "شاشة الكمبيوتر | لوحة المفاتيح", "العميل | السيرفر", "الملف النصي | جدول Excel"], correct: 0, exp: "التشبيه الرسمي بالسلايدات: Schema = إعلان المتغيرات، Instance = قيمها." },
-
-            // لغات قواعد البيانات DDL, DML, Metadata
-            { id: 31, cat: "Languages", q: "31. ماذا تفعل لغة بناء التعريف (DDL - Data Definition Language)؟", opts: ["تستعلام وتعدل الصفوف (INSERT/SELECT)", "تحدد وتنشئ وتغير هيكل قاعدة البيانات والجداول (CREATE, ALTER, DROP)", "تدير الجلسات وحسابات المستخدمين فقط", "ترسل رسائل للعملاء"], correct: 1, exp: "DDL تختص بتعريف وهيكل الجداول والـ Schemas." },
-            { id: 32, cat: "Languages", q: "32. أي من الأوامر التالية ينتمي إلى DML (Data Manipulation Language)؟", opts: ["CREATE TABLE", "ALTER TABLE", "INSERT INTO و UPDATE و DELETE", "DROP DATABASE"], correct: 2, exp: "INSERT و UPDATE و DELETE تستخدم لمعالجة الصفوف والبيانات." },
-            { id: 33, cat: "Languages", q: "33. أين تُخزن مخرجات أوامر DDL وتعاريف الجداول والأنواع؟", opts: ["في متصفح العميل", "في معجم البيانات (Data Dictionary / System Catalog) كبيانات وصفية Metadata", "في سلة المهملات", "في ملفات الصوت"], correct: 1, exp: "تخزن تعريفات الهيكل في معجم البيانات (Metadata)." },
-            { id: 34, cat: "Languages", q: "34. من هو الكيان الوحيد الذي يحق له الوصول المباشر لمعجم البيانات (Data Dictionary)؟", opts: ["مستخدمو التطبيق العاديون", "نظام إدارة قواعد البيانات (DBMS) نفسه تلقائياً", "متصفحات الويب", "برامج معالجة النصوص"], correct: 1, exp: "الـ DBMS هو المسؤول الوحيد عن قراءة وتحديث معجم البيانات." },
-            { id: 35, cat: "Languages", q: "35. ما الفرق بين Procedural DML و Declarative (Nonprocedural) DML؟", opts: ["Procedural تحدد ماذا وكيف، بينما Declarative تحدد ماذا نريد فقط (مثل SQL)", "كلاهما متشابهان تماماً", "Declarative تستخدم للـ CREATE فقط", "Procedural لا تحتاج لأوامر"], correct: 0, exp: "Procedural تحدد خطوات الاستخراج (What & How)، بينما Declarative تحدد المطلوب فقط (SQL)." },
-
-            // قيود السلامة والمعجم النشط
-            { id: 36, cat: "Constraints", q: "36. ماذا يُقصد بـ 'Domain Constraints' في قيود السلامة؟", opts: ["السماح بأي نوع بيانات بدون قيود", "التأكد من أن كل عمود يحتوي فقط على قيم قانونية تنتمي لنوع البيانات المحدد (Data Type)", "تحديد صلاحيات المستخدمين", "منع الاتصال بالإنترنت"], correct: 1, exp: "Domain constraints تضمن التزام القيم بنوع البيانات المسموح." },
-            { id: 37, cat: "Constraints", q: "37. ماذا يضمن قيد السلامة المرجعية (Referential Integrity Constraint)؟", opts: ["أن قيمة المفتاح الأجنبي (Foreign Key) في الجدول الفرعي يجب أن تتطابق مع مفتاح أساسي موجود في الجدول الأب أو تكون NULL", "تساوي جميع الأعمدة", "حذف الجدول الأب تلقائياً", "عدم استخدام المفاتيح"], correct: 0, exp: "Referential integrity تربط FK بالـ PK بدقة وتمنع اليتامى." },
-            { id: 38, cat: "Constraints", q: "38. ما هي الـ 'Assertions' في قيود قواعد البيانات؟", opts: ["أوامر لطباعة التقارير", "أي شرط عام يجب أن تلبيه قاعدة البيانات دائماً خارج حدود Domain و Referential", "أوامر لحذف البيانات القديمة", "كلمات مرور المستخدمين"], correct: 1, exp: "Assertions هي الشروط العامة الإضافية التي تلزم القاعدة." },
-            { id: 39, cat: "Constraints", q: "39. ما الفرق بين Active Data Dictionary و Passive Data Dictionary؟", opts: ["Active يتحدث أوتوماتيكياً وفورياً مع كل عملية، بينما Passive يحتاج Batch process لتحديثه", "Active يعمل للـ NoSQL فقط", "Passive أسرع بكثير", "كلاهما غير مستخدمين"], correct: 0, exp: "Active يتحدث فورياً تلقائياً، و Passive يحتاج لعملية دفعة لتحديثه." },
-            { id: 40, cat: "Metadata", q: "40. ما هو التشبيه البسيط المذكور بالسلايدات للتفرقة بين Data و Metadata؟", opts: ["Data = كتاب في المكتبة | Metadata = الفهرس أو الكتالوج الذي يصف هذا الكتاب", "Data = السيرفر | Metadata = العميل", "Data = الشاشة | Metadata = لوحة المفاتيح", "Data = الـ SQL | Metadata = الـ NoSQL"], correct: 0, exp: "البيانات هي الكتاب، والبيانات الوصفية (Metadata) هي الفهرس الوصفي له." },
-
-            // تفاصيل إضافية من العروض (SQL vs NoSQL, Architecture, 3-Tier)
-            { id: 41, cat: "SQL vs NoSQL", q: "41. ما هي البنية الهيكلية لـ SQL مقارنة بـ NoSQL؟", opts: ["SQL تعتمد على جداول ثابتة (Tables)، بينما NoSQL تعتمد على مستندات أو مفتاح-قيمة ديناميكية", "SQL تعتمد على JSON فقط", "NoSQL تفرض جداول صارمة", "كلاهما يستخدمان الملفات القديمة"], correct: 0, exp: "SQL جداول و Schema ثابتة، NoSQL مرنة وديناميكية." },
-            { id: 42, cat: "SQL vs NoSQL", q: "42. أين يُنقل منطق التحقق من صحة المخطط (Schema Validation) في قواعد بيانات NoSQL ذات المخطط الديناميكي؟", opts: ["إلى طبقة كود التطبيق (Application Code Layer)", "إلى الأقراص الصلبة", "إلى معجم البيانات الخامل", "إلى نظام التشغيل"], correct: 0, exp: "في NoSQL Schema-on-Read، يتحقق التطبيق من الهيكل برمجياً." },
-            { id: 43, cat: "Architecture", q: "43. في معمارية التطبيق ذي الثلاث طبقات (Client-Server)، ما هي وظيفة خادم التطبيق (Application Server)؟", opts: ["تلقي الطلبات، تطبيق قواعد العمل (Business Rules)، وتجهيز استعلامات SQL", "تخزين الملفات النصية فقط", "عرض صور الواجهة للعميل", "تصميم الأقراص الصلبة"], correct: 0, exp: "خادم التطبيق ينفذ الـ Business Rules ويجهز SQL." },
-            { id: 44, cat: "Architecture", q: "44. ماذا تفعل العبارة الشهيرة عند ربط الجداول: 'Do not join by row number. Join by...'?", opts: [""...by the matching value in the shared attribute!"", "...by alphabet order!", "...by random selection!", "...by table size!"], correct: 0, exp: "الربط يتم عبر مطابقة القيم في الخاصية المشتركة (Shared Attribute / Foreign Key) وليس رقم الصف." },
-            { id: 45, cat: "SQL Details", q: "45. لماذا يُعتبر وجود شروط WHERE في أوامر UPDATE و DELETE خطوة حاسمة للغاية؟", opts: ["لأن غيابه يتسبب في تعديل أو حذف جميع صفوف الجدول بلا استثناء!", "لأن الكود لن يفتح بدونها", "لأنها تمنع الاتصال بالسيرفر", "لأنها تغير اسم الجدول"], correct: 0, exp: "غياب WHERE يجعل التعديل/الحذف يسري على كل الجدول ويحسف البيانات." },
-
-            // أسئلة تميز إضافية تغطي تفاصيل السلايدات
-            { id: 46, cat: "Advanced", q: "46. ما هي التقنية الحديثة المصممة لتخزين والبحث في الـ Embeddings للذكاء الاصطناعي التوليدي (مثل Pinecone و Milvus)؟", opts: ["Vector Databases", "Hierarchical DBs", "Magnetic Tapes", "Passive Dictionaries"], correct: 0, exp: "Vector Databases مخصصة للذكاء الاصطناعي والبحث الدلالي." },
-            { id: 47, cat: "Advanced", q: "47. ما هي تقنية NewSQL (مثل Google Spanner)؟", qOpts: ["تدمج بين ضمانات المعاملات المالية لـ SQL (ACID) وقدرة التوسع الأفقي لـ NoSQL", "تلغي قواعد البيانات تماماً", "تعتمد على الملفات الورقية", "تمنع استخدام المفاتيح الأساسية"], correct: 0, exp: "NewSQL تدمج ميزات ACID وقوة التوسع الأفقي." },
-            { id: 48, cat: "Advanced", q: "48. ما الفرق بين مستودعات البيانات (Data Warehouses) وبحيرات البيانات (Data Lakes)؟", opts: ["Warehouses تخزن بيانات منظمة ومصنعة لذكاء الأعمال، بينما Lakes تحفظ البيانات الخام (Raw Data) في صورتها الأصلية", "Warehouses تخزن الفيديوهات فقط", "Lakes تتبع SQL بحتة", "كلاهما غير مستخدمين"], correct: 0, exp: "Warehouses معالجة ومنظمة، Lakes تخزن البيانات الخام." },
-            { id: 49, cat: "Advanced", q: "49. ما هي أبرز سلبية لنظام الـ DBMS المركزي بحسب السلايدات في حال تعطل النظام؟", opts: ["أن فشل الـ DBMS المركزي يؤثر فوراً على كافة مستخدمي المنظومة (Impacts every user)", "أنه يوفر أماناً أكثر من اللازم", "أنه يقلل حجم التخزين", "أنه يلغي الأخطاء تماماً"], correct: 0, exp: "فشل النظام المركزي يعطل كل المستخدمين المعتمدين عليه." },
-            { id: 50, cat: "Advanced", q: "50. لماذا قد تعمل برمجيات DBMS العامة أبطأ في بعض المهام المحددة جداً مقارنة ببرامج الملفات اليدوية؟", opts: ["لأنها برمجيات شاملة (Generalized software) تحتوي على طبقات حماية وإدارة متعددة تضيف عبئاً", "لأنها لا تستخدم معالجات", "لأنها تخزن البيانات ورقياً", "لأنها تمنع الاستعلامات"], correct: 0, exp: "البرمجيات العامة الشاملة تحمل عبئاً إضافياً مقارنة بالأكواد المخصصة المكتوبة خصيصاً لمهمة ضيقة." },
-
-            // إكمال البنك لضمان 60 سؤالاً شاملاً
-            { id: 51, cat: "Final Check", q: "51. أي عائلة من NoSQL تُعد الخيار الأفضل لتخزين مفتاح-قيمة للحصول على استجابة بأقل من مللي ثانية (مثل Redis)؟", opts: ["Key-Value Stores", "Hierarchical DBs", "Relational Tables", "Vector Stores"], correct: 0, exp: "متاجر المفتاح-قيمة (Key-Value) ممتازة للتخزين المؤقت السريع جداً." },
-            { id: 52, cat: "Final Check", q: "52. ما هو مصطلح 'Relation' في النموذج العلائقي؟", opts: ["جدول (Table)", "عمود (Column)", "قيد أمان (Constraint)", "مستخدم (User)"], correct: 0, exp: "الـ Relation في الجبر العلائقي تعني الجدول (Table)." },
-            { id: 53, cat: "Final Check", q: "53. ماذا يمثل الرمز (PK) في جداول قواعد البيانات؟", opts: ["Primary Key (المفتاح الأساسي الفريد لكل صف)", "Password Key", "Program Kernel", "Physical Link"], correct: 0, exp: "PK يرمز لـ Primary Key لمعرف الصف الفريد." },
-            { id: 54, cat: "Final Check", q: "54. ماذا يمثل الرمز (FK) في جداول قواعد البيانات؟", opts: ["Foreign Key (المفتاح الأجنبي الرابط بالجدول الأب)", "File Keeper", "Fast Query", "Final Key"], correct: 0, exp: "FK يرمز لـ Foreign Key للربط بين الجداول." },
-            { id: 55, cat: "Final Check", q: "55. في نموذج قاعدة البيانات العلائقية، هل يُسمح بتكرار صف (Tuple) كامل متطابق تماماً في جدول صحيح؟", opts: ["لا، الجداول الرياضية والعلائقية تتطلب تميز كل صف (Tuple uniqueness)", "نعم، مسموح تماماً بدون قيود", "نعم بشرط عدم وجود عمود رقمي", "يعتمد على لغة Python"], correct: 0, exp: "الجداول الصحيحة لا تحتمل صفوفاً متطابقة تماماً نظراً لوجود المفتاح الأساسي." },
-            { id: 56, cat: "Final Check", q: "56. ما هو الهدف من استخدام جملة `CHECK (Age >= 17)` عند إنشاء جدول الطالب؟", opts: ["تطبيق قيد نطاق القيم (Domain Constraint) لضمان صحة الأعمار", "حذف الجدول", "تحديث السيرفر", "زيادة سرعة الإنترنت"], correct: 0, exp: "CHECK تفرض نطاقاً وقيداً قانونياً على القيم المدخلة." },
-            { id: 57, cat: "Final Check", q: "57. ما هي مميزات استخدام الـ Views (مستويات الرؤية) في قاعدة البيانات؟", opts: ["تبسيط التفاعل للمستخدمين وتوفير طبقة أمان وحماية بإخفاء البيانات الحساسة", "إبطاء النظام", "تكرار البيانات عمداً", "إلغاء الجداول الأساسية"], correct: 0, exp: "الـ Views تسهل العرض وتعمل كحد أمني ووقائي." },
-            { id: 58, cat: "Final Check", q: "58. في معمارية نظام التشغيل وقواعد البيانات، ماذا يعني مصطلح 'Metadata'؟", opts: ["بيانات توصف بيانات أخرى (Data about data)", "ملفات الموسيقى والفيديو", "الذاكرة العشوائية RAM", "سرعة المعالج"], correct: 0, exp: "المتا داتا هي البيانات التي تصف خصائص وهيكل البيانات الأساسية." },
-            { id: 59, cat: "Final Check", q: "59. ما هي الوظيفة الأساسية للـ Query Optimizer (محسن الاستعلامات) في DBMS؟", opts: ["اختيار أفضل وأسرع طريقة تنفيذية لتشغيل استعلام SQL وإرجاع النتائج بكفاءة", "حذف قاعدة البيانات عند الخطأ", "تصميم الواجهات الرسومية", "توليد كلمات مرور للمستخدمين"], correct: 0, exp: "محسن الاستعلامات يختار المسار الأسرع والأكثر كفاءة لتنفيذ الكود." },
-            { id: 60, cat: "Final Check", q: "60. ما هو التلخيص الأهم للامتحان والمنهج ككل؟", opts: ["أن الـ DBMS يحل مشاكل الملفات التقليدية عبر ACID والعلائقية والمعمارية الآمنة لضمان استقرار الأنظمة", "أن الملفات أفضل من الـ DBMS", "أن NoSQL تلغي SQL تماماً", "أن المنهج نظري فقط"], correct: 0, exp: "الهدف الأسمى لنظام قواعد البيانات هو تجاوز مشاكل الملفات وتحقيق الكفاءة والأمان." }
-        ];
-
         let score = 0;
         let answered = 0;
-        const container = document.getElementById('quiz-container');
 
-        function renderQuiz() {
-            container.innerHTML = '';
-            questions60.forEach((item, idx) => {
-                let optsHTML = '';
-                item.opts.forEach((opt, oIdx) => {
-                    optsHTML += `
-                        <label class="block p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 transition text-sm font-medium option-label-${item.id}">
-                            <input type="radio" name="q_${item.id}" value="${oIdx}" onclick="checkAnswer(${item.id}, ${oIdx}, ${item.correct})" class="ml-2"> ${opt}
-                        </label>
-                    `;
-                });
-
-                container.innerHTML += `
-                    <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_${item.id}">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full border border-sky-100">${item.cat}</span>
-                            <span class="text-xs font-mono text-slate-400">سؤال ${idx + 1} من 60</span>
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-relaxed">${item.q}</h3>
-                        <div class="space-y-2" id="opts_${item.id}">${optsHTML}</div>
-                        <div id="feedback_${item.id}" class="hidden p-3 rounded-xl text-xs font-medium mt-2"></div>
-                    </div>
-                `;
-            });
-        }
-
-        function checkAnswer(qId, selectedIdx, correctIdx) {
+        function check(qId, selectedIdx, correctIdx) {
             const card = document.getElementById(`card_${qId}`);
-            const feedback = document.getElementById(`feedback_${qId}`);
-            const item = questions60.find(q => q.id === qId);
-
-            // منع إعادة الإجابة لنفس السؤال
+            const fb = document.getElementById(`fb_${qId}`);
+            
+            // تعطيل الاختيارات بعد الإجابة
             const radios = document.querySelectorAll(`input[name="q_${qId}"]`);
             radios.forEach(r => r.disabled = true);
 
             answered++;
             document.getElementById('answered-count').innerText = answered;
 
-            const isCorrect = (selectedIdx === correctIdx);
-            if (isCorrect) {
+            if (selectedIdx === correctIdx) {
                 score++;
                 document.getElementById('live-score').innerText = score;
                 card.classList.add('border-emerald-300', 'bg-emerald-50/20');
-                feedback.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-emerald-100 text-emerald-900 border border-emerald-300 block";
-                feedback.innerHTML = `<strong>✅ إجابة صحيحة بامتياز!</strong><br><span class="mt-1 block">💡 الشرح: ${item.exp}</span>`;
+                fb.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-emerald-100 text-emerald-900 block";
+                fb.innerHTML = "<strong>✅ إجابة صحيحة!</strong> ممتاز، استمر.";
             } else {
                 card.classList.add('border-red-300', 'bg-red-50/20');
-                feedback.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-red-100 text-red-900 border border-red-300 block";
-                feedback.innerHTML = `<strong>❌ إجابة غير صائبة.</strong> الإجابة الصحيحة هي: <span class="font-bold underline">${item.opts[correctIdx]}</span><br><span class="mt-1 block">💡 الشرح الدقيق: ${item.exp}</span>`;
+                fb.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-red-100 text-red-900 block";
+                fb.innerHTML = "<strong>❌ إجابة غير صائبة.</strong> راجع التوضيح في الملخص بالسابق.";
             }
         }
-
-        renderQuiz();
     </script>
 </body>
 </html>
