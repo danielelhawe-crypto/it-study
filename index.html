@@ -1,224 +1,885 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database 1 - Midterm Practice Exam (60 Questions)</title>
+    <title>منصة مراجعة قواعد البيانات 1 - بنك الأسئلة الخفية والدقيقة</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#035485',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Segoe UI', 'Tahoma', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }</style>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 360px; }
+        }
+        .tab-btn.active {
+            background-color: #0284c7;
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col p-3 sm:p-6">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <header class="bg-slate-900 text-white p-4 rounded-2xl shadow-md mb-4 text-center max-w-2xl mx-auto w-full sticky top-0 z-50">
-        <h1 class="text-lg sm:text-xl font-extrabold">Database 1 - Comprehensive Exam</h1>
-        <p class="text-xs text-emerald-400 mt-1">Select an option to instantly check the answer and view the explanation</p>
-        <div class="mt-2 flex justify-center gap-4 text-xs font-bold">
-            <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">Score: <span id="live-score">0</span> / 60</span>
-            <span class="bg-sky-500/20 text-sky-300 px-3 py-1 rounded-full border border-sky-500/30">Answered: <span id="answered-count">0</span> / 60</span>
+    <!-- Chosen Palette: Deep Slate & Emerald Academic Theme -->
+    <!-- Application Structure Plan: This updated single-page web app focuses on "Hidden & Subtle" exam questions extracted directly from the fine details of Lectures 2-5 (PDF slides). It features: 1) Hidden & Subtle Exam Suite (25 highly specific, tricky questions focusing on under-discussed details such as Active vs Passive Data Dictionary, Procedural vs Declarative DML, Data Lakes vs Warehouses, 3-Tier Application Server duties, Schema-on-Read application layer validation, Assertions, Vector DBs, NewSQL, join logic by values vs row numbers, and DDL metadata access rules), 2) Targeted 30-Question Midterm Practice Exam, 3) Concept Comparison Matrix, and 4) Hidden Concepts Flashcards. -->
+    <!-- Visualization & Content Choices: 1. Hidden Questions Suite -> Dynamic interactive quiz with detailed explanations referencing specific PDF slides/concepts. 2. Performance Breakdown -> Chart.js bar visualization. 3. Flashcards -> Interactive toggles. NO SVG or Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header Navigation -->
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500 flex items-center justify-center font-bold text-xl text-white shadow-md">
+                        DB1
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-lg sm:text-xl text-white leading-tight">منصة مراجعة قواعد البيانات 1 - الأسئلة الخفية والعميقة</h1>
+                        <p class="text-xs text-emerald-300">جامعة العاصمة • مراجعة التفاصيل الدقيقة والسريّة (Lectures 2, 3, 4, 5)</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-2 space-x-reverse text-sm font-medium">
+                    <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30 font-bold">
+                        🔍 تفاصيل ما بين السطور
+                    </span>
+                    <span class="bg-slate-800 text-sky-300 px-3 py-1 rounded-full border border-slate-700">
+                        ⏱️ درجة الامتحان (25 درجة)
+                    </span>
+                </div>
+            </div>
+            <!-- Sub-Header Tabs -->
+            <div class="flex space-x-2 space-x-reverse overflow-x-auto pb-2 custom-scrollbar text-sm font-medium border-t border-slate-800 pt-2">
+                <button onclick="switchTab('hiddenQuiz')" id="tab-hiddenQuiz" class="tab-btn active px-4 py-2 rounded-lg transition-all duration-200 whitespace-nowrap">
+                    🕵️ أسئلة التفاصيل الخفية والسريّة (25 سؤالاً)
+                </button>
+                <button onclick="switchTab('quiz30')" id="tab-quiz30" class="tab-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white transition-all duration-200 whitespace-nowrap">
+                    📝 الاختبار الشامل لمراجعة نقاط الضعف (30 سؤالاً)
+                </button>
+                <button onclick="switchTab('comparison')" id="tab-comparison" class="tab-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white transition-all duration-200 whitespace-nowrap">
+                    ⚡ مصفوفة المفاهيم المعقدة (ACID / CAP / SQL)
+                </button>
+                <button onclick="switchTab('flashcards')" id="tab-flashcards" class="tab-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white transition-all duration-200 whitespace-nowrap">
+                    🎴 بطاقات التفاصيل الدقيقة
+                </button>
+            </div>
         </div>
     </header>
 
-    <main class="space-y-4 max-w-2xl mx-auto w-full pb-20">
-        
-        <!-- Q 1 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_1">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">1. What does the term 'Data' mean in the context of database systems?[span_0](start_span)[span_0](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_1" onclick="check(1, 0, 0, 'Data refers to raw facts, figures, or statistics with no particular meaning on their own[span_1](start_span)[span_1](end_span).')" class="mr-2"> Raw facts, figures, or statistics with no particular meaning on their own[span_2](start_span)[span_2](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_1" onclick="check(1, 1, 0, 'Data refers to raw facts, figures, or statistics with no particular meaning on their own[span_3](start_span)[span_3](end_span).')" class="mr-2"> A collection of related tables forming a schema</label>
-            </div>
-            <div id="fb_1" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-        <!-- Q 2 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_2">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">2. In a relational database table, what are vertical columns called?[span_4](start_span)[span_4](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_2" onclick="check(2, 0, 1, 'Columns are called fields, attributes, or domains, and all values share the same data type[span_5](start_span)[span_5](end_span).')" class="mr-2"> Tuples or Records</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_2" onclick="check(2, 1, 1, 'Columns are called fields, attributes, or domains, and all values share the same data type[span_6](start_span)[span_6](end_span).')" class="mr-2"> Attributes, Fields, or Domains[span_7](start_span)[span_7](end_span)</label>
+        <!-- TAB 1: HIDDEN & SUBTLE QUESTIONS QUIZ -->
+        <section id="sec-hiddenQuiz" class="space-y-6">
+            <!-- Intro Banner -->
+            <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 text-white rounded-xl p-6 shadow-md border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-0.5 bg-emerald-500/20 text-emerald-300 text-xs font-extrabold rounded-full border border-emerald-500/30">أسئلة تميّز غير متوقعة</span>
+                        <span class="px-2.5 py-0.5 bg-sky-500/20 text-sky-300 text-xs font-bold rounded-full">25 سؤالاً دقيقاً</span>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-white">أسئلة التفاصيل الخفية وما بين السطور في السلايدات</h2>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        هذا البنك مصمم خصيصاً للتفاصيل والدقائق التي نادراً ما يلاحظها الطلاب أثناء المذاكرة السريعة (مثل الفرق بين Active و Passive Data Dictionary، Procedural vs Nonprocedural DML، دور Application Server، تفاصيل Data Lakes vs Warehouses، وقواعد الربط بين الجداول).
+                    </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                    <button onclick="submitHiddenQuiz()" id="btn-submit-hidden" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm rounded-xl shadow-lg transition">
+                        ✅ تسليم وإظهار الشرح
+                    </button>
+                </div>
             </div>
-            <div id="fb_2" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
 
-        <!-- Q 3 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_3">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">3. What are horizontal rows in a relational database table called?[span_8](start_span)[span_8](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_3" onclick="check(3, 0, 0, 'Rows are called tuples or records[span_9](start_span)[span_9](end_span).')" class="mr-2"> Tuples or Records[span_10](start_span)[span_10](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_3" onclick="check(3, 1, 0, 'Rows are called tuples or records[span_11](start_span)[span_11](end_span).')" class="mr-2"> Attributes or Domains</label>
+            <!-- Quiz Render Container -->
+            <div id="hidden-quiz-container" class="space-y-6">
+                <!-- Dynamically Populated -->
             </div>
-            <div id="fb_3" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
 
-        <!-- Q 4 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_4">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">4. What is the intersection of a row and a column in a table called?[span_12](start_span)[span_12](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_4" onclick="check(4, 0, 1, 'A cell is the intersection of a row and a column containing a single value[span_13](start_span)[span_13](end_span).')" class="mr-2"> Cell or Value[span_14](start_span)[span_14](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_4" onclick="check(4, 1, 1, 'A cell is the intersection of a row and a column containing a single value[span_15](start_span)[span_15](end_span).')" class="mr-2"> Schema</label>
+            <!-- Quiz Results Banner -->
+            <div id="hidden-quiz-results" class="hidden bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-right space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+                        <div class="text-xs text-emerald-700 font-bold mb-1">الدرجة المحسوبة (من 25)</div>
+                        <div id="hidden-score-total" class="text-3xl font-extrabold text-emerald-900">0 / 25</div>
+                    </div>
+                    <div class="p-4 bg-sky-50 rounded-xl border border-sky-200">
+                        <div class="text-xs text-sky-700 font-bold mb-1">نسبة الإتقان للتفاصيل الدقيقة</div>
+                        <div id="hidden-score-percent" class="text-3xl font-extrabold text-sky-900">0%</div>
+                    </div>
+                    <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                        <div class="text-xs text-amber-700 font-bold mb-1">مستوى الاستعداد للتفاصيل الخفية</div>
+                        <div id="hidden-score-grade" class="text-lg font-extrabold text-amber-900">-</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-2 text-sm">📊 تحليل التميز حسب المواضيع الخفية:</h4>
+                    <div class="chart-container">
+                        <canvas id="hiddenChart"></canvas>
+                    </div>
+                </div>
             </div>
-            <div id="fb_4" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
+        </section>
 
-        <!-- Q 5 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_5">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">5. What is the core definition of a Database Management System (DBMS)?[span_16](start_span)[span_16](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_5" onclick="check(5, 0, 1, 'A DBMS is a collection of interrelated data plus a set of programs to access that data efficiently[span_17](start_span)[span_17](end_span).')" class="mr-2"> A collection of interrelated data and a set of programs to access that data efficiently[span_18](start_span)[span_18](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_5" onclick="check(5, 1, 1, 'A DBMS is a collection of interrelated data plus a set of programs to access that data efficiently[span_19](start_span)[span_19](end_span).')" class="mr-2"> A text editor for operating system files</label>
+        <!-- TAB 2: 30 TARGETED QUESTIONS EXAM -->
+        <section id="sec-quiz30" class="hidden space-y-6">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-0.5 bg-amber-100 text-amber-900 text-xs font-extrabold rounded-full border border-amber-200">مُصمم بناءً على نقاط الضعف الأساسية</span>
+                        <span class="px-2.5 py-0.5 bg-sky-100 text-sky-800 text-xs font-bold rounded-full">30 سؤالاً</span>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-slate-900">اختبار المراجعة الشامل للنقاط الرئيسية</h2>
+                    <p class="text-slate-600 text-sm">تمارين على المفاهيم الأساسية: (Tuple vs Attribute, Atomicity, Durability, Isolation, CAP, Scaling).</p>
+                </div>
+                <button onclick="resetQuiz30()" class="px-4 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold rounded-xl transition text-sm">
+                    🔄 إعادة الاختبار
+                </button>
             </div>
-            <div id="fb_5" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
 
-        <!-- Q 6 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_6">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">6. What is a major disadvantage of traditional file-processing systems?[span_20](start_span)[span_20](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_6" onclick="check(6, 0, 0, 'Data redundancy and inconsistency occur when the same info is duplicated across files[span_21](start_span)[span_21](end_span).')" class="mr-2"> Data redundancy and inconsistency[span_22](start_span)[span_22](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_6" onclick="check(6, 1, 0, 'Data redundancy and inconsistency occur when the same info is duplicated across files[span_23](start_span)[span_23](end_span).')" class="mr-2"> Perfect ACID compliance</label>
+            <div id="quiz30-container" class="space-y-6"></div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-center space-y-6">
+                <button onclick="submitQuiz30()" id="btn-submit-quiz30" class="w-full md:w-auto px-10 py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-lg rounded-xl shadow-lg transition duration-200">
+                    ✅ تسليم اختبار المراجعة الشامل
+                </button>
+                <div id="quiz30-results" class="hidden space-y-6 pt-6 border-t border-slate-200 text-right">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="p-4 bg-sky-50 rounded-xl border border-sky-200">
+                            <div class="text-xs text-sky-700 font-bold mb-1">الدرجة المحسوبة (من 25)</div>
+                            <div id="score30-total" class="text-3xl font-extrabold text-sky-900">0 / 25</div>
+                        </div>
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+                            <div class="text-xs text-emerald-700 font-bold mb-1">نسبة الإتقان</div>
+                            <div id="score30-percent" class="text-3xl font-extrabold text-emerald-800">0%</div>
+                        </div>
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                            <div class="text-xs text-amber-700 font-bold mb-1">التقدير</div>
+                            <div id="score30-grade" class="text-xl font-extrabold text-amber-900">-</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="fb_6" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
+        </section>
 
-        <!-- Q 7 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_7">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">7. What does the Atomicity problem in file systems refer to?[span_24](start_span)[span_24](end_span)[span_25](start_span)[span_25](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_7" onclick="check(7, 0, 1, 'A crash mid-transfer can debit one account without crediting the other[span_26](start_span)[span_26](end_span)[span_27](start_span)[span_27](end_span).')" class="mr-2"> A crash mid-transfer can debit one account without crediting the other[span_28](start_span)[span_28](end_span)[span_29](start_span)[span_29](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_7" onclick="check(7, 1, 1, 'A crash mid-transfer can debit one account without crediting the other[span_30](start_span)[span_30](end_span)[span_31](start_span)[span_31](end_span).')" class="mr-2"> Slow monitor refresh rate</label>
+        <!-- TAB 3: COMPARISONS MATRIX -->
+        <section id="sec-comparison" class="hidden space-y-6">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">⚡ مصفوفة المفاهيم والمقارنات الحاسمة</h2>
+                <p class="text-slate-600 text-sm">استعرض الفروق بين الخصائص والمفاهيم المعقدة لتفادي الالتباس.</p>
             </div>
-            <div id="fb_7" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
 
-        <!-- Q 8 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_8">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">8. Why is 'Difficulty Accessing Data' prevalent in file systems?[span_32](start_span)[span_32](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_8" onclick="check(8, 0, 1, 'No application program exists for ad-hoc requests, requiring manual extraction or new code[span_33](start_span)[span_33](end_span).')" class="mr-2"> No application program exists for ad-hoc requests, requiring new code[span_34](start_span)[span_34](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_8" onclick="check(8, 1, 1, 'No application program exists for ad-hoc requests, requiring manual extraction or new code[span_35](start_span)[span_35](end_span).')" class="mr-2"> Because they use advanced SQL engines</label>
+            <div class="bg-slate-200 p-1.5 rounded-xl flex space-x-2 space-x-reverse max-w-2xl mx-auto text-sm font-semibold overflow-x-auto">
+                <button onclick="toggleMatrix('acid-base')" id="matrix-btn-acid" class="flex-1 py-2 px-3 rounded-lg bg-white text-slate-900 shadow-sm text-center whitespace-nowrap">ACID Properties</button>
+                <button onclick="toggleMatrix('sql-nosql')" id="matrix-btn-sql" class="flex-1 py-2 px-3 rounded-lg text-slate-600 text-center whitespace-nowrap">SQL vs NoSQL</button>
+                <button onclick="toggleMatrix('cap')" id="matrix-btn-cap" class="flex-1 py-2 px-3 rounded-lg text-slate-600 text-center whitespace-nowrap">CAP Theorem</button>
+                <button onclick="toggleMatrix('terms')" id="matrix-btn-terms" class="flex-1 py-2 px-3 rounded-lg text-slate-600 text-center whitespace-nowrap">مصطلحات الجداول</button>
             </div>
-            <div id="fb_8" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
 
-        <!-- Q 9 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_9">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">9. What does 'Data Isolation' mean in file-processing systems?[span_36](start_span)[span_36](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_9" onclick="check(9, 0, 1, 'Data scattered across differently-formatted files makes writing retrieval programs hard[span_37](start_span)[span_37](end_span).')" class="mr-2"> Data scattered across differently-formatted files makes writing retrieval programs hard[span_38](start_span)[span_38](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_9" onclick="check(9, 1, 1, 'Data scattered across differently-formatted files makes writing retrieval programs hard[span_39](start_span)[span_39](end_span).')" class="mr-2"> Data is encrypted securely in one place</label>
+            <div id="matrix-acid-base" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-xl font-bold text-slate-900 border-b pb-2">تفاصيل خصائص ACID لتجنب الالتباس</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="p-4 bg-sky-50 rounded-xl border border-sky-200 space-y-2">
+                        <h4 class="font-bold text-sky-900">Atomicity (الأتمتة - الكل أو لا شيء)</h4>
+                        <p class="text-slate-700">إما أن تنفذ كل خطوات المعاملة بنجاح، أو تُلغى بالكامل (Rollback) حالة حدوث أي عطل أثناء التنفيذ.</p>
+                    </div>
+                    <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 space-y-2">
+                        <h4 class="font-bold text-emerald-900">Durability (الاستمرارية)</h4>
+                        <p class="text-slate-700">بمجرد اعتماد المعاملة (Commit)، تحفظ التغييرات نهائياً في التخزين غير المتطاير حتى لو حدث انقطاع مفاجئ للكهرباء.</p>
+                    </div>
+                    <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 space-y-2">
+                        <h4 class="font-bold text-amber-900">Isolation (العزل)</h4>
+                        <p class="text-slate-700">تضمن تنفيذ المعاملات المتزامنة بشكل مستقل ومنع مشكلة التحديث المفقود (Lost Update).</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-200 space-y-2">
+                        <h4 class="font-bold text-indigo-900">Consistency (الاتساق)</h4>
+                        <p class="text-slate-700">تضمن نقل قاعدة البيانات من حالة سليمة تحترم القواعد والقيود إلى حالة سليمة أخرى.</p>
+                    </div>
+                </div>
             </div>
-            <div id="fb_9" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
 
-        <!-- Q 10 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_10">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">10. What anomaly occurs when concurrent updates happen without coordination?[span_40](start_span)[span_40](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_10" onclick="check(10, 0, 1, 'Concurrent-access anomalies (e.g., simultaneous updates leaving account in incorrect state)[span_41](start_span)[span_41](end_span).')" class="mr-2"> Concurrent-access anomalies (Lost updates)[span_42](start_span)[span_42](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_10" onclick="check(10, 1, 1, 'Concurrent-access anomalies (e.g., simultaneous updates leaving account in incorrect state)[span_43](start_span)[span_43](end_span).')" class="mr-2"> Domain validation error</label>
+            <div id="matrix-sql-nosql" class="hidden bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-xl font-bold text-slate-900 border-b pb-2">التوسع الرأسي مقابل الأفقي</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="p-4 bg-slate-50 border rounded-xl">
+                        <h4 class="font-bold text-sky-800">Vertical Scaling (SQL)</h4>
+                        <p class="text-slate-700 mt-1">تزويد سيرفر واحد برامات ومعالج أعلى. له حدود فيزيائية ومكلف جداً.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 border rounded-xl">
+                        <h4 class="font-bold text-emerald-800">Horizontal Scaling (NoSQL)</h4>
+                        <p class="text-slate-700 mt-1">توزيع البيانات على سيرفرات رخيصة متعددة (Sharding). يتوسع بلا حدود تقريباً.</p>
+                    </div>
+                </div>
             </div>
-            <div id="fb_10" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
 
-        <!-- Q 11 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_11">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">11. What does 'Atomicity' ensure in ACID properties?[span_44](start_span)[span_44](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_11" onclick="check(11, 0, 0, 'A transaction is all or nothing; on failure, the system rolls back[span_45](start_span)[span_45](end_span).')" class="mr-2"> A transaction is all or nothing; on failure, the system rolls back[span_46](start_span)[span_46](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_11" onclick="check(11, 1, 0, 'A transaction is all or nothing; on failure, the system rolls back[span_47](start_span)[span_47](end_span).')" class="mr-2"> Data persists through power outages</label>
+            <div id="matrix-cap" class="hidden bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-xl font-bold text-slate-900 border-b pb-2">نواظم CP مقابل AP عند عطل الشبكة</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+                        <strong class="text-red-900 font-bold block">CP Systems (Consistency)</strong>
+                        <p class="text-slate-700 text-xs mt-1">ترفض الخدمة لضمان صحة البيانات وعدم تقديم بيانات قديمة (مثل ATM والبنوك).</p>
+                    </div>
+                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                        <strong class="text-emerald-900 font-bold block">AP Systems (Availability)</strong>
+                        <p class="text-slate-700 text-xs mt-1">تجيب بالبيانات المتاحة محلياً لضمان عدم توقف الخدمة (مثل شبكات التواصل الاجتماعي).</p>
+                    </div>
+                </div>
             </div>
-            <div id="fb_11" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
 
-        <!-- Q 12 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_12">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">12. Which ACID property ensures committed data persists through crashes?[span_48](start_span)[span_48](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_12" onclick="check(12, 0, 1, 'Durability: once committed, data persists on non-volatile storage even through a crash[span_49](start_span)[span_49](end_span).')" class="mr-2"> Durability[span_50](start_span)[span_50](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_12" onclick="check(12, 1, 1, 'Durability: once committed, data persists on non-volatile storage even through a crash[span_51](start_span)[span_51](end_span).')" class="mr-2"> Atomicity</label>
+            <div id="matrix-terms" class="hidden bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-xl font-bold text-slate-900 border-b pb-2">المصطلحات الرسمية للجداول</h3>
+                <table class="w-full text-sm text-right border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100"><th class="p-2 border">المصطلح الأكاديمي</th><th class="p-2 border">الاسم الدارج</th><th class="p-2 border">المعنى</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="p-2 border font-bold text-sky-900">Tuple</td><td class="p-2 border">Row / Record</td><td class="p-2 border">صف كامل يمثل سجيلاً لكائن واحد.</td></tr>
+                        <tr><td class="p-2 border font-bold text-indigo-900">Attribute / Domain</td><td class="p-2 border">Column / Field</td><td class="p-2 border">عمود برأسه اسم ونفس نوع البيانات لجميع قيمه.</td></tr>
+                        <tr><td class="p-2 border font-bold">Relation</td><td class="p-2 border">Table</td><td class="p-2 border">جدول من الصفوف والأعمدة المترابطة.</td></tr>
+                    </tbody>
+                </table>
             </div>
-            <div id="fb_12" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
+        </section>
 
-        <!-- Q 13 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_13">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">13. What does 'Isolation' guarantee in transactions?[span_52](start_span)[span_52](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_13" onclick="check(13, 0, 0, 'Concurrent transactions do not interfere; locking prevents lost updates[span_53](start_span)[span_53](end_span).')" class="mr-2"> Concurrent transactions do not interfere; locking prevents lost updates[span_54](start_span)[span_54](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_13" onclick="check(13, 1, 0, 'Concurrent transactions do not interfere; locking prevents lost updates[span_55](start_span)[span_55](end_span).')" class="mr-2"> Fast server rendering</label>
+        <!-- TAB 4: FLASHCARDS -->
+        <section id="sec-flashcards" class="hidden space-y-6">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-1">🎴 بطاقات التفاصيل الدقيقة والخفية</h2>
+                <p class="text-slate-600 text-sm">اضغط على البطاقة لكشف الإجابة والشرح الدقيق.</p>
             </div>
-            <div id="fb_13" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
-
-        <!-- Q 14 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_14">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">14. What does 'Consistency' mean in ACID?[span_56](start_span)[span_56](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_14" onclick="check(14, 0, 0, 'Every transaction moves the database from one valid state to another, honoring constraints[span_57](start_span)[span_57](end_span).')" class="mr-2"> Every transaction moves the database from one valid state to another, honoring constraints[span_58](start_span)[span_58](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_14" onclick="check(14, 1, 0, 'Every transaction moves the database from one valid state to another, honoring constraints[span_59](start_span)[span_59](end_span).')" class="mr-2"> Deleting all tables</label>
-            </div>
-            <div id="fb_14" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
-
-        <!-- Q 15 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_15">
-            <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">15. When is a Rollback triggered during a transaction?[span_60](start_span)[span_60](end_span)</h3>
-            <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_15" onclick="check(15, 0, 1, 'On failure, the system rolls back to the prior state to maintain atomicity[span_61](start_span)[span_61](end_span).')" class="mr-2"> On failure, to roll back to the prior state and maintain atomicity[span_62](start_span)[span_62](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_15" onclick="check(15, 1, 1, 'On failure, the system rolls back to the prior state to maintain atomicity[span_63](start_span)[span_63](end_span).')" class="mr-2"> Upon successful commit</label>
-            </div>
-            <div id="fb_15" class="hidden p-3 rounded-xl text-xs mt-2"></div>
-        </div>
-
-        <div class="bg-emerald-50 p-6 rounded-2xl text-center border border-emerald-200 space-y-3">
-            <h3 class="font-bold text-emerald-900">✨ English Exam Mode Ready!</h3>
-            <p class="text-xs text-emerald-800">This initial sample covers core concepts in English. Test your answers instantly and good luck on your midterm exam!</p>
-        </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="flashcards-grid"></div>
+        </section>
 
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>تطوير وتجميع بناءً على سلايدات ومحاضرات Database 1 • أ.د. مونا محمد نصر</p>
+            <p class="mt-1 text-slate-500">جامعة العاصمة - كلية الحاسبات والذكاء الاصطناعي</p>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
     <script>
-        let score = 0;
-        let answered = 0;
+        let hiddenChartInstance = null;
+        let chartInstance30 = null;
 
-        function check(qId, selectedIdx, correctIdx, explanation) {
-            const card = document.getElementById(`card_${qId}`);
-            const fb = document.getElementById(`fb_${qId}`);
-            
-            const radios = document.querySelectorAll(`input[name="q_${qId}"]`);
-            radios.forEach(r => r.disabled = true);
-
-            answered++;
-            document.getElementById('answered-count').innerText = answered;
-
-            fb.classList.remove('hidden');
-            if (selectedIdx === correctIdx) {
-                score++;
-                document.getElementById('live-score').innerText = score;
-                card.classList.add('border-emerald-300', 'bg-emerald-50/20');
-                fb.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-emerald-100 text-emerald-900 block";
-                fb.innerHTML = `<strong>✅ Correct Answer!</strong><br><span class="mt-1 block">💡 Explanation: ${explanation}</span>`;
-            } else {
-                card.classList.add('border-red-300', 'bg-red-50/20');
-                fb.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-red-100 text-red-900 block";
-                fb.innerHTML = `<strong>❌ Incorrect.</strong><br><span class="mt-1 block">💡 Correct explanation: ${explanation}</span>`;
+        // 25 HIDDEN & SUBTLE QUESTIONS (Extracted directly from text details in PDF slides)
+        const hiddenQuestions = [
+            {
+                id: "h1",
+                category: "Data Dictionary & DDL",
+                question: "1. من يحق له الوصول المباشر إلى معجم البيانات (Data Dictionary / Metadata) المُنشأ بواسطة مخرجات لغة DDL؟",
+                options: [
+                    "جميع مستخدمي قاعدة البيانات والمطورين مباشرة",
+                    "نظام إدارة قواعد البيانات (DBMS) نفسه فقط",
+                    "تطبيقات الواجهة الأمامية (Front-end Clients) فقط",
+                    "محلل البيانات عبر استعلامات DQL المباشرة"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 53 - Lec 5): مخرجات DDL تخزن في معجم البيانات (Data Dictionary)، وهذا المعجم يُصل إليه حصرياً وتلقائياً بواسطة الـ DBMS نفسه وليس المستخدمين."
+            },
+            {
+                id: "h2",
+                category: "Languages & Query Types",
+                question: "2. ما الفرق الجوهري بين Procedural DML و Declarative (Nonprocedural) DML في قواعد البيانات؟",
+                options: [
+                    "Procedural تحدد 'ماذا نريد فقط'، بينما Declarative تحدد 'ماذا نريد وكيف نحصل عليه'",
+                    "Procedural تحدد 'ماذا نريد وكيف نصل إليه'، بينما Declarative (مثل SQL) تحدد 'ماذا نريد فقط'",
+                    "لا يوجد فرق؛ كلاهما يصمم هياكل الجداول فقط",
+                    "Declarative تستخدم للـ CREATE بينما Procedural تستخدم للـ SELECT"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 53 - Lec 5): Procedural DML تحدد البيانات وكيفية استخراجها (What and How)، بينما Declarative / Nonprocedural DML (مثل لغة SQL) تحدد فقط البيانات المطلوبة (What only)."
+            },
+            {
+                id: "h3",
+                category: "Data Dictionary Types",
+                question: "3. ما الذي يميز معجم البيانات النشط (Active Data Dictionary) عن المعجم الخامل (Passive Data Dictionary)؟",
+                options: [
+                    "Active يتطلب عملية دفعة (Batch process) لتحديثه، بينما Passive يتحدث فوراً",
+                    "Active يتحدث تلقائياً وفورياً مع كل عملية دخول وتعديل، بينما Passive يتطلب عملية دفعة (Batch process) لتحديثه",
+                    "Active يستوعب بيانات NoSQL فقط بينما Passive يستوعب SQL",
+                    "Active يخزن البيانات التناظرية و Passive يخزن البيانات الرقمية"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 56 - Lec 5): الـ Active Dictionary يتحدث أوتوماتيكياً مع كل وصول للنظام، بينما الـ Passive Dictionary يحتاج Batch process لتحديثه."
+            },
+            {
+                id: "h4",
+                category: "3-Tier Architecture",
+                question: "4. في معمارية تطبيق قاعدة البيانات ذات الطبقات الثلاث (Client-Server Model)، في أي طبقة يتم فحص قواعد العمل (Business Rules) وتجهيز استعلامات SQL؟",
+                options: [
+                    "في خادم قاعدة البيانات (Database Server)",
+                    "في خادم التطبيق (Application Server)",
+                    "في متصفح العميل (Client Front-End)",
+                    "في معجم البيانات (Data Dictionary)"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 15 - Lec 2): خادم التطبيق (Application Server) هو المسوق بتلقي الطلبات، تطبيق قواعد العمل (Business Rules)، وتجهيز لغة SQL لإرسالها للـ Database Server."
+            },
+            {
+                id: "h5",
+                category: "Modern Trends",
+                question: "5. ما الفرق الدقيق بين مستودعات البيانات (Data Warehouses) وبحيرات البيانات (Data Lakes) في التقنيات الحديثة؟",
+                options: [
+                    "Warehouses تخزن البيانات الخام، بينما Lakes تخزن بيانات منسقة ومجهزة",
+                    "Warehouses (مثل Snowflake) تخزن بيانات منظمة ومعالجة لذكاء الأعمال، بينما Lakes (مثل AWS S3) تخزن البيانات الخام في صورتها الأصلية",
+                    "Warehouses تتبع نموذج NoSQL، بينما Lakes تتبع نموذج SQL فقط",
+                    "كلاهما نفس الشيء ويستخدمان لـ Caching الجلسات"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 36 - Lec 4): Data Warehouses تخزن بيانات منظمة ومصنعة (Processed BI Data)، بينما Data Lakes تحفظ البيانات الخام بدون معالجة في صيغتها الأصلية (Raw Data)."
+            },
+            {
+                id: "h6",
+                category: "Schema Flexibility",
+                question: "6. في قواعد البيانات غير العلائقية NoSQL ذات المخطط الديناميكي (Schema-on-Read)، أين تنتقل مسؤولية التحقق من صحة هيكل البيانات (Schema Validation)؟",
+                options: [
+                    "إلى طبقة قاعدة البيانات (Database Tier)",
+                    "إلى طبقة كود التطبيق (Application Code Layer)",
+                    "إلى المكون المادي للذاكرة (Hardware RAM)",
+                    "إلى معجم البيانات الخامل (Passive Dictionary)"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 41 - Lec 4): المخطط الديناميكي ينقل منطق فحص الهيكل البيانات من مستوى قاعدة البيانات إلى مستوى كود التطبيق نفسه (Application Code Layer)."
+            },
+            {
+                id: "h7",
+                category: "Table Joining Logic",
+                question: "7. عند تنفيذ استعلام يتطلب الربط بين عدة جداول (مثل تتبع مكان سكن أصغر طالب في السلايدات)، كيف يتم دمج البيانات بشكل صحيح بين الجداول؟",
+                options: [
+                    "عن طريق التناظر في رقم الصف (Row Number / Position)",
+                    "عن طريق تطابق القيم في الخاصية المشتركة (Shared Attribute / Foreign Key) بغض النظر عن رقم الصف",
+                    "عن طريق ترتيب الحروف الأبجدية للأسماء",
+                    "عن طريق استخدام أمر DDL CREATE"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحات 10-14 - Lec 2): ينص العرض بوضوح: 'Do not join by row number. Join by the matching value in the shared attribute!'."
+            },
+            {
+                id: "h8",
+                category: "DBMS Limitations & Disadvantages",
+                question: "8. ما هي العاطفة أو السلبية المتصلة بأنظمة إدارة قواعد البيانات المركزية (DBMS) في حال وقوع عطل مفاجئ؟",
+                options: [
+                    "يتأثر مستخدم واحد فقط بينما يستمر الباقون",
+                    "لأنها نظام مركزي، فإن فشل الـ DBMS يؤثر فوراً على كل مستخدمي المنظومة (Impacts every user)",
+                    "تستغرق مساحة تخزينية أقل وتتسبب في ضياع الأكواد",
+                    "تمنع أوتوماتيكياً كتابة استعلامات SQL"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 35 - Lec 4): أحد أبرز عيوب الـ DBMS المركزية هو أن فشل النظام المركزي يؤثر على كافة المستخدمين (Centralized: a DBMS failure impacts every user)."
+            },
+            {
+                id: 9,
+                category: "Modern Trends",
+                question: "9. ما نوع قواعد البيانات الحديثة المصممة خصيصاً لتخزين والبحث في الـ Embeddings وتطبيقات الذكاء الاصطناعي التوليدي (مثل Pinecone و Milvus)؟",
+                options: [
+                    "Wide-Column Databases",
+                    "Vector Databases",
+                    "Hierarchical Databases",
+                    "Network Databases"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 36 - Lec 4): Vector Databases (مثل Pinecone و Milvus) هي قواعد مخصصة لحفظ والبحث عن الـ Embeddings لتطبيقات الذكاء الاصطناعي (Generative AI)."
+            },
+            {
+                id: "h10",
+                category: "Integrity Constraints",
+                question: "10. ما هو نوع قيد السلامة (Integrity Constraint) الذي يعبر عن أي شرط عام يجب على قاعدة البيانات تلبيته دائماً بخلاف Domain و Referential Integrity؟",
+                options: [
+                    "Authorization Rules",
+                    "Assertions",
+                    "Physical Schemas",
+                    "Procedural DMLs"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 55 - Lec 5): الـ Assertions هي أي شرط إضافي عام يتوجب على قاعدة البيانات الالتزام به دائماً خارج حدود Domain و Referential Integrity."
+            },
+            {
+                id: "h11",
+                category: "Modern Trends",
+                question: "11. تقنية NewSQL (مثل Google Spanner) تدمج بين ميزتين رئيسيتين، فما هما؟",
+                options: [
+                    "تدمج بين الـ Magnetic Tape وهيكلية NoSQL",
+                    "تدمج بين ضمانات المعاملات المالية لـ SQL (ACID) وقدرة التوسع الأفقي لـ NoSQL",
+                    "تدمج بين كود HTML وملفات File Systems القديمة",
+                    "تمنع الـ Constraints وتلغي الـ Primary Keys"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 36 - Lec 4): NewSQL تدمج بين ACID Guarantees في لغة SQL والتوسع الأفقي المرن لشائعات NoSQL."
+            },
+            {
+                id: "h12",
+                category: "Architecture & Schemas",
+                question: "12. تشبيه أكاديمي دقيق مذكور في المحاضرة: إذا كانت قاعدة البيانات تشبه برنامجاً كمبيوترياً، فإن Schema تعادل ...... و Instance تعادل ......؟",
+                options: [
+                    "قيم المتغيرات في لحظة معينة | إعلان المتغيرات (Variable declarations)",
+                    "إعلان المتغيرات (Variable declarations) | قيم المتغيرات في لحظة زمنية معينة",
+                    "صفوف الجدول | أعمدة الجدول",
+                    "الملفات القديمة | قواعد البيانات الحديثة"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 50 - Lec 5): التشبيه الرسمي المذكور بالسلايد: Schema = variable declarations في البرنامج، و Instance = قيم تلك المتغيرات في لحظة زمنية معينة."
+            },
+            {
+                id: "h13",
+                category: "SQL Commands DML",
+                question: "13. لماذا يُعتبر وجود شرط WHERE حاسماً وجوهرياً جداً عند كتابة أوامر UPDATE أو DELETE في لغة SQL؟",
+                options: [
+                    "لأن غيابه يمنع المحرر من تشغيل الكود إطلاقاً",
+                    "لأن غيابه يؤدي لتعديل أو حذف جميع صفوف (Tuples) الجدول بلا استثناء!",
+                    "لأن غيابه يحول الأمر من DML إلى DDL",
+                    "لأن غيابه يغير اسم الـ Primary Key"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 19 - Lec 2): غياب جملة WHERE في أمر UPDATE أو DELETE يجعل التأثير يسري على كافة الصفوف بالجدول وتفقد البيانات!"
+            },
+            {
+                id: "h14",
+                category: "Semi-Structured Data",
+                question: "14. أي نموذج من نماذج البيانات التالية يسمح للعناصر من نفس النوع بأن تمتلك مجموعات مختلفة من الخصائص (Attributes)، ويُعبر عنه عادةً بـ XML أو JSON؟",
+                options: [
+                    "Relational Data Model",
+                    "Semi-Structured Data Model",
+                    "Hierarchical Data Model",
+                    "Network Data Model"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 51 - Lec 5): الـ Semi-Structured Data Model يسمح بمرونة امتلاك عناصر من نفس الفئة لخواص مختلفة ومثالها XML و JSON."
+            },
+            {
+                id: "h15",
+                category: "File Systems Limitations",
+                question: "15. من السلايدات الرسمية: أنظمة إدارة الملفات القديمة (File Systems) توفر فقط تفاصيل تمثيل البيانات وتخزينها، ولكنها تفشل في توفير:",
+                options: [
+                    "مكان للحفظ على القرص الصلب",
+                    "الاسترجاع الكفء للبيانات (Efficient retrieval) وآلية التعافي من الأعطال (Crash-recovery)",
+                    "طباعة التقارير الورقية",
+                    "استخدام البطاقات المثقوبة"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 27 - Lec 3): النص الصريح بالسلايد: الملفات القديمة تعطيك تفاصيل التخزين فقط ولكنها لا توفر استرجاعاً كفؤاً (efficient retrieval) ولا تعافي من الأعطال (crash-recovery)."
+            },
+            {
+                id: "h16",
+                category: "Database History",
+                question: "16. في حقبة الخمسينيات والستينيات (1950s-1960s)، ما هي الوسيلة الأساسية التي كانت تستخدم لتخزين البيانات الدائمة؟",
+                options: [
+                    "الأقراص الصلبة السريعة SSD",
+                    "الأشرطة المغناطيسية (Magnetic Tape)",
+                    "قواعد بيانات Cloud DBaaS",
+                    "مستندات JSON"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 32 - Lec 4): الحقبة الأولى (1950s-1960s) اعتمدت على Magnetic Tape للتخزين، البطاقات المثقوبة للإدخال، والطابعات للمخرجات."
+            },
+            {
+                id: "h17",
+                category: "Database History",
+                question: "17. ما الذي سمح بظهور قواعد البيانات الشبكية والهرمية والإدخال المباشر في أواخر الستينيات والسبعينيات؟",
+                options: [
+                    "ظهور الأقراص الصلبة (Hard Disks) التي مكنت الوصول المباشر للبيانات (Direct Access)",
+                    "اختراع لغة Python",
+                    "ظهور شبكة الإنترنت والـ Web 2.0",
+                    "إلغاء استخدام الـ Constraints"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 32 - Lec 4): ظهور الأقراص الصلبة (Hard Disks) أتاح الوصول المباشر (Direct Access) وسمح بنشوء الأنظمة الهرمية والشبكية."
+            },
+            {
+                id: "h18",
+                category: "Architecture & Levels",
+                question: "18. في أي مستوى من مستويات تجريد البيانات (Data Abstraction) يعمل مبرمجو التطبيقات ومسؤولو قواعد البيانات (DBAs) لوصف البيانات والعلاقات؟",
+                options: [
+                    "Physical Level",
+                    "Logical Level",
+                    "View Level",
+                    "Hardware Level"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 49 - Lec 5): الـ Logical Level هو المستوى الذي يعمل فيه الـ DBAs والمبرمجون، وهو الذي يحقق استقلالية البيانات الفيزيائية."
+            },
+            {
+                id: "h19",
+                category: "NoSQL Database Families",
+                question: "19. أي فئة من عائلات NoSQL تُعتبر الخيار الأفضل لتحليلات البيانات الضخمة للغاية على مستوى البايتابايت (Petabyte-scale Analytics) مثل Apache Cassandra؟",
+                options: [
+                    "Document Databases",
+                    "Wide-Column Databases (Column Families)",
+                    "Key-Value Stores",
+                    "Graph Databases"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 40 - Lec 4): قواعد Wide-Column (مثل Cassandra) مخصصة لتحليلات البيانات الضخمة جداً على مستوى الـ Petabyte والتخزين المتوزع."
+            },
+            {
+                id: "h20",
+                category: "SQL DDL Constraints",
+                question: "20. الجملة البرمجية `CHECK (Age >= 17)` عند إنشاء جدول الطالب تنتمي لأي تصنيف من قواعد البيانات؟",
+                options: [
+                    "DML Insert Query",
+                    "DDL Constraint Definition",
+                    "DQL View Query",
+                    "NoSQL Document Schema"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 18 - Lec 2): عبارة CHECK تنتمي لقواعد السلامة (Domain Constraints) التي تُعرف ضمن كود الـ DDL أثناء CREATE TABLE."
+            },
+            {
+                id: "h21",
+                category: "DBMS Disadvantages",
+                question: "21. لماذا قد تعمل البرمجيات العامة مثل DBMS بشكل أبطأ في بعض المهام الخاصة مقارنة ببرامج الملفات المصممة يدوياً؟",
+                options: [
+                    "لأنها تستخدم رامات أقل",
+                    "لأنها برمجيات عامة شاملة (Generalized software) تحتوي على طبقات حماية وإدارة متعددة تضيف عبئاً تشغيلياً",
+                    "لأنها تمنع تعدد المستخدمين",
+                    "لأنها تخزن البيانات في ذاكرة متطايرة فقط"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 35 - Lec 4): السلايد يوضح أن Generalized software قد تكون أبطأ في المهام المحددة جداً مقارنة بكود خاص مخصص للمهمة فقط."
+            },
+            {
+                id: "h22",
+                category: "Relational Terminology",
+                question: "22. ما المصطلح الذي يعبر عن تقاطع صف (Tuple) مع عمود (Attribute) في جدول علائقي؟",
+                options: [
+                    "Domain",
+                    "Cell / Value",
+                    "Relation",
+                    "Schema"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 5 - Lec 2): تقاطع الصف مع العمود يسمى الخلية أو القيمة (Cell = Value)."
+            },
+            {
+                id: "h23",
+                category: "ACID & Transactions",
+                question: "23. متى يتم تنفيذ عملية الـ Rollback (التراجع الكامل عن التغييرات) في قاعدة البيانات؟",
+                options: [
+                    "عند نجاح كافة خطوات المعاملة بامتياز",
+                    "عند حدوث عطل أو خطأ في أي خطوة من خطوات المعاملة قبل الـ Commit تحقيقاً لخاصية Atomicity",
+                    "عند تغيير الرامات فقط",
+                    "عند إجراء استعلام SELECT"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 30 - Lec 3): يتم عمل Rollback للعودة للحالة السابقة في حال فشل المعاملة في أي مرحلة لضمان Atomicity."
+            },
+            {
+                id: "h24",
+                category: "Architecture & Metadata",
+                question: "24. ما التشبيه البسيط المذكور بالسلايدات للتفرقة بين Data و Metadata؟",
+                options: [
+                    "Data = الحاسوب | Metadata = الإنترنت",
+                    "Data = كتاب في المكتبة | Metadata = الفهرس الذي يصف هذا الكتاب (Catalog)",
+                    "Data = السيرفر | Metadata = العميل",
+                    "Data = المفتاح الأساسي | Metadata = المفتاح الأجنبي"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 54 - Lec 5): التشبيه بالنص: Data = كتاب في المكتبة، و Metadata = الفهرس الكتالوج الذي يصف بيانات هذا الكتاب."
+            },
+            {
+                id: "h25",
+                category: "CAP Theorem",
+                question: "25. لماذا ترفض قواعد بيانات البنوك والصراف الآلي (ATM) تنفيذ المعاملات عند حدوث عطل بالشبكة وتعمل كنظام CP؟",
+                options: [
+                    "لأنها تهتم بجمال الواجهة وتوقف الموقع",
+                    "لأنها تعطى الأولوية المطلقة لـ صحة ودقة البيانات (Data Correctness) وتمنع تقديم أو خصم أموال بشكل خاطئ",
+                    "لأنها لا تستخدم سيرفرات إطلاقاً",
+                    "لأن لغة SQL تمنع الاتصال بالإنترنت"
+                ],
+                correct: 1,
+                explanation: "المعلومة الخفية (صفحة 45 - Lec 4): نظام CP يرفض المعاملات عند انقطاع الاتصال لمنع البيانات الخاطئة Stale Data وحفاظاً على الدقة المالية المطلوبة."
             }
+        ];
+
+        // 30 TARGETED QUESTIONS BANK
+        const quiz30Questions = [
+            { id: 1, type: "tf", category: "File Systems", question: "1. Traditional file-processing systems eliminate data redundancy by sharing operating-system files across different departmental applications.", options: ["True (صواب)", "False (خطأ)"], correct: 1, explanation: "خطأ (False): أنظمة الملفات القديمة كانت تعاني من زيادة تكرار البيانات وتضاربها." },
+            { id: 2, type: "tf", category: "ACID & Transactions", question: "2. The Durability property of ACID guarantees that committed transaction changes survive permanently, even during power outages or system crashes.", options: ["True (صواب)", "False (خطأ)"], correct: 0, explanation: "صواب (True): خاصية Durability هي المسؤولة عن دوام التغييرات في الميديا غير المتطايرة بعد الـ Commit." },
+            { id: 3, type: "tf", category: "Relational Terminology", question: "3. In a relational database table, columns are referred to as Tuples and rows are referred to as Attributes.", options: ["True (صواب)", "False (خطأ)"], correct: 1, explanation: "خطأ (False): العكس هو الصحيح! الأعمدة هي Attributes والصفوف هي Tuples." },
+            { id: 4, type: "tf", category: "Scaling Strategy", question: "4. Vertical scaling (Scale Up) refers to adding more individual standard server nodes to a distributed database cluster.", options: ["True (صواب)", "False (خطأ)"], correct: 1, explanation: "خطأ (False): إضافة سيرفرات يسمى التوسع الأفقي (Horizontal Scaling)." },
+            { id: 5, type: "tf", category: "CAP Theorem", question: "5. When a network partition occurs, a CP system under the CAP Theorem rejects client requests to prevent returning inconsistent or stale data.", options: ["True (صواب)", "False (خطأ)"], correct: 0, explanation: "صواب (True): نظام CP يضع صحة البيانات ودقتها كأولوية فيرفض الاستجابة إذا تعذرت المزامنة." },
+            { id: 6, type: "tf", category: "ACID & Transactions", question: "6. Isolation ensures that concurrent execution of transactions leaves the database in a state that would be obtained if they were executed sequentially.", options: ["True (صواب)", "False (خطأ)"], correct: 0, explanation: "صواب (True): خاصية العزل (Isolation) تعزل المعاملات المتزامنة لمنع التداخل." },
+            { id: 7, type: "tf", category: "Database History", question: "7. Edgar F. Codd introduced the Relational Database Model in the 1970s while working at IBM.", options: ["True (صواب)", "False (خطأ)"], correct: 0, explanation: "صواب (True): العالم E.F. Codd هو من وضع أسس النموذج العلائقي." },
+            { id: 8, type: "mcq", category: "Relational Terminology", question: "8. What academic database term corresponds exactly to a single horizontal row in a relational table?", options: ["Domain", "Tuple", "Attribute", "Field"], correct: 1, explanation: "الصف الأفقي في الجدول العلائقي يسمى Tuple أو Record." },
+            { id: 9, type: "mcq", category: "Relational Terminology", question: "9. In relational database terminology, a named vertical column representing a specific data property is called a(n):", options: ["Tuple", "Attribute", "Instance", "Relation"], correct: 1, explanation: "العمود الرأسي في الجدول العلائقي يسمى Attribute أو Field." },
+            { id: 10, type: "mcq", category: "ACID & Transactions", question: "10. Which ACID property enforces the 'All or Nothing' rule, rolling back partial operations if an error occurs mid-transaction?", options: ["Atomicity", "Consistency", "Isolation", "Durability"], correct: 0, explanation: "خاصية الأتمتة (Atomicity) تضمن أن تنفذ العملية بالكامل أو تُلغى بالكامل." },
+            { id: 11, type: "mcq", category: "ACID & Transactions", question: "11. If a database transaction successfully finishes execution (COMMIT) and the power fails a fraction of a second later, which property ensures data safety?", options: ["Atomicity", "Consistency", "Isolation", "Durability"], correct: 3, explanation: "خاصية الثبات (Durability) تضمن استمرار البيانات المخزنة حتى لو انقطعت الكهرباء فوراً." },
+            { id: 12, type: "mcq", category: "ACID & Transactions", question: "12. Which ACID property isolates simultaneous user operations to prevent the 'Lost Update' anomaly?", options: ["Durability", "Isolation", "Atomicity", "Consistency"], correct: 1, explanation: "خاصية العزل (Isolation) هي الحامية من تضارب المعاملات المتزامنة." },
+            { id: 13, type: "mcq", category: "Scaling Strategy", question: "13. Upgrading a single database server by adding more CPU cores, RAM, and faster disk drives is known as:", options: ["Horizontal Scaling", "Vertical Scaling (Scale Up)", "Sharding", "Partitioning"], correct: 1, explanation: "زيادة إمكانيات السيرفر الواحد تُسمى التوسع الرأسي." },
+            { id: 14, type: "mcq", category: "Scaling Strategy", question: "14. Which database paradigm natively defaults to Horizontal Scaling (Scale Out) across distributed server clusters?", options: ["Traditional SQL DBs", "NoSQL Databases", "Hierarchical Systems", "Monolithic Mainframes"], correct: 1, explanation: "قواعد بيانات NoSQL صُممت خصيصاً لتتوسع أفقياً." },
+            { id: 15, type: "mcq", category: "CAP Theorem", question: "15. Under the CAP Theorem, what does an AP system prioritize during a network failure?", options: ["Data correctness by aborting transactions", "Immediate response with available local data even if stale", "Converting JSON records to SQL", "Locking write operations"], correct: 1, explanation: "نواظم AP تضمن عدم توقف الخدمة فتجيب بأحدث نسخة متاحة محلياً." },
+            { id: 16, type: "mcq", category: "File Systems", question: "16. Why do traditional file processing systems suffer from Data Inconsistency?", options: ["Because applications use a unified data dictionary", "Because redundant copies across files may be updated unequally", "Because they restrict unauthorized access", "Because they use ACID logs"], correct: 1, explanation: "تحدث Data Inconsistency بسبب تكرار البيانات وتعديل بعضها دون الآخر." },
+            { id: 17, type: "mcq", category: "Database History", question: "17. Which database model preceded the Relational model and represented relationships using parent-child tree pointers?", options: ["Network Model", "Hierarchical Model", "Object Model", "Semi-structured Model"], correct: 1, explanation: "النموذج الهرمي (Hierarchical Model) اعتمد على علاقات أب-ابن في شجرة." },
+            { id: 18, type: "mcq", category: "CAP Theorem", question: "18. A real-time banking ATM system experiencing a network disconnect should behave as which type of system under CAP Theorem?", options: ["AP System", "CP System", "CA System", "BASE System"], correct: 1, explanation: "ماكينات الصرف ATM تتطلب دقة مالية مطلقة بدون أي احتمال للخطأ فتسلوك كـ CP." },
+            { id: 19, type: "mcq", category: "Relational Terminology", question: "19. All values stored within the same column (Attribute) of a relational table must:", options: ["Have different data types", "Belong to the same Data Type / Domain", "Be Primary Keys", "Be unique"], correct: 1, explanation: "جميع القيم في العمود الواجد تنتمي لنفس نوع البيانات (Domain)." },
+            { id: 20, type: "mcq", category: "Architecture & Metadata", question: "20. Where does a DBMS store structural definitions, primary keys, foreign keys, and data types?", options: ["Application Server Cache", "Data Dictionary (System Catalog)", "Client Storage", "Query Optimizer Log"], correct: 1, explanation: "تخزّن البيانات الوصفية (Metadata) في معجم البيانات (Data Dictionary)." },
+            { id: 21, type: "mcq", category: "ACID & Transactions", question: "21. If a money transfer deducts $50 from Account A but fails before crediting Account B, which ACID property mandates rolling back?", options: ["Durability", "Atomicity", "Isolation", "Consistency"], correct: 1, explanation: "خاصية Atomicity تمنع الخصم بدون الإضافة وتلغي العملية بالكامل." },
+            { id: 22, type: "mcq", category: "File Systems", question: "22. The inability to execute ad-hoc data queries in traditional file systems without writing custom code is an example of:", options: ["Atomicity Failure", "Difficulty Accessing Data", "Data Redundancy", "Physical Data Independence"], correct: 1, explanation: "صعوبة الوصول للبيانات هي مشكلة كتابة كود مخصص لكل طلب جديد." },
+            { id: 23, type: "mcq", category: "Scaling Strategy", question: "23. Partitioning a massive table into smaller chunks distributed across multiple commodity server hardware is called:", options: ["Vertical Scale-Up", "Sharding (Horizontal Scaling)", "Normalization", "Metadata Compaction"], correct: 1, explanation: "تجزئة القاعدة وتوزيعها على عدة سيرفرات يسمى Sharding." },
+            { id: 24, type: "mcq", category: "Architecture & Schemas", question: "24. What is defined as the overall logical design and structure of a database that changes infrequently?", options: ["Database Instance", "Database Schema", "Database Tuple", "Database Query"], correct: 1, explanation: "الهيكل العام الذي يتغير بنُدرة يُعرف بـ المخطط (Schema)." },
+            { id: 25, type: "mcq", category: "Architecture & Schemas", question: "25. The actual data content stored in the database at a specific moment in time is known as the database:", options: ["Schema", "Instance", "Domain", "Metadata"], correct: 1, explanation: "البيانات المخزنة في لحظة زمنية معينة تُعرف بـ النسخة الحالية (Instance)." },
+            { id: 26, type: "mcq", category: "NoSQL Models", question: "26. In the BASE consistency model, what does 'Eventual Consistency' guarantee?", options: ["Data is immediately consistent", "Data will become identical across all nodes after some time", "Transactions will never commit", "The schema is enforced"], correct: 1, explanation: "الاتساق النهائي يضمن مطابقة البيانات في جميع العقد بعد فترة زمنية قصيرة." },
+            { id: 27, type: "mcq", category: "Relational Terminology", question: "27. Which type of constraint ensures that a Foreign Key value must either match a Primary Key in the parent table or be NULL?", options: ["Domain Constraint", "Referential Integrity Constraint", "Authorization Rule", "Assertion"], correct: 1, explanation: "قيد السلامة المرجعية (Referential Integrity) ينظم علاقة المفتاح الأجنبي بالأساسي." },
+            { id: 28, type: "mcq", category: "Architecture & Metadata", question: "28. What concept allows modifying the physical disk layout or index structures without requiring changes to application programs?", options: ["Logical Data Independence", "Physical Data Independence", "Schema Redundancy", "ACID Isolation"], correct: 1, explanation: "استقلالية البيانات الفيزيائية تعني عدم تأثر البرامج بتعديلات طريقة التخزين." },
+            { id: 29, type: "mcq", category: "SQL vs NoSQL", question: "29. Which NoSQL database category is specifically optimized for storing key-value pairs with sub-millisecond lookups (e.g., Redis)?", options: ["Document DB", "Key-Value Store", "Wide-Column Store", "Graph DB"], correct: 1, explanation: "متاجر المفتاح-قيمة توفر أسرع استجابة قراءة." },
+            { id: 30, type: "mcq", category: "Database History", question: "30. The database model that introduced many-to-many relationships via pointer sets before the relational era is the:", options: ["File Model", "Network Model", "Object-Relational Model", "Vector Model"], correct: 1, explanation: "النموذج الشبكي (Network Model) أقر علاقات Many-to-Many عبر المؤشرات." }
+        ];
+
+        // Flashcards
+        const flashcardsData = [
+            { term: "Active Data Dictionary", def: "يتحدث أوتوماتيكياً وفورياً مع كل وصول وتعديل في النظام." },
+            { term: "Passive Data Dictionary", def: "يحتاج عملية دفعة (Batch process) تحديثية لتنشيط بياناته." },
+            { term: "Declarative DML (SQL)", def: "تحدد للكمبيوتر 'ما هي البيانات المطلوبة فقط' بدون الدخول في كود كيفية استخراجها." },
+            { term: "Procedural DML", def: "تحدد 'ما هي البيانات المطلوبة وكيفية الحصول عليها كودياً'." },
+            { term: "Application Server Duty", def: "الطبقة المسؤولة عن تطبيق قواعد العمل (Business Rules) وتجهيز SQL." },
+            { term: "Data Lake", def: "تخزين البيانات الخام (Raw Data) في صورتها الأصلية بدون معالجة مسبقة." },
+            { term: "Assertions Constraint", def: "شروط عامة يتوجب على قاعدة البيانات الالتزام بها دائماً خارج حدود Domain & FK." },
+            { term: "Vector Database", def: "قواعد بيانات متخصصة في حفظ الـ Embeddings للذكاء الاصطناعي التوليدي." }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHiddenQuiz();
+            renderQuiz30();
+            renderFlashcards();
+        });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        function toggleMatrix(matrixId) {
+            ['acid-base', 'sql-nosql', 'cap', 'terms'].forEach(id => {
+                const el = document.getElementById(`matrix-${id}`);
+                if (el) el.classList.add('hidden');
+            });
+            document.getElementById(`matrix-${matrixId}`).classList.remove('hidden');
+
+            document.querySelectorAll('[id^="matrix-btn-"]').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-slate-900', 'shadow-sm');
+                btn.classList.add('text-slate-600');
+            });
+            const btnMap = { 'acid-base': 'acid', 'sql-nosql': 'sql', 'cap': 'cap', 'terms': 'terms' };
+            const activeBtn = document.getElementById(`matrix-btn-${btnMap[matrixId]}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-white', 'text-slate-900', 'shadow-sm');
+                activeBtn.classList.remove('text-slate-600');
+            }
+        }
+
+        function renderHiddenQuiz() {
+            const container = document.getElementById('hidden-quiz-container');
+            container.innerHTML = '';
+
+            hiddenQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl p-5 shadow-sm border border-slate-200 space-y-3 text-right';
+
+                let optsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optsHTML += `
+                        <label class="flex items-center space-x-3 space-x-reverse p-3 rounded-lg border border-slate-200 hover:bg-emerald-50/50 cursor-pointer transition text-sm">
+                            <input type="radio" name="${q.id}" value="${optIdx}" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                            <span class="text-slate-800 font-medium">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b pb-2">
+                        <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">🔍 ${q.category}</span>
+                        <span class="text-xs font-mono text-slate-400">تفاصيل خفية ${idx + 1} من 25</span>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-base leading-snug">${q.question}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">
+                        ${optsHTML}
+                    </div>
+                    <div id="exp_${q.id}" class="hidden p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 space-y-1 mt-2">
+                        <strong class="font-bold block text-sm">💡 المعلومة الدقيقة بالسلايد:</strong>
+                        <p class="leading-relaxed">${q.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function submitHiddenQuiz() {
+            let correctCount = 0;
+            const categoryStats = {};
+
+            hiddenQuestions.forEach(q => {
+                if (!categoryStats[q.category]) {
+                    categoryStats[q.category] = { correct: 0, total: 0 };
+                }
+                categoryStats[q.category].total += 1;
+
+                const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+                const exp = document.getElementById(`exp_${q.id}`);
+                if (exp) exp.classList.remove('hidden');
+
+                if (selected && parseInt(selected.value) === q.correct) {
+                    correctCount++;
+                    categoryStats[q.category].correct += 1;
+                }
+            });
+
+            const percentage = Math.round((correctCount / 25) * 100);
+
+            document.getElementById('hidden-score-total').innerText = `${correctCount} / 25`;
+            document.getElementById('hidden-score-percent').innerText = `${percentage}%`;
+
+            let grade = 'عبقري التفاصيل (A+) - متقن لما بين السطور!';
+            if (percentage < 60) grade = 'يحتاج لمراجعة الدقائق والسلايدات';
+            else if (percentage < 80) grade = 'ممتاز ومدرك لمعظم التفاصيل';
+            document.getElementById('hidden-score-grade').innerText = grade;
+
+            document.getElementById('hidden-quiz-results').classList.remove('hidden');
+            renderHiddenChart(categoryStats);
+        }
+
+        function renderHiddenChart(stats) {
+            const ctx = document.getElementById('hiddenChart').getContext('2d');
+            if (hiddenChartInstance) hiddenChartInstance.destroy();
+
+            const labels = Object.keys(stats);
+            const corrects = labels.map(l => stats[l].correct);
+            const totals = labels.map(l => stats[l].total);
+
+            hiddenChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'الأسئلة الصحيحة', data: corrects, backgroundColor: '#059669' },
+                        { label: 'إجمالي الأسئلة', data: totals, backgroundColor: '#e2e8f0' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                }
+            });
+        }
+
+        function renderQuiz30() {
+            const container = document.getElementById('quiz30-container');
+            container.innerHTML = '';
+            quiz30Questions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl p-5 shadow-sm border border-slate-200 space-y-3 text-right';
+                let optsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optsHTML += `
+                        <label class="flex items-center space-x-3 space-x-reverse p-3 rounded-lg border border-slate-200 hover:bg-sky-50/50 cursor-pointer transition text-sm">
+                            <input type="radio" name="q30_${q.id}" value="${optIdx}" class="w-4 h-4 text-sky-600 focus:ring-sky-500">
+                            <span class="text-slate-800 font-medium">${opt}</span>
+                        </label>
+                    `;
+                });
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b pb-2">
+                        <span class="text-xs font-bold text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-100">${q.category}</span>
+                        <span class="text-xs font-mono text-slate-400">سؤال ${idx + 1} من 30</span>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-base leading-snug">${q.question}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">${optsHTML}</div>
+                    <div id="exp30_${q.id}" class="hidden p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-1 mt-2">
+                        <strong class="font-bold block text-sm">💡 الشرح وتصحيح الفهم:</strong>
+                        <p class="leading-relaxed">${q.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function submitQuiz30() {
+            let correctCount = 0;
+            quiz30Questions.forEach(q => {
+                const selected = document.querySelector(`input[name="q30_${q.id}"]:checked`);
+                const exp = document.getElementById(`exp30_${q.id}`);
+                if (exp) exp.classList.remove('hidden');
+                if (selected && parseInt(selected.value) === q.correct) correctCount++;
+            });
+            const score25 = Math.round((correctCount / 30) * 25);
+            const percentage = Math.round((correctCount / 30) * 100);
+            document.getElementById('score30-total').innerText = `${score25} / 25`;
+            document.getElementById('score30-percent').innerText = `${percentage}%`;
+            document.getElementById('score30-grade').innerText = percentage >= 85 ? 'ممتاز (A+)' : 'يحتاج مراجعة';
+            document.getElementById('quiz30-results').classList.remove('hidden');
+        }
+
+        function resetQuiz30() {
+            document.getElementById('quiz30-results').classList.add('hidden');
+            renderQuiz30();
+        }
+
+        function renderFlashcards() {
+            const grid = document.getElementById('flashcards-grid');
+            grid.innerHTML = '';
+            flashcardsData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md cursor-pointer text-right flex flex-col justify-between';
+                card.onclick = () => {
+                    const ans = card.querySelector('.ans');
+                    ans.classList.toggle('hidden');
+                };
+                card.innerHTML = `
+                    <div>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">تفصيلة سريّة</span>
+                        <h4 class="text-lg font-extrabold text-slate-800 mt-1">${item.term}</h4>
+                    </div>
+                    <div class="ans hidden mt-3 pt-2 border-t text-xs text-slate-700 bg-slate-50 p-2.5 rounded-lg">
+                        ${item.def}
+                    </div>
+                    <div class="text-xs text-slate-400 mt-2">اضغط لكشف المعلومة 💡</div>
+                `;
+                grid.appendChild(card);
+            });
         }
     </script>
 </body>
