@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الامتحان الشامل 60 سؤال - Database 1</title>
+    <title>Database 1 - Midterm Practice Exam (60 Questions)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }</style>
@@ -11,184 +11,184 @@
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col p-3 sm:p-6">
 
     <header class="bg-slate-900 text-white p-4 rounded-2xl shadow-md mb-4 text-center max-w-2xl mx-auto w-full sticky top-0 z-50">
-        <h1 class="text-lg sm:text-xl font-extrabold">الامتحان الشامل (60 سؤال تفاعلي)</h1>
-        <p class="text-xs text-emerald-400 mt-1">اضغط على الإجابة لتظهر النتيجة والشرح فوراً من المنهج</p>
+        <h1 class="text-lg sm:text-xl font-extrabold">Database 1 - Comprehensive Exam</h1>
+        <p class="text-xs text-emerald-400 mt-1">Select an option to instantly check the answer and view the explanation</p>
         <div class="mt-2 flex justify-center gap-4 text-xs font-bold">
-            <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">الدرجة: <span id="live-score">0</span> / 60</span>
-            <span class="bg-sky-500/20 text-sky-300 px-3 py-1 rounded-full border border-sky-500/30">المُجاب: <span id="answered-count">0</span> / 60</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">Score: <span id="live-score">0</span> / 60</span>
+            <span class="bg-sky-500/20 text-sky-300 px-3 py-1 rounded-full border border-sky-500/30">Answered: <span id="answered-count">0</span> / 60</span>
         </div>
     </header>
 
     <main class="space-y-4 max-w-2xl mx-auto w-full pb-20">
         
-        <!-- س 1 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_1">
+        <!-- Q 1 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_1">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">1. ما هو مصطلح 'Data' (البيانات) في سياق قواعد البيانات؟[span_0](start_span)[span_0](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">1. What does the term 'Data' mean in the context of database systems?[span_0](start_span)[span_0](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_1" onclick="check(1, 0, 0, 'البيانات هي حقائق خام أو أرقام مجردة بدون سياق أو معنى خاص بها[span_1](start_span)[span_1](end_span).')" class="ml-2"> حقائق خام أو أرقام مجردة بلا معنى محدد على حدة مثل '01' أو 'ABC[span_2](start_span)'[span_2](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_1" onclick="check(1, 1, 0, 'البيانات هي حقائق خام أو أرقام مجردة بدون سياق أو معنى خاص بها[span_3](start_span)[span_3](end_span).')" class="ml-2"> مجموعة سجلات مرتبطة لتكوين جدول</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_1" onclick="check(1, 0, 0, 'Data refers to raw facts, figures, or statistics with no particular meaning on their own[span_1](start_span)[span_1](end_span).')" class="mr-2"> Raw facts, figures, or statistics with no particular meaning on their own[span_2](start_span)[span_2](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_1" onclick="check(1, 1, 0, 'Data refers to raw facts, figures, or statistics with no particular meaning on their own[span_3](start_span)[span_3](end_span).')" class="mr-2"> A collection of related tables forming a schema</label>
             </div>
             <div id="fb_1" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 2 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_2">
+        <!-- Q 2 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_2">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">2. ماذا يسمى العمود الرأسي في جدول قواعد البيانات العلائقي؟[span_4](start_span)[span_4](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">2. In a relational database table, what are vertical columns called?[span_4](start_span)[span_4](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_2" onclick="check(2, 0, 1, 'الأعمدة الرأسية تسمى Attributes أو Fields أو Domains، وتتشارك جميع قيمها نفس نوع البيانات[span_5](start_span)[span_5](end_span).')" class="ml-2"> Tuple أو Record</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_2" onclick="check(2, 1, 1, 'الأعمدة الرأسية تسمى Attributes أو Fields أو Domains، وتتشارك جميع قيمها نفس نوع البيانات[span_6](start_span)[span_6](end_span).')" class="ml-2"> Attribute أو Field أو Domain[span_7](start_span)[span_7](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_2" onclick="check(2, 0, 1, 'Columns are called fields, attributes, or domains, and all values share the same data type[span_5](start_span)[span_5](end_span).')" class="mr-2"> Tuples or Records</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_2" onclick="check(2, 1, 1, 'Columns are called fields, attributes, or domains, and all values share the same data type[span_6](start_span)[span_6](end_span).')" class="mr-2"> Attributes, Fields, or Domains[span_7](start_span)[span_7](end_span)</label>
             </div>
             <div id="fb_2" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 3 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_3">
+        <!-- Q 3 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_3">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">3. ماذا يسمى الصف الأفقي الكامل في جدول قاعدة البيانات؟[span_8](start_span)[span_8](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">3. What are horizontal rows in a relational database table called?[span_8](start_span)[span_8](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_3" onclick="check(3, 0, 0, 'الصفوف الأفقية تسمى Tuples أو Records وتصف كائناً أو فرداً كاملاً[span_9](start_span)[span_9](end_span).')" class="ml-2"> Tuple أو Record[span_10](start_span)[span_10](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_3" onclick="check(3, 1, 0, 'الصفوف الأفقية تسمى Tuples أو Records وتصف كائناً أو فرداً كاملاً[span_11](start_span)[span_11](end_span).')" class="ml-2"> Attribute</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_3" onclick="check(3, 0, 0, 'Rows are called tuples or records[span_9](start_span)[span_9](end_span).')" class="mr-2"> Tuples or Records[span_10](start_span)[span_10](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_3" onclick="check(3, 1, 0, 'Rows are called tuples or records[span_11](start_span)[span_11](end_span).')" class="mr-2"> Attributes or Domains</label>
             </div>
             <div id="fb_3" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 4 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_4">
+        <!-- Q 4 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_4">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">4. ما هو تعريف تقاطع صف مع عمود في جدول قواعد البيانات؟[span_12](start_span)[span_12](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">4. What is the intersection of a row and a column in a table called?[span_12](start_span)[span_12](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_4" onclick="check(4, 0, 1, 'تقاطع الصف مع العمود يسمى الخلية (Cell) وتحتوي على القيمة (Value)[span_13](start_span)[span_13](end_span).')" class="ml-2"> Cell أو Value (الخلية أو القيمة)[span_14](start_span)[span_14](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_4" onclick="check(4, 1, 1, 'تقاطع الصف مع العمود يسمى الخلية (Cell) وتحتوي على القيمة (Value)[span_15](start_span)[span_15](end_span).')" class="ml-2"> Relation</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_4" onclick="check(4, 0, 1, 'A cell is the intersection of a row and a column containing a single value[span_13](start_span)[span_13](end_span).')" class="mr-2"> Cell or Value[span_14](start_span)[span_14](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_4" onclick="check(4, 1, 1, 'A cell is the intersection of a row and a column containing a single value[span_15](start_span)[span_15](end_span).')" class="mr-2"> Schema</label>
             </div>
             <div id="fb_4" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 5 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_5">
+        <!-- Q 5 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_5">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">Foundations</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">5. ما هو الدور الأساسي لنظام إدارة قواعد البيانات (DBMS)؟[span_16](start_span)[span_16](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">5. What is the core definition of a Database Management System (DBMS)?[span_16](start_span)[span_16](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_5" onclick="check(5, 0, 1, 'الـ DBMS هو نظام متكامل لتخزين واسترجاع البيانات بكفاءة وحمايتها من الأخطاء والتضارب[span_17](start_span)[span_17](end_span).')" class="ml-2"> مجموعة بيانات مترابطة وبرامج لتخزينها واسترجاعها وإدارتها بكفاءة[span_18](start_span)[span_18](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_5" onclick="check(5, 1, 1, 'الـ DBMS هو نظام متكامل لتخزين واسترجاع البيانات بكفاءة وحمايتها من الأخطاء والتضارب[span_19](start_span)[span_19](end_span).')" class="ml-2"> الاحتفاظ بالملفات النصية بدون أمان</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_5" onclick="check(5, 0, 1, 'A DBMS is a collection of interrelated data plus a set of programs to access that data efficiently[span_17](start_span)[span_17](end_span).')" class="mr-2"> A collection of interrelated data and a set of programs to access that data efficiently[span_18](start_span)[span_18](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_5" onclick="check(5, 1, 1, 'A DBMS is a collection of interrelated data plus a set of programs to access that data efficiently[span_19](start_span)[span_19](end_span).')" class="mr-2"> A text editor for operating system files</label>
             </div>
             <div id="fb_5" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 6 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_6">
+        <!-- Q 6 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_6">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">6. ما هي إحدى أبرز مشاكل أنظمة الملفات التقليدية (File-Oriented Systems)؟[span_20](start_span)[span_20](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">6. What is a major disadvantage of traditional file-processing systems?[span_20](start_span)[span_20](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_6" onclick="check(6, 0, 0, 'أنظمة الملفات القديمة تسببت في تكرار نفس المعلومات في عدة ملفات مما يؤدي لتضاربها[span_21](start_span)[span_21](end_span).')" class="ml-2"> تكرار البيانات وعدم اتساقها (Data Redundancy & Inconsistency)[span_22](start_span)[span_22](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_6" onclick="check(6, 1, 0, 'أنظمة الملفات القديمة تسببت في تكرار نفس المعلومات في عدة ملفات مما يؤدي لتضاربها[span_23](start_span)[span_23](end_span).')" class="ml-2"> التكامل التام لـ ACID</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_6" onclick="check(6, 0, 0, 'Data redundancy and inconsistency occur when the same info is duplicated across files[span_21](start_span)[span_21](end_span).')" class="mr-2"> Data redundancy and inconsistency[span_22](start_span)[span_22](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_6" onclick="check(6, 1, 0, 'Data redundancy and inconsistency occur when the same info is duplicated across files[span_23](start_span)[span_23](end_span).')" class="mr-2"> Perfect ACID compliance</label>
             </div>
             <div id="fb_6" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 7 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_7">
+        <!-- Q 7 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_7">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">7. ما المقصود بمشكلة 'Atomicity Problem' في أنظمة الملفات القديمة؟[span_24](start_span)[span_24](end_span)[span_25](start_span)[span_25](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">7. What does the Atomicity problem in file systems refer to?[span_24](start_span)[span_24](end_span)[span_25](start_span)[span_25](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_7" onclick="check(7, 0, 1, 'مشكلة الأتمتة تعني أن انقطاع النظام منتصف التحويل يترك القاعدة في حالة غير متسقة[span_26](start_span)[span_26](end_span)[span_27](start_span)[span_27](end_span).')" class="ml-2"> فشل الحفاظ على قاعدة الكل أو لا شيء (يخصم من حساب ولا يضيف للآخر)[span_28](start_span)[span_28](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_7" onclick="check(7, 1, 1, 'مشكلة الأتمتة تعني أن انقطاع النظام منتصف التحويل يترك القاعدة في حالة غير متسقة[span_29](start_span)[span_29](end_span)[span_30](start_span)[span_30](end_span).')" class="ml-2"> اختفاء شاشة الكمبيوتر فقط</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_7" onclick="check(7, 0, 1, 'A crash mid-transfer can debit one account without crediting the other[span_26](start_span)[span_26](end_span)[span_27](start_span)[span_27](end_span).')" class="mr-2"> A crash mid-transfer can debit one account without crediting the other[span_28](start_span)[span_28](end_span)[span_29](start_span)[span_29](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_7" onclick="check(7, 1, 1, 'A crash mid-transfer can debit one account without crediting the other[span_30](start_span)[span_30](end_span)[span_31](start_span)[span_31](end_span).')" class="mr-2"> Slow monitor refresh rate</label>
             </div>
             <div id="fb_7" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 8 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_8">
+        <!-- Q 8 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_8">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">8. لماذا تعاني أنظمة الملفات القديمة من 'Difficulty Accessing Data'؟[span_31](start_span)[span_31](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">8. Why is 'Difficulty Accessing Data' prevalent in file systems?[span_32](start_span)[span_32](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_8" onclick="check(8, 0, 1, 'الاستعلامات الفورية غير المخطط لها تتطلب كتابة كود برمجي جديد بالكامل[span_32](start_span)[span_32](end_span).')" class="ml-2"> لعدم وجود برنامج جاهز للاستعلامات الفورية (يتطلب كتابة كود جديد)[span_33](start_span)[span_33](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_8" onclick="check(8, 1, 1, 'الاستعلامات الفورية غير المخطط لها تتطلب كتابة كود برمجي جديد بالكامل[span_34](start_span)[span_34](end_span).')" class="ml-2"> لأنها تملك قواعد SQL سريعة</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_8" onclick="check(8, 0, 1, 'No application program exists for ad-hoc requests, requiring manual extraction or new code[span_33](start_span)[span_33](end_span).')" class="mr-2"> No application program exists for ad-hoc requests, requiring new code[span_34](start_span)[span_34](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_8" onclick="check(8, 1, 1, 'No application program exists for ad-hoc requests, requiring manual extraction or new code[span_35](start_span)[span_35](end_span).')" class="mr-2"> Because they use advanced SQL engines</label>
             </div>
             <div id="fb_8" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 9 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_9">
+        <!-- Q 9 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_9">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">9. ماذا يقصد بـ 'Data Isolation' في مشاكل الملفات؟[span_35](start_span)[span_35](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">9. What does 'Data Isolation' mean in file-processing systems?[span_36](start_span)[span_36](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_9" onclick="check(9, 0, 1, 'عزلة البيانات تعني صعوبة دمج ملفات بصيغ متباينة لكتابة برامج استعلام[span_36](start_span)[span_36](end_span).')" class="ml-2"> تناثر البيانات عبر ملفات بصيغ مختلفة مما يصعب استرجاعها[span_37](start_span)[span_37](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_9" onclick="check(9, 1, 1, 'عزلة البيانات تعني صعوبة دمج ملفات بصيغ متباينة لكتابة برامج استعلام[span_38](start_span)[span_38](end_span).')" class="ml-2"> فصل البيانات في قواعد مترابطة</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_9" onclick="check(9, 0, 1, 'Data scattered across differently-formatted files makes writing retrieval programs hard[span_37](start_span)[span_37](end_span).')" class="mr-2"> Data scattered across differently-formatted files makes writing retrieval programs hard[span_38](start_span)[span_38](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_9" onclick="check(9, 1, 1, 'Data scattered across differently-formatted files makes writing retrieval programs hard[span_39](start_span)[span_39](end_span).')" class="mr-2"> Data is encrypted securely in one place</label>
             </div>
             <div id="fb_9" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 10 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_10">
+        <!-- Q 10 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_10">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">File Systems</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">10. ما هي المشكلة عند تعديل مستخدمين نفس الملف في نفس اللحظة بدون تنسيق؟[span_39](start_span)[span_39](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">10. What anomaly occurs when concurrent updates happen without coordination?[span_40](start_span)[span_40](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_10" onclick="check(10, 0, 1, 'التزامن العشوائي يسبب تداخل العمليات وضياع التحديثات Lost Update[span_40](start_span)[span_40](end_span).')" class="ml-2"> Concurrent-Access Anomalies (مشاكل التزامن والتحديث المفقود)[span_41](start_span)[span_41](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_10" onclick="check(10, 1, 1, 'التزامن العشوائي يسبب تداخل العمليات وضياع التحديثات Lost Update[span_42](start_span)[span_42](end_span).')" class="ml-2"> Domain Constraint Error</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_10" onclick="check(10, 0, 1, 'Concurrent-access anomalies (e.g., simultaneous updates leaving account in incorrect state)[span_41](start_span)[span_41](end_span).')" class="mr-2"> Concurrent-access anomalies (Lost updates)[span_42](start_span)[span_42](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_10" onclick="check(10, 1, 1, 'Concurrent-access anomalies (e.g., simultaneous updates leaving account in incorrect state)[span_43](start_span)[span_43](end_span).')" class="mr-2"> Domain validation error</label>
             </div>
             <div id="fb_10" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 11 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_11">
+        <!-- Q 11 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_11">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">11. ماذا تعني خاصية 'Atomicity' في معاملات ACID؟[span_43](start_span)[span_43](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">11. What does 'Atomicity' ensure in ACID properties?[span_44](start_span)[span_44](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_11" onclick="check(11, 0, 0, 'Atomicity تعني الكل أو لا شيء، وعند حدوث عطل يتم عمل Rollback[span_44](start_span)[span_44](end_span).')" class="ml-2"> تنفيذ المعاملة إما بالكامل أو إلغاؤها بالكامل (All or Nothing)[span_45](start_span)[span_45](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_11" onclick="check(11, 1, 0, 'Atomicity تعني الكل أو لا شيء، وعند حدوث عطل يتم عمل Rollback[span_46](start_span)[span_46](end_span).')" class="ml-2"> بقاء البيانات بعد انقطاع الكهرباء</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_11" onclick="check(11, 0, 0, 'A transaction is all or nothing; on failure, the system rolls back[span_45](start_span)[span_45](end_span).')" class="mr-2"> A transaction is all or nothing; on failure, the system rolls back[span_46](start_span)[span_46](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_11" onclick="check(11, 1, 0, 'A transaction is all or nothing; on failure, the system rolls back[span_47](start_span)[span_47](end_span).')" class="mr-2"> Data persists through power outages</label>
             </div>
             <div id="fb_11" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 12 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_12">
+        <!-- Q 12 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_12">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">12. أي خاصية من ACID تضمن بقاء التغييرات المعتمدة مستمرة رغم انهيار النظام؟[span_47](start_span)[span_47](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">12. Which ACID property ensures committed data persists through crashes?[span_48](start_span)[span_48](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_12" onclick="check(12, 0, 1, 'خاصية الاستمرارية (Durability) تحفظ البيانات بشكل دائم في الذاكرة غير المتطايرة[span_48](start_span)[span_48](end_span).')" class="ml-2"> Durability (الاستمرارية والثبات)[span_49](start_span)[span_49](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_12" onclick="check(12, 1, 1, 'خاصية الاستمرارية (Durability) تحفظ البيانات بشكل دائم في الذاكرة غير المتطايرة[span_50](start_span)[span_50](end_span).')" class="ml-2"> Atomicity</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_12" onclick="check(12, 0, 1, 'Durability: once committed, data persists on non-volatile storage even through a crash[span_49](start_span)[span_49](end_span).')" class="mr-2"> Durability[span_50](start_span)[span_50](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_12" onclick="check(12, 1, 1, 'Durability: once committed, data persists on non-volatile storage even through a crash[span_51](start_span)[span_51](end_span).')" class="mr-2"> Atomicity</label>
             </div>
             <div id="fb_12" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 13 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_13">
+        <!-- Q 13 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_13">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">13. ماذا تضمن خاصية 'Isolation' في معاملات قواعد البيانات؟[span_51](start_span)[span_51](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">13. What does 'Isolation' guarantee in transactions?[span_52](start_span)[span_52](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_13" onclick="check(13, 0, 0, 'خاصية العزل (Isolation) تعزل المعاملات المتزامنة عن بعضها لمنع التداخل[span_52](start_span)[span_52](end_span).')" class="ml-2"> عدم تداخل المعاملات المتزامنة وحماية البيانات من التحديث المفقود[span_53](start_span)[span_53](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_13" onclick="check(13, 1, 0, 'خاصية العزل (Isolation) تعزل المعاملات المتزامنة عن بعضها لمنع التداخل[span_54](start_span)[span_54](end_span).')" class="ml-2"> سرعة خادم الويب</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_13" onclick="check(13, 0, 0, 'Concurrent transactions do not interfere; locking prevents lost updates[span_53](start_span)[span_53](end_span).')" class="mr-2"> Concurrent transactions do not interfere; locking prevents lost updates[span_54](start_span)[span_54](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_13" onclick="check(13, 1, 0, 'Concurrent transactions do not interfere; locking prevents lost updates[span_55](start_span)[span_55](end_span).')" class="mr-2"> Fast server rendering</label>
             </div>
             <div id="fb_13" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 14 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_14">
+        <!-- Q 14 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_14">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">14. ماذا تعني خاصية 'Consistency' في معاملات ACID؟[span_55](start_span)[span_55](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">14. What does 'Consistency' mean in ACID?[span_56](start_span)[span_56](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_14" onclick="check(14, 0, 0, 'Consistency تضمن الالتزام بكافة قواعد السلامة والاتساق[span_56](start_span)[span_56](end_span).')" class="ml-2"> نقل القاعدة من حالة سليمة لأخرى مع احترام كافة القيود[span_57](start_span)[span_57](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_14" onclick="check(14, 1, 0, 'Consistency تضمن الالتزام بكافة قواعد السلامة والاتساق[span_58](start_span)[span_58](end_span).')" class="ml-2"> حذف الجداول</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_14" onclick="check(14, 0, 0, 'Every transaction moves the database from one valid state to another, honoring constraints[span_57](start_span)[span_57](end_span).')" class="mr-2"> Every transaction moves the database from one valid state to another, honoring constraints[span_58](start_span)[span_58](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_14" onclick="check(14, 1, 0, 'Every transaction moves the database from one valid state to another, honoring constraints[span_59](start_span)[span_59](end_span).')" class="mr-2"> Deleting all tables</label>
             </div>
             <div id="fb_14" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
-        <!-- س 15 -->
-        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-right" id="card_15">
+        <!-- Q 15 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 text-left" id="card_15">
             <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">ACID</span>
-            <h3 class="font-bold text-slate-900 text-sm sm:text-base">15. متى يتم تنفيذ أمر الـ Rollback في معاملة بنكية؟[span_59](start_span)[span_59](end_span)</h3>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">15. When is a Rollback triggered during a transaction?[span_60](start_span)[span_60](end_span)</h3>
             <div class="space-y-2">
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_15" onclick="check(15, 0, 1, 'Rollback يلغي التغييرات ويعيد القاعدة لحالتها السابقة تحقيقاً لـ Atomicity[span_60](start_span)[span_60](end_span).')" class="ml-2"> عند حدوث خطأ أو فشل في أي خطوة قبل الـ Commit[span_61](start_span)[span_61](end_span)</label>
-                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_15" onclick="check(15, 1, 1, 'Rollback يلغي التغييرات ويعيد القاعدة لحالتها السابقة تحقيقاً لـ Atomicity[span_62](start_span)[span_62](end_span).')" class="ml-2"> عند نجاح العملية تماماً</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_15" onclick="check(15, 0, 1, 'On failure, the system rolls back to the prior state to maintain atomicity[span_61](start_span)[span_61](end_span).')" class="mr-2"> On failure, to roll back to the prior state and maintain atomicity[span_62](start_span)[span_62](end_span)</label>
+                <label class="block p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-sky-50 text-sm"><input type="radio" name="q_15" onclick="check(15, 1, 1, 'On failure, the system rolls back to the prior state to maintain atomicity[span_63](start_span)[span_63](end_span).')" class="mr-2"> Upon successful commit</label>
             </div>
             <div id="fb_15" class="hidden p-3 rounded-xl text-xs mt-2"></div>
         </div>
 
         <div class="bg-emerald-50 p-6 rounded-2xl text-center border border-emerald-200 space-y-3">
-            <h3 class="font-bold text-emerald-900">✨ ملاحظة سريعة للامتحان:</h3>
-            <p class="text-xs text-emerald-800">هذه العينة المباشرة الفورية تعمل بكفاءة تامة على هاتفك. يمكنك مراجعتها وتجربتها للتأكد من التصحيح الفوري، وإذا احتجت لأي سؤال أو استفسار إضافي أنا معك جاهز تماماً!</p>
+            <h3 class="font-bold text-emerald-900">✨ English Exam Mode Ready!</h3>
+            <p class="text-xs text-emerald-800">This initial sample covers core concepts in English. Test your answers instantly and good luck on your midterm exam!</p>
         </div>
 
     </main>
@@ -213,11 +213,11 @@
                 document.getElementById('live-score').innerText = score;
                 card.classList.add('border-emerald-300', 'bg-emerald-50/20');
                 fb.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-emerald-100 text-emerald-900 block";
-                fb.innerHTML = `<strong>✅ إجابة صحيحة!</strong><br><span class="mt-1 block">💡 الشرح: ${explanation}</span>`;
+                fb.innerHTML = `<strong>✅ Correct Answer!</strong><br><span class="mt-1 block">💡 Explanation: ${explanation}</span>`;
             } else {
                 card.classList.add('border-red-300', 'bg-red-50/20');
                 fb.className = "p-3 rounded-xl text-xs font-medium mt-2 bg-red-100 text-red-900 block";
-                fb.innerHTML = `<strong>❌ إجابة غير صائبة.</strong><br><span class="mt-1 block">💡 الشرح الصحيح: ${explanation}</span>`;
+                fb.innerHTML = `<strong>❌ Incorrect.</strong><br><span class="mt-1 block">💡 Correct explanation: ${explanation}</span>`;
             }
         }
     </script>
